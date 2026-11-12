@@ -1,0 +1,448 @@
+{
+  "contract_version": 1,
+  "models": {
+    "dsf": {
+      "allow_fallbacks": false,
+      "effort": "high",
+      "family": "DeepSeek",
+      "model_id": "deepseek/deepseek-v4.1-flash",
+      "open_weight": true,
+      "provider": "together",
+      "require_parameters": true,
+      "allowed_hosts": [
+        "together",
+        "wafer",
+        "dekallm",
+        "ionstream",
+        "digitalocean",
+        "phala",
+        "modal",
+        "fireworks",
+        "fireworks/us"
+      ],
+      "route_authority": "2026-10-06 approved resilience design host table; 2026-10-11 Qwen Modal preference"
+    },
+    "dsp": {
+      "allow_fallbacks": false,
+      "effort": "high",
+      "family": "DeepSeek",
+      "model_id": "deepseek/deepseek-v4-pro",
+      "open_weight": true,
+      "provider": "parasail/fp8",
+      "require_parameters": true,
+      "allowed_hosts": [
+        "parasail/fp8",
+        "gmicloud/fp8"
+      ],
+      "route_authority": "2026-10-06 approved resilience design host table; 2026-10-11 Qwen Modal preference"
+    },
+    "glm": {
+      "allow_fallbacks": false,
+      "effort": "high",
+      "family": "GLM",
+      "model_id": "z-ai/glm-5.3",
+      "open_weight": true,
+      "provider": "z-ai/fp8",
+      "require_parameters": true,
+      "allowed_hosts": [
+        "z-ai/fp8",
+        "akashml/fp8",
+        "sail-research/fp8",
+        "morph/fp8",
+        "novita/fp8",
+        "siliconflow/fp8",
+        "gmicloud/fp8",
+        "baidu/fp8",
+        "parasail/fp8",
+        "atlas-cloud/fp8",
+        "baseten/fast"
+      ],
+      "route_authority": "2026-10-06 approved resilience design host table; 2026-10-11 Qwen Modal preference"
+    },
+    "k3": {
+      "allow_fallbacks": false,
+      "effort": "xhigh",
+      "family": "Kimi",
+      "model_id": "moonshotai/kimi-k3",
+      "open_weight": true,
+      "provider": "moonshotai/mxfp4",
+      "require_parameters": true,
+      "allowed_hosts": [
+        "moonshotai/mxfp4",
+        "decart/mxfp4",
+        "deepinfra/mxfp4",
+        "modal/mxfp4"
+      ],
+      "route_authority": "2026-10-06 approved resilience design host table; 2026-10-11 Qwen Modal preference"
+    },
+    "qwen24t": {
+      "allow_fallbacks": false,
+      "effort": "xhigh",
+      "family": "Qwen",
+      "model_id": "qwen/qwen3.8-2.4t-a95b",
+      "open_weight": true,
+      "provider": "modal",
+      "require_parameters": true,
+      "allowed_hosts": [
+        "modal",
+        "alibaba",
+        "novita",
+        "together"
+      ],
+      "route_authority": "2026-10-06 approved resilience design host table; 2026-10-11 Qwen Modal preference"
+    }
+  },
+  "money_unit": "integer_microusd",
+  "pilot": {
+    "dsf-solo": {
+      "cap_microusd": 12000000,
+      "final_author": "dsf",
+      "models": [
+        "dsf"
+      ],
+      "pools_microusd": {
+        "report": 3000000,
+        "research_and_verification": 9000000
+      },
+      "report_reserve_microusd": 3000000,
+      "research_stop_seconds": 7200,
+      "slots": {
+        "dsf": 1
+      },
+      "wall_seconds": 10800
+    },
+    "dsf-swarm": {
+      "cap_microusd": 60000000,
+      "closing_max_seconds": 3600,
+      "closing_reserves_microusd": {
+        "control": 2000000,
+        "verifier-a": 3000000,
+        "verifier-b": 3000000,
+        "writer": 4000000
+      },
+      "closing_stages_seconds": [
+        180,
+        900,
+        900,
+        600,
+        720,
+        300
+      ],
+      "final_author": "dsf",
+      "minimum_request": {
+        "completion_tokens": 1024,
+        "input_tokens": 4096
+      },
+      "models": [
+        "dsf"
+      ],
+      "orchestration": "stateless-v1",
+      "orchestrator": "dsf",
+      "orchestrator_failure_limit": 3,
+      "queued_assignment_limit": 256,
+      "report_reserve_microusd": 12000000,
+      "request_limits": {
+        "completion_tokens": 943718,
+        "input_tokens": 64000
+      },
+      "research_stop_seconds": 7200,
+      "revision_rounds": 1,
+      "wall_seconds": 10800
+    },
+    "dsp-solo": {
+      "cap_microusd": 12000000,
+      "final_author": "dsp",
+      "models": [
+        "dsp"
+      ],
+      "pools_microusd": {
+        "report": 3000000,
+        "research_and_verification": 9000000
+      },
+      "report_reserve_microusd": 3000000,
+      "research_stop_seconds": 7200,
+      "slots": {
+        "dsp": 1
+      },
+      "wall_seconds": 10800
+    },
+    "k3-solo": {
+      "cap_microusd": 24000000,
+      "final_author": "k3",
+      "models": [
+        "k3"
+      ],
+      "pools_microusd": {
+        "report": 5000000,
+        "research_and_verification": 19000000
+      },
+      "report_reserve_microusd": 5000000,
+      "research_stop_seconds": 7200,
+      "slots": {
+        "k3": 1
+      },
+      "wall_seconds": 10800
+    },
+    "mixed-swarm": {
+      "cap_microusd": 50000000,
+      "closing_max_seconds": 3600,
+      "closing_reserves_microusd": {
+        "control": 4000000,
+        "verifier-a": 3000000,
+        "verifier-b": 3000000,
+        "writer": 6000000
+      },
+      "closing_stages_seconds": [
+        180,
+        900,
+        900,
+        600,
+        720,
+        300
+      ],
+      "final_author": "k3",
+      "minimum_request": {
+        "completion_tokens": 1024,
+        "input_tokens": 4096
+      },
+      "models": [
+        "dsf",
+        "qwen24t",
+        "k3",
+        "dsp",
+        "glm"
+      ],
+      "orchestration": "stateless-v1",
+      "orchestrator": "k3",
+      "orchestrator_failure_limit": 3,
+      "queued_assignment_limit": 256,
+      "report_reserve_microusd": 16000000,
+      "request_limits": {
+        "completion_tokens": 943718,
+        "input_tokens": 64000
+      },
+      "research_stop_seconds": 7200,
+      "revision_rounds": 1,
+      "wall_seconds": 10800
+    },
+    "qwen24t-solo": {
+      "cap_microusd": 12000000,
+      "final_author": "qwen24t",
+      "models": [
+        "qwen24t"
+      ],
+      "pools_microusd": {
+        "report": 3000000,
+        "research_and_verification": 9000000
+      },
+      "report_reserve_microusd": 3000000,
+      "research_stop_seconds": 7200,
+      "slots": {
+        "qwen24t": 1
+      },
+      "wall_seconds": 10800
+    }
+  },
+  "pilot_shared_recovery_microusd": 10000000,
+  "pilot_total_microusd": 180000000,
+  "production": {
+    "dsf-solo": {
+      "cap_microusd": 200000000,
+      "final_author": "dsf",
+      "models": [
+        "dsf"
+      ],
+      "pools_microusd": {
+        "report": 20000000,
+        "research_and_verification": 180000000
+      },
+      "report_reserve_microusd": 20000000,
+      "slots": {
+        "dsf": 1
+      },
+      "wall_seconds": 86400
+    },
+    "dsf-swarm": {
+      "cap_microusd": 200000000,
+      "closing_max_seconds": 10140,
+      "closing_reserves_microusd": {
+        "control": 6000000,
+        "verifier-a": 6000000,
+        "verifier-b": 6000000,
+        "writer": 12000000
+      },
+      "closing_stages_seconds": [
+        240,
+        3600,
+        1500,
+        1200,
+        900,
+        1200,
+        900,
+        600
+      ],
+      "final_author": "dsf",
+      "minimum_request": {
+        "completion_tokens": 1024,
+        "input_tokens": 4096
+      },
+      "models": [
+        "dsf"
+      ],
+      "orchestration": "stateless-v1",
+      "orchestrator": "dsf",
+      "orchestrator_failure_limit": 3,
+      "queued_assignment_limit": 256,
+      "report_reserve_microusd": 30000000,
+      "request_limits": {
+        "completion_tokens": 943718,
+        "input_tokens": 64000
+      },
+      "research_stop_seconds": 76260,
+      "revision_rounds": 2,
+      "wall_seconds": 86400
+    },
+    "dsp-solo": {
+      "cap_microusd": 200000000,
+      "final_author": "dsp",
+      "models": [
+        "dsp"
+      ],
+      "pools_microusd": {
+        "report": 20000000,
+        "research_and_verification": 180000000
+      },
+      "report_reserve_microusd": 20000000,
+      "slots": {
+        "dsp": 1
+      },
+      "wall_seconds": 86400
+    },
+    "k3-solo": {
+      "cap_microusd": 200000000,
+      "final_author": "k3",
+      "models": [
+        "k3"
+      ],
+      "pools_microusd": {
+        "report": 20000000,
+        "research_and_verification": 180000000
+      },
+      "report_reserve_microusd": 20000000,
+      "slots": {
+        "k3": 1
+      },
+      "wall_seconds": 86400
+    },
+    "mixed-swarm": {
+      "cap_microusd": 200000000,
+      "closing_max_seconds": 10140,
+      "closing_reserves_microusd": {
+        "control": 15000000,
+        "verifier-a": 6000000,
+        "verifier-b": 6000000,
+        "writer": 15000000
+      },
+      "closing_stages_seconds": [
+        240,
+        3600,
+        1500,
+        1200,
+        900,
+        1200,
+        900,
+        600
+      ],
+      "final_author": "k3",
+      "minimum_request": {
+        "completion_tokens": 1024,
+        "input_tokens": 4096
+      },
+      "models": [
+        "dsf",
+        "qwen24t",
+        "k3",
+        "dsp",
+        "glm"
+      ],
+      "orchestration": "stateless-v1",
+      "orchestrator": "k3",
+      "orchestrator_failure_limit": 3,
+      "queued_assignment_limit": 256,
+      "report_reserve_microusd": 42000000,
+      "request_limits": {
+        "completion_tokens": 943718,
+        "input_tokens": 64000
+      },
+      "research_stop_seconds": 76260,
+      "revision_rounds": 2,
+      "wall_seconds": 86400
+    },
+    "qwen24t-solo": {
+      "cap_microusd": 200000000,
+      "final_author": "qwen24t",
+      "models": [
+        "qwen24t"
+      ],
+      "pools_microusd": {
+        "report": 20000000,
+        "research_and_verification": 180000000
+      },
+      "report_reserve_microusd": 20000000,
+      "slots": {
+        "qwen24t": 1
+      },
+      "wall_seconds": 86400
+    }
+  },
+  "production_total_microusd": 1200000000,
+  "qualification": {
+    "capacity": "unverified; no positive rung certified by this contract",
+    "paid_admission": false,
+    "prices": "historical only; refresh before paid admission"
+  },
+  "rules": {
+    "author_restrict_seconds": 600,
+    "author_stop_seconds": 1200,
+    "build_seconds": 120,
+    "cleanup_seconds": 420,
+    "durability_ack_seconds": 60,
+    "incident_seconds": 5400,
+    "lease_reclaim_idle_seconds": 1800,
+    "lease_update_seconds": 900,
+    "lookup_count": 7,
+    "lookup_due_seconds": [
+      60,
+      300,
+      1200,
+      3600,
+      14400,
+      28800,
+      82800
+    ],
+    "lookup_horizon_seconds": 86400,
+    "lookup_seconds": 15,
+    "polish_trigger_percent": 95,
+    "pressure_writing_trigger_percent": 75,
+    "reconciliation_close_seconds": 330,
+    "unchanged_output_exhaustion_retries": 0,
+    "upstream_attempts_per_request": 3,
+    "verification_cycles": 2,
+    "verification_seconds": 1800,
+    "writing_trigger_percent": 90
+  },
+  "runtime": {
+    "per_reply_output_cap": "provider-maximum",
+    "effective_timeout_ms": 22000000,
+    "glm_completion_tokens": 131072,
+    "glm_input_tokens": 64000,
+    "name": "qwen-code",
+    "orchestrator_completion_tokens": 943718,
+    "orchestrator_input_tokens": 64000,
+    "research_completion_tokens": 943718,
+    "research_context_window_tokens": 196608,
+    "review_completion_tokens": 943718,
+    "review_input_tokens": 64000,
+    "version": "0.24.6"
+  }
+}

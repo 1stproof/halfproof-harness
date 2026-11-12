@@ -1,0 +1,40 @@
+[
+  {
+    "from": "e6f1f5b4ac36166e01208566a82f79c6ff071cb279ca6c06869c3300c86bddcd",
+    "to": "2a8e32a1c0c66ac63f2f02e2a63ac9eb26d89d5ff35747472433cb9378bcacce",
+    "date": "2026-10-05",
+    "authority": "operator ruling relayed by the coordinator, 09:1x PDT",
+    "change": "No per-reply output cap for any role in any arm: every request asks for the model's provider maximum (943,718 tokens for DeepSeek Flash, DeepSeek Pro and Kimi K3; 131,072 for GLM 5.3 and Qwen 2.4T). Reservations are sized against those maxima. Production mixed-swarm closing reserves: writer and control $15 each (one Kimi K3 request at provider maximum is $14.35), report reserve $42. Swarm check: dsf-swarm $20, mixed-swarm $60.",
+    "note_2": "Operator ruling ~10:00 PDT 2026-10-05 (runtime, contract bytes unchanged): no pre-request reservation limits, liability limits or closing reserves; spend is counted when replies return. Once SETTLED arm spend reaches the arm budget no new research starts; writer, checks and orchestrator closing always run. Closing-reserve fields in the contract are no longer enforced.",
+    "note_3": "Runtime, 2026-10-05 11:2x PDT (operator: too conservative): route ramps admit at the top rung from the start (capped at route capacity); orchestrator circuit breaker needs 6 consecutive invalid model decisions instead of 3 (contract field still reads 3); infrastructure errors never count; waits are refused only when nothing can wake the orchestrator.",
+    "note_4": "Runtime, 2026-10-05 ~12:05 PDT (operator: 'no reason to limit'): per-arm and per-route concurrency slot limits removed for all models and arms; every launched worker runs at once; only provider 429/overload responses throttle, by gateway backoff and retry, never counted as a worker failure or decision strike. Contract slot fields remain but are not enforced."
+  },
+  {
+    "from": "2a8e32a1c0c66ac63f2f02e2a63ac9eb26d89d5ff35747472433cb9378bcacce",
+    "to": "db9fa54312d66d4aa6e0b05e8fb22fdeaa9b4617825f640bc008412884514617",
+    "date": "2026-10-05",
+    "authority": "operator ruling relayed by the coordinator, ~15:25 PDT",
+    "change": "Production swarms: draft stage 35 -> 60 minutes, taken from research (research stop 77,760 -> 76,260 s; closing 8,640 -> 10,140 s). Runtime: a DeepSeek Flash backup writer drafts in parallel from the start of closing in its own directory; at freeze the primary writer's compiled report is selected, else the backup's, else the placeholder; the selection and reason are recorded.",
+    "note_overrun": "Runtime, operator ~18:45 PDT: budgets are planning figures. Research stops when settled arm spend reaches 1.25 x budget ($250 on a $200 arm); closing and writing always run, uncapped; overrun reported per arm at freeze. Check arms get $60 each so money never ends a check.",
+    "note_nodes": "Coordinator/operator 2026-10-05 ~21:45 PDT: CHECK runs (swarm/solo/closing/prod/open checks) may run on any normal-partition node (--node '*'); production stays pinned to the signed qualified node list (rye-01).",
+    "extra_production_nodes": [
+      "wheat-04",
+      "wheat-05"
+    ],
+    "note_production_nodes": "Coordinator decision 2026-10-06 ~01:30 PDT, pending operator confirmation: wheat-04 and wheat-05 may run production, on the evidence that open checks 4 and 5 ran clean end to end there. Weaker than signed P8 qualification: no fault batch, no 1,200-second reply probe."
+  },
+  {
+    "date": "2026-10-15",
+    "authority": "Operator hc-merge instruction: approved multi-host resilience lists plus Qwen Modal rule",
+    "change": "Freeze allowed served-host lists in profiles.json; reject all outside hosts; metadata-only full request preflight before launch.",
+    "from": "db9fa54312d66d4aa6e0b05e8fb22fdeaa9b4617825f640bc008412884514617",
+    "to": "44786b4df174cf56789203787208d49e643ae29252a5b749b62cf5765cbf3f4d"
+  },
+  {
+    "date": "2026-10-15",
+    "authority": "Operator hc-merge item 5",
+    "change": "Use the exact 2026-10-06 approved design host table, with Modal first for Qwen under the October 11 rule. Live metadata may narrow eligibility but cannot expand this allowlist.",
+    "from": "44786b4df174cf56789203787208d49e643ae29252a5b749b62cf5765cbf3f4d",
+    "to": "02cdb1c0f117fd8b64eb50d3ab8fb2dfe9aebbb06312b7e7236e95d83d250024"
+  }
+]

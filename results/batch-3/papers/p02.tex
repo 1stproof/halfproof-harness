@@ -1,0 +1,1463 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+
+\frenchspacing
+\allowdisplaybreaks[2]
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\E}{\mathbb E}
+\DeclareMathOperator{\PP}{\mathbb P}
+\DeclareMathOperator{\R}{\mathbb R}
+\DeclareMathOperator{\Z}{\mathbb Z}
+\DeclareMathOperator{\N}{\mathbb N}
+\DeclareMathOperator{\T}{\mathbb T}
+\DeclareMathOperator{\divg}{div}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\KL}{KL}
+\DeclareMathOperator{\TV}{TV}
+
+\newcommand{\D}{D}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\asym}{\asymp}
+
+\title{Anisotropic Linearization and a Frozen Minimax Exponent\\
+for Darcy Coefficient Recovery}
+\author{Open-weight synthesis article}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We study the statistical inverse problem of recovering a Darcy conductivity \(f\) from Gaussian white-noise observations of the potential \(u_f\) solving \(\divg(f\nabla u)=1\) with zero boundary data on the unit ball \(D\subset \R^d\), \(d\ge 2\). We prove the linearization at the constant conductivity, including the exact radial identity and the anisotropic frozen symbol. We show that the natural fixed-anchor quadratic remainder estimate at \(f\equiv 1\) is false and prove the correct moving-anchor quadratic estimate. For a frozen periodic linearized model with nonzero frozen direction, we prove the minimax \(L^2\) exponent
+\[
+n^{-2\alpha/(2\alpha+d+3)}
+\]
+(up to logarithmic factors in the certified statement; the periodic wavelet construction below gives the sharper constant-order version). We also prove that the phase-space variance of the genuine variable-coefficient linearized symbol has order \(R^{d+3}\), and we prove a rigorous two-point lower bound at the critical point \(x=0\) giving the weaker exponent
+\[
+n^{-(2\alpha+d)/(2\alpha+d+4)}.
+\]
+The full nonlinear variable-coefficient minimax rate over the original Darcy class remains open.
+\end{abstract}
+
+\section{Introduction and certified scope}
+\label{sec:intro}
+
+Let
+\[
+D=\{x\in \R^d: |x|<1\},\qquad d\ge 2.
+\]
+For a uniformly positive conductivity \(f\), let \(u_f=\Phi(f)\) denote the solution of Darcy's problem
+\begin{equation}
+\label{eq:darcy}
+\divg(f\nabla u)=1 \quad \text{in }D,\qquad u|_{\partial D}=0.
+\end{equation}
+The observation model is Gaussian white noise:
+\[
+Y_n = u_f + \frac1{\sqrt n}\,\mathbb W,
+\]
+where \(\mathbb W\) is Gaussian white noise on \(L^2(D)\). The parameter class is
+\[
+\mathcal F(\alpha,r)
+=
+\left\{
+h\in C^\alpha(\overline D): \norm{h-\one}_{C^\alpha(\overline D)}\le r
+\right\},
+\]
+with \(\alpha>1\) and fixed \(r\in(0,1)\). The original minimax question is the asymptotic size, up to logarithmic factors, of
+\[
+\inf_{\widehat f_n}\sup_{f_0\in\mathcal F(\alpha,r)}
+\E_{f_0}\left[
+\norm{\widehat f_n-f_0}_{L^2(D)}^2
+\right].
+\]
+
+This paper proves a scoped set of results that identify the linearized anisotropy and the resulting frozen minimax exponent, while leaving the full nonlinear variable-coefficient problem open. The main certified results are:
+\begin{enumerate}[label=(\roman*)]
+\item the linearization at \(f\equiv1\), the exact radial identity, and injectivity of the linearized operator on regular functions;
+\item the failure of the fixed-anchor quadratic estimate at \(f\equiv1\), and the validity of the moving-anchor quadratic estimate;
+\item the minimax rate of a frozen periodic linearized model with nonzero frozen direction, giving the exponent \(2\alpha/(2\alpha+d+3)\);
+\item a phase-space variance calculation for the variable-coefficient linearized symbol, also of order \(R^{d+3}\);
+\item a critical-point two-point lower bound for the original nonlinear problem, giving the weaker exponent \((2\alpha+d)/(2\alpha+d+4)\).
+\end{enumerate}
+The frozen exponent is the candidate exponent suggested by the anisotropic linearization. The critical-point lower bound is strictly weaker and shows that the origin, although more degenerate locally, is not the minimax bottleneck.
+
+Throughout, \(A\asym B\) means \(cA\le B\le CA\), with constants depending only on the structural parameters indicated in the statement. Constants denoted by \(C,c\) may change from line to line.
+
+\section{Preliminaries}
+\label{sec:prelim}
+
+We use the weak formulation of \eqref{eq:darcy}. For \(f\in L^\infty(D)\) with \(f\ge \lambda>0\), \(u_f\in H^1_0(D)\) is the unique solution of
+\begin{equation}
+\label{eq:weak-forward}
+\int_D f\nabla u_f\cdot \nabla\varphi\,dx
+=
+-\int_D \varphi\,dx
+\qquad \forall \varphi\in H^1_0(D).
+\end{equation}
+Let \(C_P\) denote the Poincar\'e constant of \(D\).
+
+% RECORDS: 129,756
+\begin{lemma}[Forward well-posedness and uniform energy bound]
+\label{lem:forward-energy}
+Let \(f\in L^\infty(D)\) and \(f\ge \lambda>0\). Then \eqref{eq:weak-forward} has a unique solution \(u_f\in H^1_0(D)\), and
+\[
+\norm{\nabla u_f}_{L^2(D)}\le \frac{C_P}{\lambda},
+\qquad
+\norm{u_f}_{L^2(D)}\le \frac{C_P^2}{\lambda}.
+\]
+\end{lemma}
+\begin{proof}
+The bilinear form
+\[
+B(u,\varphi)=\int_D f\nabla u\cdot\nabla\varphi\,dx
+\]
+is continuous and coercive on \(H^1_0(D)\), since
+\[
+B(\varphi,\varphi)\ge \lambda\norm{\nabla\varphi}_{L^2}^2.
+\]
+The right-hand side \(\varphi\mapsto -\int_D\varphi\) is bounded on \(H^1_0(D)\) by Poincar\'e's inequality. Existence and uniqueness follow from the Lax--Milgram theorem; see \cite{Evans}.
+
+Testing \eqref{eq:weak-forward} with \(\varphi=u_f\) gives
+\[
+\int_D f|\nabla u_f|^2\,dx
+=
+-\int_D u_f\,dx.
+\]
+Hence
+\[
+\lambda\norm{\nabla u_f}_2^2
+\le
+\norm{u_f}_2
+\le
+C_P\norm{\nabla u_f}_2,
+\]
+so \(\norm{\nabla u_f}_2\le C_P/\lambda\). A second application of Poincar\'e gives the \(L^2\) bound.
+\end{proof}
+
+For \(f\ge\lambda>0\) and \(h\in L^\infty(D)\), define the linearized operator \(A_f h\) weakly by
+\begin{equation}
+\label{eq:Af-def}
+\int_D f\nabla(A_f h)\cdot\nabla\varphi\,dx
+=
+-\int_D h\nabla u_f\cdot\nabla\varphi\,dx
+\qquad \forall\varphi\in H^1_0(D).
+\end{equation}
+Again by Lax--Milgram, \(A_f h\in H^1_0(D)\) is well-defined whenever \(h\nabla u_f\in L^2(D)\); in particular this holds for \(h\in L^\infty(D)\). On the regular positive cone this operator is the Fr\'echet derivative of the forward map \(\Phi\).
+
+We shall use the standard Cameron--Martin formula for Gaussian white noise. If \(P_s\) denotes the law of \(s+n^{-1/2}\mathbb W\), then for \(s,t\in L^2\),
+\[
+\KL(P_s\|P_t)=\frac n2\norm{s-t}_{L^2}^2.
+\]
+For completeness we record this as a lemma.
+
+% RECORDS: 199,756
+\begin{lemma}[KL divergence in Gaussian white noise]
+\label{lem:white-kl}
+Let \(\{e_k\}_{k\ge1}\) be an orthonormal basis of \(L^2(D)\). Under the white-noise model, the coordinates
+\[
+Y_k=\langle Y_n,e_k\rangle
+\]
+are independent Gaussian random variables with variance \(1/n\) and means \(\langle s,e_k\rangle\). Therefore, for \(s,t\in L^2(D)\),
+\[
+\KL(P_s\|P_t)
+=
+\sum_{k\ge1}\frac{n}{2}\bigl(\langle s-t,e_k\rangle\bigr)^2
+=
+\frac n2\norm{s-t}_{L^2(D)}^2.
+\]
+\end{lemma}
+\begin{proof}
+For one coordinate, \(Y_k\sim N(\langle s,e_k\rangle,1/n)\) under \(P_s\) and \(Y_k\sim N(\langle t,e_k\rangle,1/n)\) under \(P_t\). The KL divergence between two Gaussian laws with equal variance \(\sigma^2\) is \((\mu-\nu)^2/(2\sigma^2)\). Here \(\sigma^2=1/n\), hence the \(k\)-th contribution is
+\[
+\frac n2\bigl(\langle s,e_k\rangle-\langle t,e_k\rangle\bigr)^2.
+\]
+Summing over \(k\) and applying Parseval gives the claim.
+\end{proof}
+
+For H\"older--Zygmund spaces we use the standard norm \(C^\alpha(\overline D)\), including the supremum norm. For non-integer \(\alpha\), \(C^\alpha\) coincides with the Besov space \(B^\alpha_{\infty,\infty}\); see \cite{Triebel}. In the frozen periodic model we use the Besov formulation directly.
+
+\section{Linearization at the constant conductivity}
+\label{sec:linearization}
+
+% RECORDS: 44,199
+\begin{proposition}[Forward solution and derivative at \(f=1\)]
+\label{prop:linearization-one}
+Let
+\[
+u_1(x)=\frac{|x|^2-1}{2d}.
+\]
+Then \(\Phi(1)=u_1\), \(\Delta u_1=1\), \(\nabla u_1=x/d\), and \(u_1|_{\partial D}=0\). For smooth \(h\), the Fr\'echet derivative \(A=A_1=\Phi'(1)\) is given by
+\[
+Ah=w,
+\qquad
+\Delta w=-\left(\frac{x}{d}\cdot\nabla h+h\right),
+\qquad
+w|_{\partial D}=0.
+\]
+Equivalently,
+\[
+-\Delta w=\frac{x}{d}\cdot\nabla h+h.
+\]
+If \(h\equiv g\) is constant, then
+\[
+Ag=-g u_1.
+\]
+\end{proposition}
+\begin{proof}
+A direct calculation gives
+\[
+\Delta u_1=\frac{1}{2d}\Delta(|x|^2)=1,
+\]
+and \(u_1=0\) on \(|x|=1\). Hence \(u_1\) solves \eqref{eq:darcy} for \(f=1\).
+
+Let \(f_\varepsilon=1+\varepsilon h\) and write
+\[
+u_{f_\varepsilon}=u_1+\varepsilon w+o(\varepsilon)
+\]
+in the weak sense. The weak equation is
+\[
+\int_D (1+\varepsilon h)\nabla u_{f_\varepsilon}\cdot\nabla\varphi\,dx
+=
+-\int_D\varphi\,dx.
+\]
+Taking the first-order term in \(\varepsilon\) gives
+\[
+\int_D \nabla w\cdot\nabla\varphi\,dx
++
+\int_D h\nabla u_1\cdot\nabla\varphi\,dx
+=0.
+\]
+Since \(\nabla u_1=x/d\), this is the weak form of
+\[
+-\Delta w=\divg\left(h\frac{x}{d}\right)
+=
+\frac{x}{d}\cdot\nabla h+h.
+\]
+Equivalently,
+\[
+\Delta w=-\left(\frac{x}{d}\cdot\nabla h+h\right).
+\]
+
+If \(h\equiv g\), then the right-hand side is \(-g\). Since \(\Delta u_1=1\) and \(u_1|_{\partial D}=0\), the unique solution is \(w=-g u_1\).
+\end{proof}
+
+% RECORDS: 44
+\begin{proposition}[Exact radial identity]
+\label{prop:radial-identity}
+Let \(h(x)=\phi(|x|)\) be radial and sufficiently smooth. Then \(w=Ah\) is radial. Writing \(w(x)=W(\rho)\), \(\rho=|x|\), one has
+\[
+W'(\rho)=-\frac{\rho}{d}\phi(\rho),
+\qquad 0<\rho<1.
+\]
+Equivalently,
+\[
+W(\rho)=\int_\rho^1 \frac{s}{d}\phi(s)\,ds.
+\]
+\end{proposition}
+\begin{proof}
+By rotational invariance and uniqueness, \(w\) is radial. The radial Laplacian is
+\[
+\Delta w=W''(\rho)+\frac{d-1}{\rho}W'(\rho).
+\]
+For \(h(x)=\phi(\rho)\),
+\[
+\frac{x}{d}\cdot\nabla h+h
+=
+\frac{\rho}{d}\phi'(\rho)+\phi(\rho).
+\]
+Thus \(W\) satisfies
+\[
+W''+\frac{d-1}{\rho}W'
+=
+-\frac{\rho}{d}\phi'-\phi.
+\]
+If \(W'(\rho)=-(\rho/d)\phi(\rho)\), then
+\[
+W''=-\frac1d\phi-\frac{\rho}{d}\phi',
+\]
+and
+\[
+\frac{d-1}{\rho}W'
+=
+-\frac{d-1}{d}\phi.
+\]
+Adding gives
+\[
+-\frac1d\phi-\frac{\rho}{d}\phi'-\frac{d-1}{d}\phi
+=
+-\phi-\frac{\rho}{d}\phi',
+\]
+which is exactly the radial equation. Regularity at \(\rho=0\) removes the singular integration constant, and \(W(1)=0\) yields the integral representation.
+\end{proof}
+
+% RECORDS: 44,199
+\begin{proposition}[Injectivity of \(A\) on regular functions]
+\label{prop:injectivity}
+If \(h\in C^\alpha(\overline D)\), \(\alpha>1\), and \(Ah=0\), then \(h=0\).
+\end{proposition}
+\begin{proof}
+Since the Dirichlet Laplacian is injective, \(Ah=0\) implies
+\[
+\frac{x}{d}\cdot\nabla h+h=0
+\]
+in the distributional sense. Because \(\alpha>1\), \(h\in C^1\), so the identity holds classically. In polar coordinates \(x=\rho\omega\),
+\[
+\frac{\rho}{d}\partial_\rho h(\rho\omega)+h(\rho\omega)=0,
+\]
+or equivalently
+\[
+\partial_\rho\bigl(\rho^d h(\rho\omega)\bigr)=0.
+\]
+Thus
+\[
+h(\rho\omega)=\rho^{-d}g(\omega).
+\]
+Since \(h\) is bounded at \(\rho=0\), necessarily \(g(\omega)=0\) for every \(\omega\). Hence \(h=0\).
+\end{proof}
+
+\begin{remark}
+Formally freezing the linearized operator at a nonzero point \(x_0\) with \(v=x_0/d\neq0\) gives the constant-coefficient Fourier multiplier
+\[
+a_v(\xi)=\frac{1+i\xi\cdot v}{|\xi|^2}.
+\]
+The radial identity shows degree-one smoothing in radial directions, while the frozen symbol exhibits an equatorial degeneracy where \(\xi\cdot v\) is small. Finite-difference computations corroborate the tangential smoothing but are not used in the proofs.
+\end{remark}
+
+\section{Anchor correction and moving-anchor stability}
+\label{sec:anchor}
+
+The natural fixed-anchor estimate with \(A=A_1\) would assert that
+\[
+\norm{\Phi(f)-\Phi(f')-A_1(f-f')}_{L^2(D)}
+\le
+C\norm{f-f'}_{C^\alpha}^2
+\]
+uniformly on \(\mathcal F(\alpha,r)\). This is false.
+
+% RECORDS: 129
+\begin{proposition}[Failure of the fixed-anchor quadratic estimate]
+\label{prop:fixed-anchor-false}
+Fix \(r\in(0,1)\). There is no finite constant \(C\) such that
+\[
+\norm{\Phi(f)-\Phi(f')-A_1(f-f')}_{L^2(D)}
+\le
+C\norm{f-f'}_{C^\alpha}^2
+\]
+holds for all \(f,f'\in\mathcal F(\alpha,r)\).
+\end{proposition}
+\begin{proof}
+It suffices to use constant conductivities. Let
+\[
+b=1+\frac r2,
+\qquad
+0<g<\frac r2,
+\]
+and set
+\[
+f=b,
+\qquad
+f'=b-g.
+\]
+Both belong to \(\mathcal F(\alpha,r)\), because their deviations from \(1\) are at most \(r/2\). For a constant conductivity \(c>0\), uniqueness and linearity give
+\[
+\Phi(c)=\frac{u_1}{c}.
+\]
+By Proposition~\ref{prop:linearization-one}, for the constant increment \(g\),
+\[
+A_1 g=-g u_1.
+\]
+Therefore
+\[
+\Phi(f)-\Phi(f')-A_1(f-f')
+=
+u_1\left(
+\frac1b-\frac1{b-g}+g
+\right).
+\]
+But
+\[
+\frac1b-\frac1{b-g}+g
+=
+g\left(1-\frac1{b(b-g)}\right).
+\]
+As \(g\downarrow0\),
+\[
+1-\frac1{b(b-g)}
+\longrightarrow
+1-\frac1{b^2}>0,
+\]
+because \(b>1\). Since \(\norm{f-f'}_{C^\alpha}=g\) for constant increments,
+\[
+\frac{
+\norm{\Phi(f)-\Phi(f')-A_1(f-f')}_{L^2}
+}{
+\norm{f-f'}_{C^\alpha}^2
+}
+\ge
+\frac{c}{g}\to\infty.
+\]
+Thus no finite constant \(C\) can exist.
+\end{proof}
+
+The correct estimate anchors the linearization at the base point \(f'\).
+
+% RECORDS: 129
+\begin{theorem}[Uniform moving-anchor quadratic remainder]
+\label{thm:moving-anchor}
+Let \(\alpha>1\) and \(r\in(0,1)\). There exists \(C=C(d,\alpha,r)<\infty\) such that for all \(f,f'\in\mathcal F(\alpha,r)\),
+\[
+\norm{\Phi(f)-\Phi(f')-A_{f'}(f-f')}_{L^2(D)}
+\le
+C\norm{f-f'}_{C^\alpha(\overline D)}^2.
+\]
+One may take \(C\le C_d(1-r)^{-3}\); in particular the constant blows up only as \(r\uparrow1\).
+\end{theorem}
+\begin{proof}
+Write
+\[
+g=f-f',
+\qquad
+u=\Phi(f),
+\qquad
+u'=\Phi(f'),
+\qquad
+v=A_{f'}g,
+\qquad
+R=u-u'-v.
+\]
+Since \(f,f'\in\mathcal F(\alpha,r)\),
+\[
+f,f'\ge 1-r=:\lambda>0,
+\qquad
+\norm{g}_{L^\infty}\le \norm{g}_{C^\alpha}.
+\]
+Let \(q=u-u'\). From the weak equations for \(u\) and \(u'\),
+\[
+\int_D f'\nabla q\cdot\nabla\varphi\,dx
+=
+-\int_D g\nabla u\cdot\nabla\varphi\,dx
+\qquad \forall\varphi\in H^1_0(D).
+\]
+Testing with \(\varphi=q\) gives
+\[
+\lambda\norm{\nabla q}_2^2
+\le
+\norm{g}_\infty\norm{\nabla u}_2\norm{\nabla q}_2.
+\]
+By Lemma~\ref{lem:forward-energy}, \(\norm{\nabla u}_2\le C_P/\lambda\), hence
+\[
+\norm{\nabla q}_2
+\le
+\frac{C_P}{\lambda^2}\norm{g}_\infty.
+\]
+By definition of \(v=A_{f'}g\),
+\[
+\int_D f'\nabla v\cdot\nabla\varphi\,dx
+=
+-\int_D g\nabla u'\cdot\nabla\varphi\,dx.
+\]
+Subtracting this from the equation for \(q\) yields
+\[
+\int_D f'\nabla R\cdot\nabla\varphi\,dx
+=
+-\int_D g\nabla q\cdot\nabla\varphi\,dx.
+\]
+Testing with \(\varphi=R\) gives
+\[
+\lambda\norm{\nabla R}_2^2
+\le
+\norm{g}_\infty\norm{\nabla q}_2\norm{\nabla R}_2.
+\]
+Therefore
+\[
+\norm{\nabla R}_2
+\le
+\frac1\lambda\norm{g}_\infty\norm{\nabla q}_2
+\le
+\frac{C_P}{\lambda^3}\norm{g}_\infty^2.
+\]
+Poincar\'e's inequality gives
+\[
+\norm{R}_2
+\le
+C_P\norm{\nabla R}_2
+\le
+\frac{C_P^2}{(1-r)^3}\norm{g}_\infty^2.
+\]
+Since \(\norm{g}_\infty\le\norm{g}_{C^\alpha}\), the theorem follows.
+\end{proof}
+
+\section{Frozen periodic linearized inverse problem}
+\label{sec:frozen}
+
+We now analyze a frozen periodic linearized model. The original PDE has variable coefficients and Dirichlet boundary conditions; the frozen model is a local periodic surrogate. We choose coordinates so that the frozen nonzero direction is \(e_d\). Let
+\[
+\T^d=\R^d/\Z^d.
+\]
+Fix \(\beta>0\) and define the Fourier multiplier
+\[
+a_\beta(\xi)=\frac{1+i\beta\xi_d}{|\xi|^2},
+\qquad
+\xi\in\Z^d\setminus\{0\}.
+\]
+Let \(A_\beta\) be the corresponding Fourier multiplier operator on mean-zero functions. The frozen Gaussian sequence model is
+\begin{equation}
+\label{eq:frozen-model}
+Y_\xi=a_\beta(\xi)\theta_\xi+n^{-1/2}Z_\xi,
+\qquad \xi\neq0,
+\end{equation}
+where \(\theta_\xi\) are the Fourier coefficients of a real mean-zero function \(\theta\), and \(Z_\xi\) denote the Fourier coordinates of Gaussian white noise. We suppress the usual conjugacy constraints for real signals; they affect constants only. The zero mode is set to zero: \(\theta_0=0\).
+
+The parameter space is the Besov ball
+\[
+\Theta_\alpha(L)
+=
+\left\{
+\theta\in B^\alpha_{\infty,\infty}(\T^d):
+\norm{\theta}_{B^\alpha_{\infty,\infty}}\le L,
+\ \theta_0=0
+\right\},
+\]
+where \(\alpha>0\). We use the Littlewood--Paley characterization
+\[
+\norm{\theta}_{B^\alpha_{\infty,\infty}}
+\asym
+\sup_{j\ge0}2^{j\alpha}\norm{\Delta_j\theta}_{L^\infty};
+\]
+see \cite{Triebel}.
+
+\subsection{Counting and variance}
+
+% RECORDS: 199
+\begin{lemma}[Weyl counting for the frozen symbol]
+\label{lem:frozen-counting}
+Fix \(\beta>0\). For \(0<\sigma\le\sigma_0(d,\beta)\), define
+\[
+N_\beta(\sigma)
+=
+\#\{\xi\in\Z^d\setminus\{0\}: |a_\beta(\xi)|>\sigma\}.
+\]
+Then
+\[
+N_\beta(\sigma)\asym_{d,\beta}\sigma^{-d}.
+\]
+\end{lemma}
+\begin{proof}
+For \(|\xi|\ge1\),
+\[
+|a_\beta(\xi)|
+=
+\frac{\sqrt{1+\beta^2\xi_d^2}}{|\xi|^2}
+\le
+C_\beta\frac{1+|\xi|}{|\xi|^2}
+\le
+\frac{C_\beta}{|\xi|}.
+\]
+Thus \(|a_\beta(\xi)|>\sigma\) implies \(|\xi|\le C_\beta/\sigma\), giving
+\[
+N_\beta(\sigma)\le C\sigma^{-d}.
+\]
+
+For the lower bound, restrict to the cone
+\[
+|\xi_d|\ge \frac12|\xi|.
+\]
+On this cone,
+\[
+|a_\beta(\xi)|
+\ge
+\frac{\beta|\xi_d|}{|\xi|^2}
+\ge
+\frac{\beta}{2|\xi|}.
+\]
+If
+\[
+1\le |\xi|\le c\beta/\sigma,
+\]
+then \(|a_\beta(\xi)|\ge\sigma\). The number of lattice points in this cone and ball is comparable to \(\sigma^{-d}\), with constants depending on \(d\) and \(\beta\). Hence
+\[
+N_\beta(\sigma)\ge c\sigma^{-d}.
+\]
+\end{proof}
+
+The counting law suggests degree-one smoothing, but it is not the rate-determining quantity. The minimax rate is controlled by the variance sum.
+
+% RECORDS: 199
+\begin{lemma}[Frozen variance sum]
+\label{lem:frozen-variance}
+Fix \(\beta>0\). For \(R\ge1\),
+\[
+S_\beta(R)
+=
+\sum_{\substack{\xi\in\Z^d\\1\le|\xi|\le R}}
+|a_\beta(\xi)|^{-2}
+=
+\sum_{\substack{\xi\in\Z^d\\1\le|\xi|\le R}}
+\frac{|\xi|^4}{1+\beta^2\xi_d^2}
+\asym_{d,\beta}
+R^{d+3}.
+\]
+\end{lemma}
+\begin{proof}
+For the lower bound, take \(\xi_d=0\) and \(\xi'=(\xi_1,\dots,\xi_{d-1})\) in the annulus
+\[
+R/2\le |\xi'|\le R.
+\]
+There are \(\asym R^{d-1}\) such lattice points, and for each,
+\[
+\frac{|\xi|^4}{1+\beta^2\xi_d^2}
+=
+|\xi'|^4
+\asym R^4.
+\]
+Thus
+\[
+S_\beta(R)\ge cR^{d+3}.
+\]
+
+For the upper bound, decompose into dyadic shells
+\[
+2^k\le |\xi|<2^{k+1},
+\qquad
+0\le k\le \lceil\log_2 R\rceil.
+\]
+On such a shell, \(|\xi|^4\le C2^{4k}\). Write \(\xi=(\eta,m)\) with \(\eta\in\Z^{d-1}\) and \(m=\xi_d\). For fixed \(\eta\) with \(|\eta|\le C2^k\),
+\[
+\sum_{m\in\Z}\frac{1}{1+\beta^2m^2}
+\le
+C_\beta.
+\]
+The number of such \(\eta\) is \(\asym 2^{k(d-1)}\). Hence the \(k\)-th shell contributes at most
+\[
+C_\beta 2^{4k}2^{k(d-1)}
+=
+C_\beta 2^{k(d+3)}.
+\]
+Summing over \(k\) up to \(\log_2 R\) gives
+\[
+S_\beta(R)\le C R^{d+3}.
+\]
+\end{proof}
+
+% RECORDS: 199
+\begin{lemma}[Besov projection tail]
+\label{lem:besov-tail}
+Let \(\theta\in\Theta_\alpha(L)\), and let \(\Pi_R\) be the Fourier projection onto \(\{|\xi|\le R\}\). Then
+\[
+\norm{\theta-\Pi_R\theta}_{L^2(\T^d)}^2
+\le
+C_{d,\alpha}L^2R^{-2\alpha}.
+\]
+\end{lemma}
+\begin{proof}
+Let \(\Delta_j\) be dyadic Littlewood--Paley projections. Choose \(J\) with \(2^J\le R<2^{J+1}\). The tail \(\theta-\Pi_R\theta\) is controlled by dyadic blocks with \(j\gtrsim J\). Since
+\[
+\norm{\Delta_j\theta}_{L^\infty}
+\le
+CL2^{-j\alpha},
+\]
+and \(\T^d\) has finite measure,
+\[
+\norm{\Delta_j\theta}_{L^2}
+\le
+CL2^{-j\alpha}.
+\]
+Therefore
+\[
+\norm{\theta-\Pi_R\theta}_{L^2}
+\le
+\sum_{j\ge J-1}\norm{\Delta_j\theta}_{L^2}
+\le
+CL\sum_{j\ge J-1}2^{-j\alpha}
+\le
+CL2^{-J\alpha}
+\le
+CLR^{-\alpha}.
+\]
+Squaring gives the claim.
+\end{proof}
+
+\subsection{Frozen minimax theorem}
+
+% RECORDS: 199
+\begin{lemma}[Wavelet packing in the equatorial slab]
+\label{lem:wavelet-packing}
+Let \(d'=d-1\). For every sufficiently large dyadic scale \(j\), there exist real orthonormal functions
+\[
+\psi_{j,1},\dots,\psi_{j,N_j}\in L^2(\T^{d'})
+\]
+with \(N_j\asym 2^{jd'}\), whose Fourier supports lie in a dyadic annulus
+\[
+c2^j\le |\eta|\le C2^j,
+\]
+and such that for any coefficients \(b_k\) with \(|b_k|\le b\),
+\[
+\left\|
+\sum_{k=1}^{N_j}b_k\psi_{j,k}
+\right\|_{L^\infty(\T^{d'})}
+\le
+C b\,2^{jd'/2}.
+\]
+Extending these functions constantly in the \(x_d\)-variable gives functions
+\[
+\Psi_{j,k}(x',x_d)=\psi_{j,k}(x')
+\]
+on \(\T^d\), orthonormal in \(L^2(\T^d)\), with Fourier support in
+\[
+\{(\eta,0): c2^j\le |\eta|\le C2^j\}.
+\]
+\end{lemma}
+\begin{proof}
+This is the standard periodized Meyer wavelet construction on the torus; see Meyer \cite[Chapter 3]{Meyer} and Daubechies \cite[Chapter 5]{Daubechies}. The periodized Meyer system is an orthonormal basis with Fourier support in dyadic annuli. At scale \(j\), the number of wavelets is comparable to \(2^{jd'}\), each has \(L^\infty\)-size \(O(2^{jd'/2})\), and the uniform overlap estimate
+\[
+\sum_k|\psi_{j,k}(x')|\le C2^{jd'/2}
+\]
+holds. The stated \(L^\infty\) bound follows immediately for bounded coefficients. Extension constantly in \(x_d\) preserves orthonormality and places all Fourier mass at \(\xi_d=0\).
+\end{proof}
+
+% RECORDS: 199
+\begin{lemma}[Assouad hypercube lemma]
+\label{lem:assouad}
+Let \(\{\psi_k\}_{k=1}^N\) be an orthonormal system in a Hilbert space, and let
+\[
+\theta_\omega=\delta\sum_{k=1}^N\omega_k\psi_k,
+\qquad
+\omega\in\{\pm1\}^N.
+\]
+Let \(P_\omega\) be probability laws of an observation under \(\theta_\omega\). Suppose that whenever \(\omega,\omega'\) differ in exactly one coordinate,
+\[
+\KL(P_\omega\|P_{\omega'})\le\kappa.
+\]
+If \(\kappa\le1/8\), then for every estimator \(\widehat\theta\),
+\[
+\sup_{\omega}\E_\omega\norm{\widehat\theta-\theta_\omega}^2
+\ge
+cN\delta^2
+\]
+with an absolute constant \(c>0\).
+\end{lemma}
+\begin{proof}
+Let \(\Omega\) be uniform on \(\{\pm1\}^N\), and let \(X\sim P_\Omega\). For any estimator \(\widehat\theta\), define bit estimators
+\[
+\widehat\Omega_k=\operatorname{sign}\langle\widehat\theta,\psi_k\rangle.
+\]
+Since \(\langle\theta_\Omega,\psi_k\rangle=\delta\Omega_k\), if \(\widehat\Omega_k\neq\Omega_k\), then
+\[
+|\langle\widehat\theta-\theta_\Omega,\psi_k\rangle|\ge\delta.
+\]
+By orthonormality,
+\[
+\norm{\widehat\theta-\theta_\Omega}^2
+\ge
+\delta^2\sum_{k=1}^N\mathbf 1_{\{\widehat\Omega_k\neq\Omega_k\}}.
+\]
+Averaging over \(\Omega\) gives
+\[
+\E\norm{\widehat\theta-\theta_\Omega}^2
+\ge
+\delta^2\sum_{k=1}^N\PP(\widehat\Omega_k\neq\Omega_k).
+\]
+For fixed \(k\), the average bit error is bounded below by the Bayes error for testing the two mixture laws \(P_{k,+}\) and \(P_{k,-}\) obtained by conditioning on \(\Omega_k=\pm1\). Thus
+\[
+\PP(\widehat\Omega_k\neq\Omega_k)
+\ge
+\frac12\left(1-\TV(P_{k,+},P_{k,-})\right).
+\]
+By convexity of KL divergence and the adjacent KL assumption,
+\[
+\KL(P_{k,+}\|P_{k,-})\le\kappa.
+\]
+Pinsker's inequality \cite{Tsybakov} gives
+\[
+\TV(P_{k,+},P_{k,-})
+\le
+\sqrt{\kappa/2}
+\le
+\frac12
+\]
+when \(\kappa\le1/8\). Hence each bit error is at least \(1/4\), and
+\[
+\E\norm{\widehat\theta-\theta_\Omega}^2
+\ge
+\frac14N\delta^2.
+\]
+The supremum risk is at least the average risk.
+\end{proof}
+
+The certified frozen statement is an up-to-logarithmic-factor exponent. The periodic wavelet construction actually gives the sharper constant-order bounds stated below.
+
+% RECORDS: 199
+\begin{theorem}[Frozen minimax rate]
+\label{thm:frozen-minimax}
+Fix \(\beta>0\), \(\alpha>0\), and \(L>0\). For the frozen periodic model \eqref{eq:frozen-model} over \(\Theta_\alpha(L)\), let
+\[
+\mathcal R_n^{\mathrm{fr}}
+=
+\inf_{\widehat\theta}\sup_{\theta\in\Theta_\alpha(L)}
+\E\norm{\widehat\theta-\theta}_{L^2(\T^d)}^2.
+\]
+Then, with
+\[
+p=2\alpha+d+3,
+\]
+there exist constants \(c,C>0\), depending only on \(d,\alpha,\beta,L\), such that for all sufficiently large \(n\),
+\[
+c\,n^{-2\alpha/p}
+\le
+\mathcal R_n^{\mathrm{fr}}
+\le
+C\,n^{-2\alpha/p}.
+\]
+In particular, the frozen minimax exponent is \(2\alpha/(2\alpha+d+3)\); in the certified wording this is stated up to logarithmic factors, and the periodic wavelet construction removes the logarithm.
+\end{theorem}
+\begin{proof}
+\textbf{Upper bound.} Fix \(R\ge1\) and define the sieve estimator
+\[
+\widehat\theta^R_\xi=
+\begin{cases}
+Y_\xi/a_\beta(\xi), & 1\le|\xi|\le R,\\
+0, & \text{otherwise}.
+\end{cases}
+\]
+Then
+\[
+\E\norm{\widehat\theta^R-\theta}_2^2
+\le
+C\left(
+n^{-1}\sum_{1\le|\xi|\le R}|a_\beta(\xi)|^{-2}
++
+\norm{\theta-\Pi_R\theta}_2^2
+\right).
+\]
+By Lemma~\ref{lem:frozen-variance} and Lemma~\ref{lem:besov-tail},
+\[
+\sup_{\theta\in\Theta_\alpha(L)}
+\E\norm{\widehat\theta^R-\theta}_2^2
+\le
+C\left(
+\frac{R^{d+3}}{n}
++
+L^2R^{-2\alpha}
+\right).
+\]
+Choose
+\[
+R\asym (nL^2)^{1/(2\alpha+d+3)}.
+\]
+The two terms balance and yield
+\[
+\mathcal R_n^{\mathrm{fr}}
+\le
+C_{d,\alpha,\beta,L}
+n^{-2\alpha/(2\alpha+d+3)}.
+\]
+
+\textbf{Lower bound.} Let \(d'=d-1\) and \(p=2\alpha+d+3=2\alpha+d'+4\). Choose a dyadic scale \(R=2^j\) comparable to \((nL^2)^{1/p}\), and let \(\{\Psi_k\}_{k=1}^N\) be the functions from Lemma~\ref{lem:wavelet-packing} at that scale, so \(N\asym R^{d'}\). Define
+\[
+\delta=c_0 L R^{-\alpha-d'/2},
+\]
+with \(c_0>0\) small. For \(\omega\in\{\pm1\}^N\), set
+\[
+\theta_\omega=\delta\sum_{k=1}^N\omega_k\Psi_k.
+\]
+The Fourier support of every \(\Psi_k\) lies in an annulus \(|\xi|\asym R\) with \(\xi_d=0\), so all \(\theta_\omega\) lie in a single Littlewood--Paley block. By Lemma~\ref{lem:wavelet-packing},
+\[
+\norm{\theta_\omega}_{L^\infty}
+\le
+C\delta R^{d'/2}
+=
+C c_0 L R^{-\alpha}.
+\]
+Since the block is at frequency \(R\),
+\[
+\norm{\theta_\omega}_{B^\alpha_{\infty,\infty}}
+\le
+C R^\alpha\norm{\theta_\omega}_{L^\infty}
+\le
+C c_0 L.
+\]
+Choosing \(c_0\) small enough gives \(\theta_\omega\in\Theta_\alpha(L)\).
+
+For adjacent \(\omega,\omega'\) differing in one coordinate,
+\[
+\theta_\omega-\theta_{\omega'}=2\delta\Psi_k
+\]
+for some \(k\). Since \(\Psi_k\) has Fourier support with \(\xi_d=0\) and \(|\xi|\asym R\),
+\[
+|a_\beta(\xi)|^2
+=
+\frac1{|\xi|^4}
+\asym R^{-4}
+\]
+on that support. Hence
+\[
+\norm{A_\beta(\theta_\omega-\theta_{\omega'})}_{L^2}^2
+\le
+C\delta^2R^{-4}.
+\]
+By Lemma~\ref{lem:white-kl}, the KL divergence between the corresponding Gaussian laws is
+\[
+\KL(P_\omega\|P_{\omega'})
+=
+\frac n2
+\norm{A_\beta(\theta_\omega-\theta_{\omega'})}_2^2
+\le
+C n\delta^2R^{-4}.
+\]
+Using \(R^p\asym nL^2\) and \(\delta^2=c_0^2L^2R^{-2\alpha-d'}\), we obtain
+\[
+n\delta^2R^{-4}
+\asym
+c_0^2 nL^2R^{-p}
+\asym
+c_0^2.
+\]
+Choosing \(c_0\) small makes this at most \(1/8\). Lemma~\ref{lem:assouad} gives
+\[
+\mathcal R_n^{\mathrm{fr}}
+\ge
+cN\delta^2
+\asym
+R^{d'}L^2R^{-2\alpha-d'}
+=
+L^2R^{-2\alpha}.
+\]
+Since \(R\asym (nL^2)^{1/p}\),
+\[
+L^2R^{-2\alpha}
+\asym
+n^{-2\alpha/p}.
+\]
+This proves the lower bound.
+\end{proof}
+
+\section{Variable-coefficient phase-space variance}
+\label{sec:variable-variance}
+
+For the true linearization at \(f=1\), freezing at \(x\) gives the symbol
+\[
+a(x,\xi)=\frac{1+i(x/d)\cdot\xi}{|\xi|^2}.
+\]
+The corresponding phase-space variance is
+\[
+S_D(R)
+=
+\int_D\int_{|\xi|\le R}
+|a(x,\xi)|^{-2}\,d\xi\,dx
+=
+\int_D\int_{|\xi|\le R}
+\frac{|\xi|^4}{1+|(x/d)\cdot\xi|^2}\,d\xi\,dx.
+\]
+
+% RECORDS: 199
+\begin{lemma}[Angular integral]
+\label{lem:angular-integral}
+Let \(e\in S^{d-1}\) and \(t\ge0\). Define
+\[
+J(t)=\int_{S^{d-1}}\frac{d\sigma(\omega)}{1+t^2(\omega\cdot e)^2}.
+\]
+Then
+\[
+J(t)\asym_d \min\{1,t^{-1}\},
+\]
+with the convention \(t^{-1}=\infty\) at \(t=0\).
+\end{lemma}
+\begin{proof}
+Write \(s=\omega\cdot e\). Then
+\[
+J(t)=c_d\int_{-1}^1
+\frac{(1-s^2)^{(d-3)/2}}{1+t^2s^2}\,ds
+\]
+for \(d\ge3\), with the usual integrable endpoint weight for \(d=2\).
+
+If \(0\le t\le1\), then \(1\le1+t^2s^2\le2\), so \(J(t)\asym1\).
+
+Let \(t\ge1\). For the lower bound, restrict to \(|s|\le1/(2t)\). Near \(s=0\), the weight is bounded below and the denominator is at most \(2\). Hence
+\[
+J(t)\ge c\int_{-1/(2t)}^{1/(2t)}ds=\frac{c}{t}.
+\]
+For the upper bound, split into \(|s|\le1/t\) and \(|s|>1/t\). On \(|s|\le1/t\), the weight is integrable near \(0\), giving a contribution \(O(1/t)\). On \(|s|>1/t\), the denominator is at least \(t^2s^2\), so the contribution is bounded by
+\[
+t^{-2}\int_{|s|>1/t}
+\frac{(1-s^2)^{(d-3)/2}}{s^2}\,ds.
+\]
+For \(d\ge3\), the weight is bounded, and
+\[
+\int_{1/t}^1s^{-2}\,ds\le Ct.
+\]
+For \(d=2\), the weight is \((1-s^2)^{-1/2}\); near \(s=0\) the same bound gives \(O(t)\), while near the endpoints the integral is \(O(1)\). Hence in all cases the second contribution is \(O(1/t)\). Therefore \(J(t)\le C/t\).
+\end{proof}
+
+% RECORDS: 199,44
+\begin{theorem}[Variable-coefficient variance order]
+\label{thm:phase-space-variance}
+For \(d\ge2\) and \(R\ge1\),
+\[
+S_D(R)\asym_d R^{d+3}.
+\]
+\end{theorem}
+\begin{proof}
+For fixed \(x\), put \(\rho=|x|/d\). By rotational symmetry of the \(\xi\)-integral,
+\[
+\int_{|\xi|\le R}
+\frac{|\xi|^4}{1+|(x/d)\cdot\xi|^2}\,d\xi
+=
+\int_0^R r^{d+3}J(\rho r)\,dr.
+\]
+By Lemma~\ref{lem:angular-integral},
+\[
+J(\rho r)\asym
+\begin{cases}
+1, & \rho r\le1,\\
+(\rho r)^{-1}, & \rho r\ge1.
+\end{cases}
+\]
+If \(R\rho\le1\), the integral is \(\asym R^{d+4}\). If \(R\rho>1\), the dominant contribution is
+\[
+\asym
+\rho^{-1}\int_{1/\rho}^R r^{d+2}\,dr
+\asym
+\rho^{-1}R^{d+3}.
+\]
+
+Split \(D\) into
+\[
+D_0=\{x: |x|\le d/R\},
+\qquad
+D_1=D\setminus D_0.
+\]
+On \(D_0\), the inner integral is \(O(R^{d+4})\), while \(|D_0|\asym R^{-d}\); the contribution is \(O(R^4)\), which is lower order because \(d\ge2\).
+
+On \(D_1\), the contribution is comparable to
+\[
+R^{d+3}\int_{D_1}\frac{d}{|x|}\,dx.
+\]
+Since \(d\ge2\),
+\[
+\int_{d/R<|x|<1}\frac{dx}{|x|}
+=
+|S^{d-1}|\int_{d/R}^1 r^{d-2}\,dr
+\asym1.
+\]
+Thus the outer contribution is \(\asym R^{d+3}\). The lower bound also follows directly by restricting to \(1/2\le|x|\le1\), where \(\rho\) is bounded below. Hence
+\[
+S_D(R)\asym R^{d+3}.
+\]
+\end{proof}
+
+This variance order matches the frozen-model order. It supports the candidate exponent \(2\alpha/(2\alpha+d+3)\) for the original linearized operator, but by itself it is neither an estimator upper bound nor a lower-bound construction for the full variable-coefficient nonlinear problem.
+
+\section{Critical-point two-point lower bound}
+\label{sec:critical}
+
+At the origin, \(\nabla u_1(0)=0\), and the linearized operator degenerates further. We prove a rigorous two-point Le Cam lower bound based on origin-localized radial bumps.
+
+Fix a nonzero radial \(\psi\in C_c^\infty(B(0,1))\) with \(\psi\ge0\) and \(\norm{\psi}_{L^2}=1\). For \(a>0\) and \(0<\varepsilon<1/2\), define
+\[
+h_{\varepsilon,a}(x)=a\psi(x/\varepsilon).
+\]
+
+% RECORDS: 756
+\begin{lemma}[Degree-two gain at the critical point]
+\label{lem:critical-gain}
+Let \(A=A_1\). For radial \(\psi\) as above,
+\[
+\norm{A h_{\varepsilon,a}}_{L^2(D)}
+=
+a\varepsilon^{2+d/2}\bigl(C_\psi+o(1)\bigr)
+\]
+as \(\varepsilon\downarrow0\), where \(C_\psi\in(0,\infty)\) depends only on \(\psi\). Moreover,
+\[
+\norm{\nabla A h_{\varepsilon,a}}_{L^2(D)}
+\le
+C_\psi' a\varepsilon^{1+d/2}.
+\]
+\end{lemma}
+\begin{proof}
+Set \(y=x/\varepsilon\). Then
+\[
+h_{\varepsilon,a}(x)+\frac{x}{d}\cdot\nabla h_{\varepsilon,a}(x)
+=
+a\left(
+\psi(y)+\frac{y\cdot\nabla\psi(y)}{d}
+\right)
+=:aS(y).
+\]
+But
+\[
+S(y)=\frac1d\divg_y(y\psi(y)).
+\]
+Let \(\widehat w\) solve on \(\R^d\)
+\[
+-\Delta_y\widehat w=S,
+\]
+with decay at infinity. Since \(\psi\) is radial, \(S\) is radial, compactly supported in \(B(0,1)\), and has mean zero:
+\[
+\int_{\R^d}S(y)\,dy
+=
+\frac1d\int_{\R^d}\divg(y\psi)\,dy
+=
+0.
+\]
+For \(|y|>1\), the radial solution satisfies
+\[
+\widehat w'(r)
+=
+-r^{1-d}\int_0^r s^{d-1}S(s)\,ds.
+\]
+For \(r\ge1\), the integral is the total mass of \(S\), hence zero. Thus \(\widehat w'=0\) for \(r\ge1\), and decay forces \(\widehat w=0\) there. Therefore \(\widehat w\) is compactly supported in \(B(0,1)\).
+
+Define
+\[
+w(x)=a\varepsilon^2\widehat w(x/\varepsilon).
+\]
+Then
+\[
+\Delta_x w
+=
+a\Delta_y\widehat w(y)
+=
+-aS(y),
+\]
+so \(w\) solves the Dirichlet problem for \(Ah_{\varepsilon,a}\), because its support lies in \(B(0,\varepsilon)\subset D\). Hence
+\[
+\norm{Ah_{\varepsilon,a}}_2^2
+=
+a^2\varepsilon^4
+\int_D|\widehat w(x/\varepsilon)|^2\,dx
+=
+a^2\varepsilon^{4+d}\norm{\widehat w}_2^2.
+\]
+Set \(C_\psi=\norm{\widehat w}_2\). If \(\widehat w=0\), then \(S=0\), hence \(\divg(y\psi)=0\). For smooth compactly supported radial \(\psi\), this forces \(\psi=0\), contradicting the choice of \(\psi\). Thus \(C_\psi>0\).
+
+Finally,
+\[
+\nabla w(x)=a\varepsilon\nabla\widehat w(x/\varepsilon),
+\]
+so
+\[
+\norm{\nabla Ah_{\varepsilon,a}}_2
+=
+a\varepsilon^{1+d/2}\norm{\nabla\widehat w}_2,
+\]
+which gives the gradient bound.
+\end{proof}
+
+% RECORDS: 756
+\begin{lemma}[Nonlinear remainder near the critical point]
+\label{lem:critical-remainder}
+Let \(u_h=\Phi(1+h)\) with \(h=h_{\varepsilon,a}\) as above, and let \(w_1=Ah\). Assume \(a\) is small enough that \(1+h\ge1/2\). Then the remainder \(w_2=u_h-u_1-w_1\) satisfies
+\[
+\norm{w_2}_{L^2(D)}
+\le
+C a^2\varepsilon^{1+d/2}.
+\]
+Consequently, if \(a=c_0r\varepsilon^\alpha\) with \(\alpha>1\), then
+\[
+\frac{\norm{w_2}_{L^2}}{\norm{Ah}_{L^2}}
+\le
+C c_0r\,\varepsilon^{\alpha-1}\to0.
+\]
+\end{lemma}
+\begin{proof}
+Let \(w=u_h-u_1\). Since \(u_h\) solves \(\divg((1+h)\nabla u_h)=1\) and \(u_1\) solves \(\Delta u_1=1\),
+\[
+\divg((1+h)\nabla w)+\divg(h\nabla u_1)=0.
+\]
+Weakly,
+\[
+\int_D(1+h)\nabla w\cdot\nabla\varphi
+=
+-\int_D h\nabla u_1\cdot\nabla\varphi.
+\]
+The linear part \(w_1=Ah\) satisfies
+\[
+\int_D\nabla w_1\cdot\nabla\varphi
+=
+-\int_D h\nabla u_1\cdot\nabla\varphi.
+\]
+Subtracting, \(w_2=w-w_1\) satisfies
+\[
+\int_D(1+h)\nabla w_2\cdot\nabla\varphi
+=
+-\int_D h\nabla w_1\cdot\nabla\varphi.
+\]
+Testing with \(\varphi=w_2\) and using \(1+h\ge1/2\) gives
+\[
+\norm{\nabla w_2}_2
+\le
+C\norm{h\nabla w_1}_2
+\le
+C\norm{h}_\infty\norm{\nabla w_1}_2.
+\]
+By Lemma~\ref{lem:critical-gain},
+\[
+\norm{\nabla w_1}_2
+\le
+C a\varepsilon^{1+d/2},
+\]
+and \(\norm{h}_\infty\le a\). Therefore
+\[
+\norm{\nabla w_2}_2
+\le
+C a^2\varepsilon^{1+d/2}.
+\]
+Poincar\'e's inequality gives the \(L^2\) bound.
+
+By Lemma~\ref{lem:critical-gain},
+\[
+\norm{Ah}_2\asym a\varepsilon^{2+d/2}.
+\]
+Hence
+\[
+\frac{\norm{w_2}_2}{\norm{Ah}_2}
+\le
+C a\varepsilon^{-1}
+=
+C c_0r\varepsilon^{\alpha-1},
+\]
+which tends to zero for \(\alpha>1\).
+\end{proof}
+
+% RECORDS: 756
+\begin{lemma}[Two-point Le Cam bound]
+\label{lem:lecam}
+Let \(P_0,P_1\) be probability measures with \(\KL(P_0\|P_1)\le\kappa\le1/8\). Let \(f_0,f_1\) be two parameters with separation \(\Delta=\norm{f_1-f_0}^2\). Then
+\[
+\inf_{\widehat f}\max_{i=0,1}\E_i\norm{\widehat f-f_i}^2
+\ge
+\frac{\Delta}{16}.
+\]
+\end{lemma}
+\begin{proof}
+For any estimator \(\widehat f\), define a test by choosing the closer parameter:
+\[
+\varphi=
+\begin{cases}
+0, & \norm{\widehat f-f_0}\le\norm{\widehat f-f_1},\\
+1, & \text{otherwise}.
+\end{cases}
+\]
+If \(f_0\) is true and \(\varphi=1\), then by the triangle inequality,
+\[
+\sqrt{\Delta}
+\le
+\norm{\widehat f-f_0}+\norm{\widehat f-f_1}
+\le
+2\norm{\widehat f-f_0},
+\]
+so \(\norm{\widehat f-f_0}^2\ge\Delta/4\). Similarly under \(f_1\), if \(\varphi=0\), then \(\norm{\widehat f-f_1}^2\ge\Delta/4\). Therefore
+\[
+\max_i\E_i\norm{\widehat f-f_i}^2
+\ge
+\frac{\Delta}{8}\bigl(1-\TV(P_0,P_1)\bigr).
+\]
+Pinsker's inequality \cite{Tsybakov} gives
+\[
+\TV(P_0,P_1)\le\sqrt{\kappa/2}\le\frac12,
+\]
+and the claim follows.
+\end{proof}
+
+% RECORDS: 756
+\begin{theorem}[Critical-point lower bound for the original problem]
+\label{thm:critical-lower}
+Let \(d\ge2\), \(\alpha>1\), and fix \(r\in(0,1)\). There exists \(c>0\) such that for all large \(n\),
+\[
+\inf_{\widehat f_n}\sup_{f\in\mathcal F(\alpha,r)}
+\E_f\norm{\widehat f_n-f}_{L^2(D)}^2
+\ge
+c\,n^{-\frac{2\alpha+d}{2\alpha+d+4}}.
+\]
+\end{theorem}
+\begin{proof}
+Let
+\[
+q=2\alpha+d+4.
+\]
+Choose \(c_0>0\) small enough that
+\[
+c_0\norm{\psi}_{C^\alpha}\le \frac14,
+\qquad
+c_0\norm{\psi}_\infty\le \frac14.
+\]
+Define
+\[
+\varepsilon_n=(c_1nr^2)^{-1/q}
+\]
+with \(c_1>0\) large, and set
+\[
+a_n=c_0r\varepsilon_n^\alpha,
+\qquad
+f_1=1+a_n\psi(\cdot/\varepsilon_n),
+\qquad
+f_0=1.
+\]
+By the standard scaling of H\"older--Zygmund norms,
+\[
+\norm{f_1-1}_{C^\alpha}
+\le
+C c_0r
+\le r
+\]
+for \(c_0\) small, so \(f_1\in\mathcal F(\alpha,r)\). Also \(f_0\in\mathcal F(\alpha,r)\), and \(f_1\ge1\) because \(\psi\ge0\).
+
+By Lemma~\ref{lem:critical-gain} and Lemma~\ref{lem:critical-remainder}, for large \(n\),
+\[
+\norm{u_{f_1}-u_{f_0}}_{L^2}
+\asym
+a_n\varepsilon_n^{2+d/2}
+=
+c_0r\varepsilon_n^{\alpha+2+d/2}.
+\]
+Thus
+\[
+\norm{u_{f_1}-u_{f_0}}_2^2
+\asym
+r^2\varepsilon_n^{2\alpha+d+4}.
+\]
+By Lemma~\ref{lem:white-kl}, the KL divergence between the white-noise laws is
+\[
+\KL(P_0\|P_1)
+=
+\frac n2\norm{u_{f_1}-u_{f_0}}_2^2
+\asym
+nr^2\varepsilon_n^{2\alpha+d+4}.
+\]
+By the choice of \(\varepsilon_n\), this is bounded by a universal constant; choosing \(c_1\) large makes it at most \(1/8\).
+
+The parameter separation is
+\[
+\norm{f_1-f_0}_2^2
+=
+a_n^2\varepsilon_n^d\norm{\psi}_2^2
+=
+c_0^2r^2\varepsilon_n^{2\alpha+d}.
+\]
+Substituting \(\varepsilon_n=(c_1nr^2)^{-1/q}\) gives
+\[
+\norm{f_1-f_0}_2^2
+\asym
+r^2(nr^2)^{-\frac{2\alpha+d}{2\alpha+d+4}}.
+\]
+For fixed \(r\), this is comparable to
+\[
+n^{-\frac{2\alpha+d}{2\alpha+d+4}}.
+\]
+Lemma~\ref{lem:lecam} yields the lower bound.
+\end{proof}
+
+% RECORDS: 756,199
+\begin{proposition}[Comparison of exponents]
+\label{prop:exponent-comparison}
+For \(d\ge2\) and \(\alpha>0\), define
+\[
+e_{\mathrm{crit}}=\frac{2\alpha+d}{2\alpha+d+4},
+\qquad
+e_{\mathrm{tan}}=\frac{2\alpha}{2\alpha+d+3},
+\qquad
+e_{\mathrm{cand}}=\frac{2\alpha}{2\alpha+d+2}.
+\]
+Then
+\[
+e_{\mathrm{tan}}<e_{\mathrm{cand}}<e_{\mathrm{crit}}.
+\]
+Thus the critical-point lower bound is strictly weaker than the frozen/tangential exponent, and the frozen exponent is strictly worse than the naive degree-one candidate.
+\end{proposition}
+\begin{proof}
+First,
+\[
+e_{\mathrm{cand}}>e_{\mathrm{tan}}
+\]
+is immediate because \(2\alpha+d+2<2\alpha+d+3\).
+
+Next, with \(A=2\alpha+d\),
+\[
+e_{\mathrm{crit}}-e_{\mathrm{tan}}
+=
+\frac{A}{A+4}-\frac{2\alpha}{A+3}
+=
+\frac{A(A+3)-2\alpha(A+4)}{(A+4)(A+3)}.
+\]
+The numerator is
+\[
+(2\alpha+d)(2\alpha+d+3)-2\alpha(2\alpha+d+4)
+=
+2\alpha(d-1)+d(d+3)>0
+\]
+for \(d\ge2\).
+
+Finally,
+\[
+e_{\mathrm{crit}}-e_{\mathrm{cand}}
+=
+\frac{A}{A+4}-\frac{2\alpha}{A+2}
+=
+\frac{A(A+2)-2\alpha(A+4)}{(A+4)(A+2)}.
+\]
+The numerator is
+\[
+(2\alpha+d)(2\alpha+d+2)-2\alpha(2\alpha+d+4)
+=
+2\alpha(d-2)+d(d+2)>0
+\]
+for \(d\ge2\). This proves the ordering.
+\end{proof}
+
+\section{Open points and omitted material}
+\label{sec:open}
+
+The original minimax rate over \(\mathcal F(\alpha,r)\) remains open. The certified results above identify the candidate exponent
+\[
+\frac{2\alpha}{2\alpha+d+3}
+\]
+from the frozen linearized model and give supporting phase-space variance for the variable-coefficient linearization, but they do not prove the full variable-coefficient nonlinear minimax theorem. The missing ingredients include:
+\begin{enumerate}[label=(\arabic*)]
+\item a variable-coefficient upper bound achieving the candidate exponent, using a sieve or spectral estimator together with the moving-anchor stability of Theorem~\ref{thm:moving-anchor};
+\item a matching lower bound for the original problem using tangential needlets with vanishing moments and a \(C^\alpha\)-admissible taper away from the origin;
+\item rigorous transfer from the frozen periodic multiplier model to the Dirichlet ball operator, including boundary effects and spatial localization;
+\item extension beyond the critical-point two-point lower bound of Theorem~\ref{thm:critical-lower}.
+\end{enumerate}
+The frozen exponent is certified up to logarithmic factors; the periodic wavelet construction gives a sharper constant-order statement only for the frozen surrogate. A Bayesian posterior-contraction direction, numerical smoothing checks, and schema/connectivity probes are omitted as unrelated to the certified core.
+
+\begin{thebibliography}{99}
+
+\bibitem{Evans}
+L.~C.~Evans,
+\emph{Partial Differential Equations}, 2nd ed.,
+American Mathematical Society, Providence, RI, 2010.
+
+\bibitem{Triebel}
+H.~Triebel,
+\emph{Theory of Function Spaces},
+Birkh\"auser, Basel, 1983.
+
+\bibitem{Meyer}
+Y.~Meyer,
+\emph{Wavelets and Operators},
+Cambridge University Press, Cambridge, 1992.
+
+\bibitem{Daubechies}
+I.~Daubechies,
+\emph{Ten Lectures on Wavelets},
+SIAM, Philadelphia, 1992.
+
+\bibitem{Tsybakov}
+A.~B.~Tsybakov,
+\emph{Introduction to Nonparametric Estimation},
+Springer, New York, 2009.
+
+\end{thebibliography}
+
+\end{document}

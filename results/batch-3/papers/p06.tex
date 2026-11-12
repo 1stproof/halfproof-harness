@@ -1,0 +1,665 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\HFhat}{\widehat{HF}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Int}{int}
+\newcommand{\R}{\mathbb R}
+\newcommand{\zed}{\mathbb Z}
+
+\title{Prime summands of Dehn surgeries on L-space knots:\\
+scoping, conditional bounds, sharpness, and residual cases}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We examine the question: does a 3-manifold obtained by Dehn surgery on an L-space knot have at most two prime summands?  The question is ambiguous unless the ambient manifold and the convention for ``L-space knot'' are fixed.  We separate three readings: knots in \(S^3\), local knots in reducible ambients, and knots in prime L-space ambients other than \(S^3\).  For the standard reading of knots in \(S^3\), we prove, assuming the Cabling Conjecture, that every surgery has at most two prime summands, and we show that the bound two is sharp by explicit L-space cable knots.  We also record the best known unconditional upper bound three and isolate the residual hyperbolic case: a positive non-cable hyperbolic L-space knot with a reducing surgery would have reducing slope \(2g(K)-1\); this slope cannot be a prime power; the smallest possible positive slope is \(15\); and the smallest possible three-summand configuration forces bridge number at least \(7\).  For the ambient prime L-space reading, we prove a conditional negative answer using the Poincaré homology sphere and Caudell's announced surgery from a regular Seifert fiber to a connected sum of three lens spaces, with the dependence on the abstract-only source stated explicitly.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+The original question is:
+\[
+\text{Does a 3-manifold obtained by Dehn surgery on an L-space knot have at most two prime summands?}
+\]
+As written, it does not specify the ambient 3-manifold.  In the literature, an ``L-space knot'' most often means a knot in \(S^3\) admitting a nontrivial L-space surgery.  But one can also allow knots in more general ambient L-spaces, or even local knots in reducible manifolds.  These readings have different answers.
+
+We distinguish the following readings.
+\begin{itemize}
+  \item \textbf{Reading A.} \(K\subset S^3\) is an L-space knot in the standard sense: some nontrivial surgery on \(K\) is an L-space.
+  \item \textbf{Reading B.} \(K\) is a local knot in an arbitrary, possibly reducible, ambient 3-manifold.  If one still wants the ambient to be an L-space, one may take a reducible connected sum of lens spaces.
+  \item \textbf{Reading C.} \(K\) lies in a prime L-space ambient manifold other than \(S^3\), and ``L-space knot'' means that some nontrivial surgery on \(K\) is again an L-space.
+\end{itemize}
+
+Our main conclusions are as follows.
+\begin{enumerate}
+  \item Reading B is trivially negative: local surgery inside a ball in a connected sum of arbitrarily many prime manifolds produces arbitrarily many prime summands, even when the ambient is a reducible L-space.
+  \item For Reading A, assuming the Cabling Conjecture, every Dehn surgery on a knot in \(S^3\) has at most two prime summands; the bound is sharp.  (The zero-surgery is covered trivially by Gabai's Property~R.)
+  \item Unconditionally for Reading A, the best known general upper bound is three prime summands.  A hypothetical three-summand surgery is highly rigid.  In the residual positive non-cable hyperbolic L-space case, the reducing slope cannot be a prime power; the smallest possible positive slope is \(15\), and the smallest possible three-summand configuration forces bridge number at least \(7\).
+  \item For Reading C, assuming Caudell's announced theorem as stated in the abstract of arXiv:2101.01256v1, there is an ambient L-space knot with a surgery yielding exactly three prime summands.  Thus Reading C is conditionally negative.
+\end{enumerate}
+
+We use the following slope convention throughout.  A rational surgery slope is written \(p/q\) with \(\gcd(p,q)=1\).  For Dehn surgery on a null-homologous knot in an integer homology sphere, the order of the first homology of the filled manifold equals \(|p|\) (Lemma~\ref{lem:h1-surgery}).  This convention forces the companion slope in the standard cable-surgery splitting to take the form \(q/p\); the precise formula is given in Lemma~\ref{lem:cable-splitting}.
+The paper is organized as follows.  Section~\ref{sec:prelim} fixes notation and records elementary Floer-theoretic and homological facts used throughout.  Section~\ref{sec:readingB} disposes of Reading B.  Section~\ref{sec:readingA} proves the conditional two-summand theorem for knots in \(S^3\); the zero surgery is treated unconditionally.  Section~\ref{sec:sharpness} gives sharp examples and unconditional two-summand families.  Section~\ref{sec:unconditional} records the unconditional upper bound three.  Section~\ref{sec:residual} isolates and constrains the residual hyperbolic case.  Section~\ref{sec:readingC} treats the ambient Poincaré-sphere example.  Section~\ref{sec:open} lists open points.
+
+\section{Preliminaries}
+\label{sec:prelim}
+
+All manifolds are closed, connected, and orientable.  If \(Y\) is a closed 3-manifold, its Kneser--Milnor prime decomposition is unique up to order.  We count only non-\(S^3\) prime factors; \(S^3\) summands are ignored.  An irreducible rational homology sphere is prime; indeed, a nontrivial connected sum decomposition would contain an essential separating sphere.
+
+An \emph{L-space} is a rational homology sphere \(Y\) such that
+\[
+\rank_{\F}\HFhat(Y;\F)=|H_1(Y;\Z)|
+\]
+for some, hence any, field \(\F\).  Lens spaces are the basic examples \cite{OSz}.
+
+For a knot \(K\subset S^3\), we write \(S^3_r(K)\) for Dehn surgery with rational slope \(r=p/q\), where \(p,q\) are coprime integers.  The slope is \emph{nonzero} if \(p\neq 0\).  For an integer homology sphere ambient \(Y\) and a null-homologous knot \(K\subset Y\), the notation \(Y_r(K)\) is defined analogously, using the preferred longitude.
+
+Unless otherwise indicated, all surgery slopes in finite-homology statements have nonzero numerator.  These are precisely the surgeries which, from an integer homology sphere ambient, produce rational homology spheres.  The zero slope is irrelevant for L-space targets but will be treated separately.
+The Seifert genus is denoted \(g(K)\), and the bridge number is denoted \(b(K)\).
+
+% RECORDS: 561,568,895
+\begin{lemma}\label{lem:h1-surgery}
+Let \(Y\) be an integer homology sphere and let \(K\subset Y\) be a null-homologous knot.  For a surgery slope \(r=p/q\) with \(\gcd(p,q)=1\) and \(p\neq 0\),
+\[
+H_1(Y_{p/q}(K);\Z)\cong \Z/|p|\Z.
+\]
+In particular, for a knot \(K\subset S^3\) and \(p\neq 0\),
+\[
+H_1(S^3_{p/q}(K);\Z)\cong \Z/|p|\Z.
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(X=Y\setminus N(K)\) be the knot exterior.  Since \(Y\) is an integer homology sphere and \(K\) is null-homologous, \(H_1(X;\Z)\cong \Z\), generated by a meridian \(\mu\).  The preferred longitude \(\lambda\) is null-homologous in \(X\).  Dehn filling along the slope \(p\mu+q\lambda\) imposes the relation \(p\mu+q\lambda=0\), but \(\lambda=0\) in \(H_1(X;\Z)\).  Hence the filled manifold has first homology \(\Z/\langle p\rangle\cong \Z/|p|\Z\).
+\end{proof}
+
+We use the following standard Heegaard Floer facts; see Ozsváth--Szabó \cite{OSz,OSzProp}.
+
+% RECORDS: 568,571,895
+\begin{lemma}\label{lem:kunneth-lspace}
+Let \(Y_1\) and \(Y_2\) be rational homology spheres.  Then
+\[
+\HFhat(Y_1\# Y_2;\F)\cong \HFhat(Y_1;\F)\otimes_{\F}\HFhat(Y_2;\F).
+\]
+Consequently:
+\begin{enumerate}
+  \item if \(Y_1\) and \(Y_2\) are L-spaces, then \(Y_1\# Y_2\) is an L-space;
+  \item if \(Y_1\# Y_2\) is an L-space, then both \(Y_1\) and \(Y_2\) are L-spaces.
+\end{enumerate}
+The same statements hold for finite connected sums by induction.
+\end{lemma}
+
+\begin{proof}
+The Künneth formula for connected sums is proved in Ozsváth--Szabó's properties paper \cite{OSzProp}.  It gives
+\[
+\rank_{\F}\HFhat(Y_1\#Y_2)=
+\rank_{\F}\HFhat(Y_1)\cdot \rank_{\F}\HFhat(Y_2).
+\]
+Also
+\[
+|H_1(Y_1\#Y_2;\Z)|=
+|H_1(Y_1;\Z)|\cdot |H_1(Y_2;\Z)|.
+\]
+For every rational homology sphere \(Y\), one has \(\rank_{\F}\HFhat(Y)\ge |H_1(Y;\Z)|\), with equality precisely for L-spaces.  Thus if the product is an L-space, equality in the product forces equality for each factor.  Conversely, equality for each factor gives equality for the product.
+\end{proof}
+
+% RECORDS: 568,895
+\begin{lemma}\label{lem:lens-prime}
+If \(|p|\ge 2\), then the lens space \(L(p,q)\) is prime and is not homeomorphic to \(S^3\).  Hence a connected sum
+\[
+L(p_1,q_1)\#\cdots\# L(p_m,q_m),
+\qquad |p_i|\ge 2,
+\]
+has exactly \(m\) non-\(S^3\) prime summands.
+\end{lemma}
+
+\begin{proof}
+Lens spaces are irreducible; see for example Hatcher \cite{Hatcher}.  Since they have finite first homology of order at least \(2\), they are not \(S^2\times S^1\).  An irreducible closed orientable manifold other than \(S^2\times S^1\) is prime.  Uniqueness of the prime decomposition then gives the count.
+\end{proof}
+
+% RECORDS: 407,442,561,571
+\begin{lemma}\label{lem:gordon-luecke}
+(Gordon--Luecke.)  Let \(K\subset S^3\) be a nontrivial knot.  If a Dehn surgery on \(K\) is reducible, then the surgery slope is integral, and the surgered manifold contains a nontrivial lens-space summand.
+\end{lemma}
+
+\begin{proof}
+The integral slope result is due to Gordon and Luecke \cite{GLIntegral}.  The existence of a lens-space summand in a reducible surgery on a nontrivial knot in \(S^3\) is proved in Gordon and Luecke \cite{GLReducible}.  ``Nontrivial lens-space summand'' means a lens space \(L(p,q)\) with \(|p|\ge 2\).  Both hypotheses (nontrivial knot, reducible surgery) are used when the lemma is applied.
+\end{proof}
+
+\section{Reading B: local knots in reducible ambients}
+\label{sec:readingB}
+
+% RECORDS: 426
+\begin{proposition}\label{prop:readingB}
+If local knots in arbitrary reducible ambient manifolds are allowed, then there is no bound on the number of prime summands of a surgery.  This remains true even if the ambient is required to be an L-space, provided reducible L-space ambients are allowed.  In this broad reading, the local right-handed trefoil used below is an L-space knot because its \(+5\)-surgery target in \(Y_n\) is \(Y_n\# L(5,4)\), which is an L-space by Lemma~\ref{lem:kunneth-lspace}.
+\end{proposition}
+
+\begin{proof}
+For each \(n\ge 1\), let
+\[
+Y_n=\underbrace{L(2,1)\#\cdots\# L(2,1)}_{n\text{ copies}}.
+\]
+Lens spaces are L-spaces, and by Lemma~\ref{lem:kunneth-lspace}, \(Y_n\) is an L-space.  Let \(K\subset Y_n\) be a right-handed trefoil contained in a 3-ball in \(Y_n\).  The \(+5\)-surgery on the right-handed trefoil in \(S^3\) is the lens space \(L(5,4)\) (see e.g.\ Hedden \cite[Section 1]{Hedden}).  Because \(K\) is local, surgery on \(K\) gives
+\[
+(Y_n)_5(K)\cong Y_n\# L(5,4).
+\]
+By Lemma~\ref{lem:lens-prime}, this manifold has exactly \(n+1\) non-\(S^3\) prime summands.  Since \(n\) is arbitrary, no universal bound exists.
+\end{proof}
+
+\section{Reading A: knots in \(S^3\) and the conditional two-summand theorem}
+\label{sec:readingA}
+
+We use the Cabling Conjecture of González-Acuña--Short \cite{GAS}, in the following form.
+
+\begin{quote}
+\textbf{Cabling Conjecture.} Let \(K\subset S^3\) be a nontrivial knot.  If a Dehn surgery on \(K\) is reducible, then \(K\) is a proper cable knot and the surgery slope is the cabling slope.  More explicitly, \(K\) may be written as a proper \((p,q)\)-cable \(C_{p,q}(K')\) with \(p\ge 2\), \(\gcd(p,q)=1\), and the reducing slope is the integer \(pq\).  If \(K'=U\) (the unknot) then the cable is a torus knot; in that case \(|q|>1\) is required to keep \(K\) nontrivial.
+\end{quote}
+
+We adopt the following cable convention.  For a nontrivial knot \(K'\subset S^3\), the \((p,q)\)-cable \(C_{p,q}(K')\) is the satellite knot with pattern the \((p,q)\)-torus knot, winding number \(p\) and cabling slope \(pq\).  If \(K'=U\) is the unknot, then \(C_{p,q}(U)\) is the \((p,q)\)-torus knot.  With the slope convention of Lemma~\ref{lem:h1-surgery}, the companion filling slope in the splitting is \(q/p\); some sources write this slope as \(p/q\) after swapping the roles of \(p\) and \(q\).  The formula below is consistent with first-homology computations.
+
+% RECORDS: 407,442
+\begin{lemma}\label{lem:cable-splitting}
+(Howie.)  With the cable and slope conventions above,
+\[
+S^3_{pq}(C_{p,q}(K'))\cong S^3_{q/p}(K')\# L(p,q).
+\]
+\end{lemma}
+
+\begin{proof}
+This is the standard cable-surgery splitting; see Howie \cite{Howie}.  The hypotheses are that \(C_{p,q}(K')\) is a proper cable knot in \(S^3\) and that the surgery is performed along the cabling-annulus slope.  The choice of slope \(pq\) with numerator \(p\) in the lens factor and numerator \(q\) in the companion factor is forced by first homology: the left-hand side has first homology of order \(|pq|\), while \(L(p,q)\) has order \(|p|\), so the companion summand must have order \(|q|\).  Our convention that the companion slope is \(q/p\) yields \(|q|\) for the numerator of that slope, matching Lemma~\ref{lem:h1-surgery}.
+\end{proof}
+
+% RECORDS: 407
+\begin{theorem}\label{thm:conditional-two}
+Assume the Cabling Conjecture.  Let \(K\subset S^3\) be any knot.  For every rational slope \(r=a/b\) with \(a\neq 0\), the manifold \(S^3_r(K)\) has at most two non-\(S^3\) prime summands.  (In particular the statement holds for L-space knots.)  Moreover, if \(S^3_r(K)\) is reducible, then \(K\) is a proper cable knot, \(r\) is the cabling slope, and the surgery has exactly two non-\(S^3\) prime summands.
+\end{theorem}
+
+\begin{proof}
+If \(K\) is the unknot, then nonzero surgery gives a lens space when \(|a|\ge 2\), or \(S^3\) when \(|a|=1\); hence there is at most one non-\(S^3\) prime summand.  Assume henceforth that \(K\) is nontrivial.
+
+Suppose first that \(S^3_r(K)\) is irreducible.  Since \(a\neq 0\), Lemma~\ref{lem:h1-surgery} gives finite first homology, so the manifold is a rational homology sphere.  An irreducible rational homology sphere is prime, so there is at most one non-\(S^3\) prime summand.
+
+Now suppose \(S^3_r(K)\) is reducible.  By the Cabling Conjecture, \(K\) is a proper cable knot.  Write \(K=C_{p,q}(K')\) with \(p\ge 2\), \(\gcd(p,q)=1\); if \(K'\) is the unknot we also have \(|q|>1\).  The reducing slope is \(pq\), and by Lemma~\ref{lem:cable-splitting},
+\[
+S^3_{pq}(C_{p,q}(K'))\cong S^3_{q/p}(K')\# L(p,q).
+\]
+The lens-space summand \(L(p,q)\) is prime by Lemma~\ref{lem:lens-prime}.  We now examine the companion summand \(S^3_{q/p}(K')\).
+
+If \(K'\) is the unknot, then \(C_{p,q}(U)\) is the \((p,q)\)-torus knot, and \(S^3_{q/p}(U)\) is the lens space \(L(q,p)\).  Because \(|q|>1\) in this case, \(L(q,p)\) is a nontrivial lens space, and by Lemma~\ref{lem:lens-prime} it is prime and not \(S^3\).  Hence the surgery has exactly two non-\(S^3\) prime summands, \(L(p,q)\) and \(L(q,p)\).
+
+If \(K'\) is nontrivial, then the companion slope \(q/p\) is nonintegral (because \(p\ge 2\) and \(\gcd(p,q)=1\)).  By Lemma~\ref{lem:gordon-luecke}, any reducible surgery on a nontrivial knot in \(S^3\) has integral slope; therefore \(S^3_{q/p}(K')\) is irreducible.  Because \(q\neq 0\), Lemma~\ref{lem:h1-surgery} gives finite first homology, so this summand is not \(S^2\times S^1\); thus it is prime.  Moreover, it cannot be homeomorphic to \(S^3\): if it were, then the whole surgery would be
+\[
+S^3\# L(p,q)\cong L(p,q),
+\]
+which is irreducible, contradicting the reducibility of the original surgery.  Hence \(S^3_{q/p}(K')\) is a nontrivial prime summand.  In this case the surgery again has exactly two non-\(S^3\) prime summands.
+\end{proof}
+
+\begin{remark}
+The zero surgery is treated unconditionally.  For a nontrivial knot \(K\), Gabai's Property~R \cite{Gabai} (or the later Heegaard Floer proof) shows that \(S^3_0(K)\) is irreducible, hence prime, giving at most one non-\(S^3\) prime summand.  For the unknot, \(S^3_0(U)\cong S^1\times S^2\), which is prime and has no lens-space summands.  Thus the bound at most two prime summands holds for every Dehn surgery on a knot in \(S^3\), including slope zero.  % Records 426,407,1529
+\end{remark}
+
+\section{Sharpness and unconditional two-summand families}
+\label{sec:sharpness}
+
+The conditional bound two cannot be improved.
+
+% RECORDS: 442
+\begin{lemma}\label{lem:hedden-cabling}
+(Hedden.)  Let \(K_0\subset S^3\) be a knot admitting a lens-space surgery.  Let \(p\ge 2\), \(\gcd(p,q)=1\), and \(q\ge p(2g(K_0)-1)\), with \(q>0\).  Then the positive \((p,q)\)-cable \(C_{p,q}(K_0)\) is an L-space knot.
+\end{lemma}
+
+\begin{proof}
+This is Hedden's cabling theorem \cite[Theorem 1.10]{Hedden}.  The hypotheses used there are that the companion knot has an actual lens-space surgery and that the cable parameters are sufficiently positive in the stated sense.
+\end{proof}
+
+% RECORDS: 442
+\begin{proposition}\label{prop:cable-unconditional}
+If \(K\subset S^3\) is a cable knot, then every reducible nonzero surgery on \(K\) has exactly two non-\(S^3\) prime summands: a lens space and an irreducible rational homology sphere.
+\end{proposition}
+
+\begin{proof}
+This is proved by Meier \cite{Meier} and also by Zufelt \cite{Zufelt}.  Their results show that a reducible surgery on a cable knot splits as a lens space connected sum with an irreducible rational homology sphere.  Since the surgery is reducible, the irreducible summand cannot be \(S^3\); otherwise the manifold would be a lens space and hence irreducible.  Thus there are exactly two non-\(S^3\) prime summands.
+\end{proof}
+
+% RECORDS: 442
+\begin{theorem}\label{thm:sharp-two}
+Let \(T\) be the right-handed trefoil.  For every pair of coprime integers \(p,q\) with \(p\ge 2\) and \(q>p\), the positive \((p,q)\)-cable \(C_{p,q}(T)\) is an L-space knot, and
+\[
+S^3_{pq}(C_{p,q}(T))
+\]
+has exactly two non-\(S^3\) prime summands.  Thus the conditional two-summand bound is sharp within the class of L-space knots in \(S^3\).
+\end{theorem}
+
+\begin{proof}
+The right-handed trefoil has genus \(1\) and admits a lens-space surgery; for example \(+5\)-surgery gives \(L(5,4)\) (see Hedden \cite[Section 1]{Hedden}).  By Lemma~\ref{lem:hedden-cabling}, with \(g(T)=1\), the cable \(C_{p,q}(T)\) is an L-space knot whenever \(q\ge p\).  Since \(\gcd(p,q)=1\) and \(p\ge 2\), the condition \(q>p\) is sufficient.
+
+By Lemma~\ref{lem:cable-splitting},
+\[
+S^3_{pq}(C_{p,q}(T))
+\cong
+S^3_{q/p}(T)\# L(p,q).
+\]
+The lens space \(L(p,q)\) is prime by Lemma~\ref{lem:lens-prime}.  Since \(p\ge 2\), the slope \(q/p\) is nonintegral; by Lemma~\ref{lem:gordon-luecke}, \(S^3_{q/p}(T)\) is irreducible.  Lemma~\ref{lem:h1-surgery} gives
+\[
+H_1(S^3_{q/p}(T);\Z)\cong \Z/|q|\Z.
+\]
+Because \(q>p\ge 2\), this summand has nontrivial first homology and is not \(S^3\).  Hence it is a nontrivial prime summand.  Therefore the surgery has exactly two non-\(S^3\) prime summands.
+\end{proof}
+
+% RECORDS: 441
+\begin{theorem}[Zufelt]\label{thm:positive-braid}
+If \(K\subset S^3\) is the closure of a positive braid, then every nonzero Dehn surgery on \(K\) produces at most two prime connected summands.
+\end{theorem}
+
+\begin{proof}
+This is Zufelt's Corollary 1.4 \cite{Zufelt}.  The proof combines the fact that hyperbolic positive knots have at most one possible reducing slope, namely \(2g(K)-1\), with bridge-number bounds for reducible surgeries.  The hypotheses match the statement: \(K\) is a positive braid closure in \(S^3\), and we restrict to nonzero surgeries.
+\end{proof}
+
+\section{Unconditional general upper bound three}
+\label{sec:unconditional}
+
+% RECORDS: 441
+\begin{theorem}[Howie]\label{thm:howie-three}
+Let \(K\subset S^3\) be a knot and let \(r=a/b\) be a slope with \(a\neq 0\).  Then \(S^3_r(K)\) has at most three non-\(S^3\) prime summands.  If there are exactly three prime summands, then the manifold has the form
+\[
+L(\ell_1,q_1)\# L(\ell_2,q_2)\# Y,
+\]
+where \(L(\ell_1,q_1)\) and \(L(\ell_2,q_2)\) are lens spaces whose fundamental-group orders \(\ell_1,\ell_2\) are coprime, and \(Y\) is an integer homology sphere.
+\end{theorem}
+
+\begin{proof}
+This is the theorem of Howie \cite{Howie}, combining earlier results of Sayari and Valdez Sánchez.  The structural description of a hypothetical three-summand splitting is part of the same result.  The hypotheses used here are exactly those of \cite{Howie}: a knot in \(S^3\) and a surgery producing a finite-first-homology manifold; the condition \(a\neq 0\) ensures the latter.
+\end{proof}
+
+\section{The residual hyperbolic case for Reading A}
+\label{sec:residual}
+
+Known cases of the Cabling Conjecture reduce the remaining Reading-A problem largely to hyperbolic knots; see the discussion in Hom--Lidman--Zufelt \cite{HLZ}.  For L-space knots the constraints of \cite{HLZ} are strong.
+
+A \emph{positive L-space knot} is a knot in \(S^3\) admitting a positive L-space surgery.  Mirroring changes the sign of all surgery slopes and reverses the orientation of the surgered manifolds, but it preserves genus, bridge number, and the number of prime summands.  Thus positive-slope statements for positive L-space knots imply absolute-value statements for arbitrary L-space knots.
+
+% RECORDS: 561
+\begin{lemma}\label{lem:lspace-fibered}
+If \(K\subset S^3\) is an L-space knot, then \(K\) is fibered.
+\end{lemma}
+
+\begin{proof}
+This follows from Ni's theorem that knot Floer homology detects fibered knots \cite{Ni}, together with the knot Floer homology constraints imposed by L-space surgeries \cite{OSzRat}.  The hypothesis is that \(K\) admits a nontrivial L-space surgery.
+\end{proof}
+
+% RECORDS: 561,571
+\begin{lemma}\label{lem:hlz-facts}
+(Hom--Lidman--Zufelt.)  Let \(K\subset S^3\) be a non-cable hyperbolic L-space knot.  If \(K\) admits a reducible surgery, then it admits at most one reducible surgery.  The absolute value of the reducing slope is \(2g(K)-1\); if \(K\) is a positive L-space knot, the reducing slope is \(+(2g(K)-1)\).
+\end{lemma}
+
+\begin{proof}
+This is Theorem 1.3 and Corollary 1.4 of Hom--Lidman--Zufelt \cite{HLZ}.  The hypotheses are precisely that \(K\) is a non-cable hyperbolic L-space knot and that a reducible surgery exists.  The sign convention stated here is the usual positive one; applying the result to the mirror gives the absolute-value form.
+\end{proof}
+
+% RECORDS: 571
+\begin{lemma}\label{lem:OSz-lspace-slope}
+(Ozsváth--Szabó rational surgery theorem.)  If \(K\subset S^3\) is a positive L-space knot and \(r\in\mathbb{Q}\) satisfies
+\[
+r\ge 2g(K)-1,
+\]
+then \(S^3_r(K)\) is an L-space.
+\end{lemma}
+
+\begin{proof}
+This is the rational surgery formula of Ozsváth--Szabó \cite{OSzRat}.  The hypotheses are that \(K\) is a positive L-space knot and that the surgery slope is at least the boundary slope \(2g(K)-1\).  We use the theorem only at the integer slope \(r=2g(K)-1\).
+\end{proof}
+
+% RECORDS: 561
+\begin{lemma}\label{lem:bodish-deyeso}
+(Bodish--DeYeso.)  Let \(K\subset S^3\) be a fibered knot and let \(r>0\) be an integer.  If
+\[
+S^3_r(K)\cong L(r,a)\# Z
+\]
+for some integer homology sphere \(Z\), then
+\[
+r\le g(K).
+\]
+\end{lemma}
+
+\begin{proof}
+This is Theorem 1.2 of Bodish--DeYeso \cite{BodishDeYeso}.  The hypotheses are exactly a fibered knot, a positive integer surgery slope \(r\), and a splitting in which the lens-space summand has the same order as the surgery slope and the remaining summand is an integer homology sphere.
+\end{proof}
+
+% RECORDS: 571
+\begin{lemma}\label{lem:howie-bridge}
+(Howie.)  Suppose a surgery on a knot \(K\subset S^3\) contains two lens-space summands whose fundamental groups have orders \(\ell_1\) and \(\ell_2\).  Then
+\[
+\ell_1+\ell_2\le b(K)+1.
+\]
+\end{lemma}
+
+\begin{proof}
+This is Theorem A of Howie \cite{Howie}.  It applies to a knot in \(S^3\) and a surgery manifold containing two lens-space summands with finite fundamental groups of orders \(\ell_1,\ell_2\).
+\end{proof}
+
+% RECORDS: 561
+\begin{theorem}\label{thm:no-prime-power}
+Let \(K\subset S^3\) be a positive non-cable hyperbolic L-space knot.  If \(K\) admits a reducing surgery, then the reducing slope is
+\[
+p=2g(K)-1,
+\]
+and \(p\) is not a prime power.  In particular, the smallest possible positive reducing slope is \(15\), and then \(g(K)=8\).  For an arbitrary non-cable hyperbolic L-space knot, the same conclusions hold for the absolute value of the reducing slope.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:hlz-facts}, the reducing slope is \(p=2g(K)-1\).
+
+First exclude \(g(K)=1\).  Then \(p=1\), and Lemma~\ref{lem:h1-surgery} gives
+\[
+H_1(S^3_1(K);\Z)=0.
+\]
+But a reducible surgery on a nontrivial knot in \(S^3\) contains a nontrivial lens-space summand by Lemma~\ref{lem:gordon-luecke}; such a summand has nontrivial first homology, contradicting \(H_1=0\).  Hence \(g(K)\ge 2\), so \(p=2g(K)-1>1\).
+
+Assume for contradiction that \(p\) is a prime power, say \(p=q^a\) with \(q\) prime.  Let
+\[
+Y=S^3_p(K).
+\]
+By Lemma~\ref{lem:h1-surgery},
+\[
+H_1(Y;\Z)\cong \Z/p\Z,
+\]
+which is cyclic of prime-power order.  Let
+\[
+Y\cong Y_1\#\cdots\#Y_m
+\]
+be its prime decomposition.  Since \(Y\) is reducible, \(m\ge 2\).  Because \(H_1(Y)\) is finite, each \(Y_i\) is a rational homology sphere, and
+\[
+H_1(Y;\Z)\cong \bigoplus_{i=1}^m H_1(Y_i;\Z).
+\]
+A finite direct sum of finite abelian groups is cyclic of prime-power order only if at most one summand has nontrivial homology: otherwise the mod-\(q\) vector space of elements killed by \(q\) would have dimension at least two.  Thus all but one of the \(Y_i\) are integer homology spheres.
+
+By Lemma~\ref{lem:gordon-luecke}, \(Y\) contains a nontrivial lens-space summand.  Since only one prime summand can have nontrivial first homology, that lens-space summand must have first homology of order \(p\).  Combining all remaining integer-homology-sphere summands into a single integer homology sphere \(Z\), we obtain
+\[
+S^3_p(K)\cong L(p,a)\# Z.
+\]
+
+By Lemma~\ref{lem:lspace-fibered}, \(K\) is fibered.  Lemma~\ref{lem:bodish-deyeso}, applied to the positive integer slope \(r=p\), gives
+\[
+p\le g(K).
+\]
+But \(p=2g(K)-1>g(K)\) for \(g(K)\ge 2\), a contradiction.
+
+Therefore \(p=2g(K)-1\) is not a prime power.  Since \(p\) is odd and greater than \(1\), the smallest odd integer that is not a prime power is \(15=3\cdot 5\).  Hence the smallest possible positive reducing slope is \(15\), giving \(g(K)=8\).
+
+For an arbitrary non-cable hyperbolic L-space knot, pass to the mirror if necessary.  Mirroring changes the sign of the reducing slope but preserves the number of prime summands, the genus, and the bridge number, so the same conclusion holds for the absolute value of the reducing slope.
+\end{proof}
+
+% RECORDS: 571,561
+\begin{theorem}\label{thm:residual-shape}
+Let \(K\subset S^3\) be a positive non-cable hyperbolic L-space knot, and suppose
+\[
+S^3_{2g(K)-1}(K)
+\]
+has exactly three non-\(S^3\) prime summands.  Then
+\[
+S^3_{2g(K)-1}(K)
+\cong
+L(\ell_1,q_1)\# L(\ell_2,q_2)\# Y,
+\]
+where:
+\begin{enumerate}
+  \item \(\ell_1,\ell_2>1\) are coprime odd integers;
+  \item \(\ell_1\ell_2=2g(K)-1\);
+  \item \(Y\) is an integer-homology-sphere L-space, not homeomorphic to \(S^3\).
+\end{enumerate}
+Moreover,
+\[
+b(K)\ge \ell_1+\ell_2-1.
+\]
+In the smallest possible case, \(\{\ell_1,\ell_2\}=\{3,5\}\), and therefore
+\[
+b(K)\ge 7.
+\]
+For an arbitrary non-cable hyperbolic L-space knot, the same shape statement holds for the orientation-reversed surgery on the mirror, with the absolute value of the reducing slope.
+\end{theorem}
+
+\begin{proof}
+Set
+\[
+p=2g(K)-1,\qquad Y_p=S^3_p(K).
+\]
+Because \(K\) is a positive L-space knot and \(p=2g(K)-1\), Lemma~\ref{lem:OSz-lspace-slope} implies that \(Y_p\) is an L-space.
+
+By Theorem~\ref{thm:howie-three}, a three-summand surgery on a knot in \(S^3\) must have the form
+\[
+Y_p\cong L(\ell_1,q_1)\# L(\ell_2,q_2)\# Z,
+\]
+where \(\ell_1\) and \(\ell_2\) are coprime and \(Z\) is an integer homology sphere.  Since \(Y_p\) is an L-space, Lemma~\ref{lem:kunneth-lspace} forces every prime summand to be an L-space.  In particular, \(Z\) is an integer-homology-sphere L-space.  Because the surgery has exactly three non-\(S^3\) prime summands, \(Z\not\cong S^3\).
+
+By Lemma~\ref{lem:h1-surgery},
+\[
+H_1(Y_p;\Z)\cong \Z/p\Z.
+\]
+But
+\[
+H_1(Y_p;\Z)\cong
+\Z/\ell_1\Z\oplus \Z/\ell_2\Z\oplus H_1(Z;\Z).
+\]
+Since \(Z\) is an integer homology sphere, this gives
+\[
+\Z/p\Z\cong \Z/\ell_1\Z\oplus \Z/\ell_2\Z.
+\]
+Because \(\ell_1\) and \(\ell_2\) are coprime, the right-hand side is cyclic of order \(\ell_1\ell_2\).  Thus
+\[
+\ell_1\ell_2=p=2g(K)-1.
+\]
+Since \(p\) is odd, both \(\ell_1\) and \(\ell_2\) are odd.
+
+Finally, Lemma~\ref{lem:howie-bridge} gives
+\[
+\ell_1+\ell_2\le b(K)+1,
+\]
+so
+\[
+b(K)\ge \ell_1+\ell_2-1.
+\]
+The smallest possible pair of coprime odd integers greater than \(1\) is \(3,5\).  In that case
+\[
+b(K)\ge 3+5-1=7.
+\]
+The statement for arbitrary non-cable hyperbolic L-space knots follows by mirroring, as in the proof of Theorem~\ref{thm:no-prime-power}.
+\end{proof}
+
+\section{Reading C: a conditional counterexample in the Poincaré homology sphere}
+\label{sec:readingC}
+
+We now allow the ambient manifold to be a prime L-space other than \(S^3\).  In this section, an \emph{ambient L-space knot} means a knot \(K\) in a prime L-space \(Y\) such that some nontrivial Dehn surgery on \(K\) is an L-space.
+
+% RECORDS: 568
+\begin{proposition}\label{prop:poincare-lspace}
+The Poincaré homology sphere
+\[
+\Sigma=\Sigma(2,3,5)
+\]
+is a prime integer homology sphere and an L-space.
+\end{proposition}
+
+\begin{proof}
+The manifold \(\Sigma(2,3,5)\) is Seifert fibered over \(S^2\) with three exceptional fibers of multiplicities \(2,3,5\).  Its fundamental group is the binary icosahedral group \(I^*\), a finite group of order \(120\); see Hatcher \cite{Hatcher}.  A standard presentation is
+\[
+I^*=\langle x,y,z \mid x^2=y^3=z^5=xyz\rangle.
+\]
+In abelianization,
+\[
+2x=3y,\qquad 3y=5z,\qquad x-y-z=0.
+\]
+The coefficient matrix
+\[
+\begin{pmatrix}
+2 & -3 & 0\\
+0 & 3 & -5\\
+1 & -1 & -1
+\end{pmatrix}
+\]
+has determinant \(-1\), so the abelianization is trivial.  Hence
+\[
+H_1(\Sigma;\Z)=0,
+\]
+and \(\Sigma\) is an integer homology sphere.  As a Seifert fibered space with finite fundamental group, \(\Sigma\) is irreducible and therefore prime; since \(I^*\) is nontrivial, \(\Sigma\not\cong S^3\).
+
+To see that \(\Sigma\) is an L-space, we use a theorem of Ozsváth--Szabó \cite{OSz}: a closed rational homology sphere with finite fundamental group is an L-space.  Because \(I^*\) is finite, \(\Sigma\) satisfies the hypotheses, so \(\rank_{\F}\HFhat(\Sigma;\F)=|H_1(\Sigma;\Z)|=1\).
+\end{proof}
+
+The following external premise is used exactly as stated in the abstract of Caudell \cite{Caudell}; the full text has not been verified.
+
+\begin{quote}
+\textbf{Caudell's announced theorem (abstract-only).} A regular fiber of the Seifert fibering of the Poincaré homology sphere \(\Sigma(2,3,5)\) admits a Dehn surgery to
+\[
+L(2,1)\# L(3,2)\# L(5,4).
+\]
+\end{quote}
+
+% RECORDS: 895,568,426
+\begin{theorem}\label{thm:reading-c}
+Assume Caudell's announced theorem as stated above.  Let \(F\subset \Sigma(2,3,5)\) be a regular Seifert fiber.  Then \(F\) is an L-space knot in the ambient sense, and Caudell's surgery on \(F\) yields a 3-manifold with exactly three non-\(S^3\) prime summands.  Consequently, under Reading C, the answer to the original question is conditionally negative.
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+X=L(2,1)\# L(3,2)\# L(5,4).
+\]
+By Caudell's announced theorem, some Dehn surgery on \(F\) gives \(X\).
+The ambient manifold \(\Sigma(2,3,5)\) is a prime integer homology sphere by Proposition~\ref{prop:poincare-lspace}.  Its first homology is trivial.  The surgery target has
+\[
+H_1(X;\Z)\cong
+\Z/2\Z\oplus \Z/3\Z\oplus \Z/5\Z
+\cong \Z/30\Z.
+\]
+Thus the surgery changes first homology and is nontrivial.
+
+Each of \(L(2,1)\), \(L(3,2)\), and \(L(5,4)\) is a lens space with \(|p|\ge 2\), hence is prime by Lemma~\ref{lem:lens-prime}.  Therefore \(X\) has exactly three non-\(S^3\) prime summands.
+
+Lens spaces are L-spaces, and Lemma~\ref{lem:kunneth-lspace} shows that their connected sum is an L-space.  Explicitly,
+\[
+\rank_{\F}\HFhat(X;\F)=2\cdot 3\cdot 5=30,
+\]
+and
+\[
+|H_1(X;\Z)|=30.
+\]
+Therefore \(X\) is an L-space.
+
+Thus \(F\) has a nontrivial surgery yielding an L-space, so \(F\) is an ambient L-space knot.  That same surgery yields exactly three prime summands.  Hence, under Reading C and conditional on Caudell's announced theorem, the answer is no.
+\end{proof}
+
+\begin{remark}
+The dependence on Caudell's theorem is abstract-only.  No part of the full proof is used here, and the abstract does not specify the surgery slope.  Lemma~\ref{lem:h1-surgery} shows only that the numerator of any slope producing the stated target must have absolute value \(30\).
+\end{remark}
+
+\section{Open points}
+\label{sec:open}
+The following points remain open or depend on external verification.
+
+\begin{enumerate}
+  \item \textbf{The hyperbolic Cabling Conjecture case for L-space knots.} For knots in \(S^3\), the remaining obstruction to an unconditional two-summand theorem for L-space knots is the possibility of a positive non-cable hyperbolic L-space knot with a reducing surgery at slope \(2g(K)-1\).  Theorem~\ref{thm:no-prime-power} eliminates prime-power slopes and forces the smallest possible positive slope to be \(15\), but does not eliminate slope \(15\) or larger admissible slopes.
+
+  \item \textbf{The residual three-summand configuration.} Theorem~\ref{thm:residual-shape} describes the only possible three-summand shape and gives bridge-number lower bounds, but does not rule out its existence.  In the smallest case, one would need a positive non-cable hyperbolic L-space knot of genus \(8\), bridge number at least \(7\), and reducing slope \(15\).
+
+  \item \textbf{Reading C and Caudell's theorem.} The negative Reading-C answer is conditional on Caudell's announced theorem as stated in the abstract of arXiv:2101.01256v1.  Full verification of the theorem, the precise surgery slope, the exact maximum number of prime summands in prime L-space ambients, and the possible occurrence of non-lens prime summands remain open.
+
+  \item \textbf{Scope of the standard definition.} The standard definition of an L-space knot usually ranges over knots in \(S^3\).  If that convention is enforced, the Reading-C negative example lies outside the intended scope.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{GAS}
+F.~González-Acuña and W.~Short,
+\emph{Knot surgery and primeness},
+Math. Proc. Cambridge Philos. Soc. \textbf{99} (1986), 89--102.
+
+\bibitem{Howie}
+J.~Howie,
+\emph{Can Dehn surgery yield three connected summands?},
+arXiv:0908.2697.
+
+\bibitem{GLIntegral}
+C.~McA.~Gordon and J.~Luecke,
+\emph{Only integral Dehn surgeries can yield reducible manifolds},
+Math. Proc. Cambridge Philos. Soc. \textbf{102} (1987), 97--101.
+
+\bibitem{GLReducible}
+C.~McA.~Gordon and J.~Luecke,
+\emph{Reducible manifolds and Dehn surgery},
+Topology \textbf{35} (1996), 385--409.
+
+\bibitem{Hedden}
+M.~Hedden,
+\emph{On knot Floer homology and cabling II},
+arXiv:0806.2172.
+
+\bibitem{Meier}
+J.~Meier,
+arXiv:1507.04562.
+
+\bibitem{Zufelt}
+M.~Zufelt,
+arXiv:1410.3442.
+
+\bibitem{HLZ}
+J.~Hom, T.~Lidman, and M.~Zufelt,
+arXiv:1307.5317.
+
+\bibitem{OSz}
+P.~Ozsváth and Z.~Szabó,
+\emph{Holomorphic disks and topological invariants for closed three-manifolds},
+Ann. of Math. (2) \textbf{159} (2004), 1027--1158.
+
+\bibitem{OSzProp}
+P.~Ozsváth and Z.~Szabó,
+\emph{Holomorphic disks and three-manifold invariants: properties and applications},
+Ann. of Math. (2) \textbf{159} (2004), 1159--1245.
+
+\bibitem{OSzRat}
+P.~Ozsváth and Z.~Szabó,
+\emph{Knot Floer homology and rational surgeries},
+Algebr. Geom. Topol. \textbf{11} (2011), 1--68.
+
+\bibitem{Ni}
+Y.~Ni,
+\emph{Knot Floer homology detects fibred knots},
+Invent. Math. \textbf{170} (2007), 577--608.
+
+\bibitem{BodishDeYeso}
+E.~Bodish and J.~DeYeso,
+arXiv:2209.01672.
+
+\bibitem{Caudell}
+J.~Caudell,
+\emph{Three lens space summands from the Poincaré homology sphere},
+arXiv:2101.01256v1.
+
+\bibitem{Hatcher}
+A.~Hatcher,
+\emph{Notes on basic 3-manifold topology},
+available electronically.
+
+\bibitem{Gabai}
+D.~Gabai,
+\emph{Foliations and the topology of 3-manifolds. III},
+J. Differential Geom. \textbf{26} (1987), 479--536.
+
+\end{thebibliography}
+
+\end{document}

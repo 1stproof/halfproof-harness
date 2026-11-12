@@ -1,0 +1,46 @@
+{
+ "acceptance": {
+  "k_accept": 2,
+  "k_refute": 1,
+  "n_critics": 3
+ },
+ "critic_models": [
+  "K3",
+  "Qwen"
+ ],
+ "critic_workers": [],
+ "roster": {
+  "ideas": [
+   "glm",
+   "k3"
+  ],
+  "critics": [
+   "k3",
+   "k3",
+   "qwen24t",
+   "glm"
+  ],
+  "writer": "qwen24t",
+  "backup_writer": "dsf",
+  "literature": [
+   "dsf"
+  ]
+ },
+ "critic_weights": {
+  "GLM": "none",
+  "DSF": "advisory"
+ },
+ "mix": {
+  "proposer_only_models": [
+   "glm"
+  ]
+ },
+ "writer": {
+  "min_accept_models": 2
+ },
+ "audit": {
+  "models": [
+   "Qwen"
+  ]
+ }
+}

@@ -1,0 +1,53 @@
+% First Proof, Batch 3 -- solution template (harness v2).
+% Format follows the Batch 2 "Specification for Submissions" as quoted in First Proof's public repo
+% (github.com/1stproof/batch-2, batch-2-submissions/improofbench/README.md):
+%   "\documentclass[12pt]{article}, plain fullpage permitted, and no other margin/layout,
+%    line-spacing, or font-size changes."
+% Page limit: Batch 3 call for submissions (Aug 25 2026, "Testing Protocol"): "solutions of at most
+% 16 pages each" (Batch 2 was 12). Shorten the exposition to fit; never change the layout.
+% Grading (Batch 3): separate scores for correctness, exposition and attribution; a WRONG solution
+% scores negatively on correctness, a blank one does not. State exactly what is proved; never overclaim.
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise,nameinlink]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Solution to Problem N}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% First sentence: the status -- "We prove ...", or "We prove ... under ...; the remaining case ...
+% is open", or "We do not settle the question; we prove ... and reduce it to ...".
+\textbf{Status:} settled / partially settled / open. \dots
+\end{abstract}
+
+\section{Statement and main result}
+% Restate the problem precisely and state the main theorem (or the exact partial result).
+
+\section{Proof}
+% Lemmas with complete proofs, or precise citations (author, title, theorem number) for every
+% result used. Mark any step that is not fully proved as such, where it occurs.
+
+\section{What remains open}
+% Only if the question is not fully settled: the exact unresolved statement, what depends on it,
+% and the approaches tried. Delete this section if the result is complete.
+
+\begin{thebibliography}{9}
+% \bibitem{key} A. Author, \emph{Title}, Journal \textbf{Vol} (Year), pages. Theorem X.Y used in Lemma Z.
+\end{thebibliography}
+
+\end{document}

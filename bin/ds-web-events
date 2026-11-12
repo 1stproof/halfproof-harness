@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+"""Append normalized model-free arXiv MCP calls/results from a Qwen JSONL stream."""
+import datetime, json, os, re, sys
+
+RUN, EPISODE, SOURCE = sys.argv[1:4]
+OUT = os.path.join(RUN, "logs", "web-events.jsonl")
+try:
+    ARXIV_CALL_CAP = int(os.environ.get("DS_ARXIV_CALL_CAP", "10"))
+    if ARXIV_CALL_CAP < 0: raise ValueError
+except ValueError:
+    ARXIV_CALL_CAP = 10
+
+ARXIV_NAMES = ("arxiv_search", "arxiv_local_search", "arxiv_fetch")
+MODEL_LANES = {
+    "moonshotai/kimi-k3": "k3",
+    "deepseek/deepseek-v4.1-flash": "dsf",
+    "qwen/qwen3.8-2.4t-a95b": "qwen24t",
+    "deepseek/deepseek-v4-pro": "dsp",
+    "z-ai/glm-5.3": "glm",
+}
+OPENALEX_LANE = os.environ.get("DS_OPENALEX_LANE") or MODEL_LANES.get(os.environ.get("DS_MODEL", ""))
+OPENALEX_LANE_SHARE = int(os.environ.get("DS_OPENALEX_LANE_SHARE", "160"))
+OPENALEX_DAILY_MAX = int(os.environ.get("DS_OPENALEX_DAILY_MAX", "800"))
+
+def blocks(d):
+    content = (d.get("message") or {}).get("content")
+    return content if isinstance(content, list) else []
+
+def result_text(value):
+    if isinstance(value, str): return value
+    if isinstance(value, list):
+        return "\n".join(str(x.get("text", "")) if isinstance(x, dict) else str(x) for x in value)
+    return json.dumps(value, ensure_ascii=False) if value is not None else ""
+
+def parse_payload(text):
+    """Handle direct JSON and Qwen's prose/error wrappers around MCP JSON."""
+    decoder = json.JSONDecoder()
+    def find(value, depth=0):
+        if depth > 8: return None
+        if isinstance(value, dict):
+            if value.get("tool") in ARXIV_NAMES or str(value.get("backend", "")).startswith("arxiv") or value.get("backend") == "scholarly-index":
+                return value
+            children = value.values()
+        elif isinstance(value, list):
+            children = value
+        elif isinstance(value, str):
+            children = []
+            try: children = [json.loads(value)]
+            except Exception:
+                for match in re.finditer(r"[\[{]", value):
+                    try: decoded, _ = decoder.raw_decode(value[match.start():])
+                    except Exception: continue
+                    children.append(decoded)
+        else:
+            children = []
+        for child in children:
+            found = find(child, depth + 1)
+            if found is not None: return found
+        return None
+    return find(text)
+
+def normalize_name(name):
+    for short in ARXIV_NAMES:
+        if name == short or name.endswith("__" + short) or name.endswith("_" + short): return short
+    return None
+
+seen = set(); config_seen = False
+if os.path.exists(OUT):
+    for line in open(OUT, errors="replace"):
+        try:
+            d = json.loads(line); seen.add((str(d.get("episode")), d.get("tool_call_id")))
+            if str(d.get("episode")) == str(EPISODE) and d.get("event") == "arxiv_config": config_seen = True
+        except Exception: pass
+
+uses, results, order = {}, {}, 0
+if os.path.exists(SOURCE):
+    for line_no, line in enumerate(open(SOURCE, errors="replace"), 1):
+        try: d = json.loads(line)
+        except ValueError: continue
+        for block in blocks(d):
+            if not isinstance(block, dict): continue
+            if block.get("type") == "tool_use":
+                name = str(block.get("name", "")); arguments = block.get("input") or {}
+                if name == "tool_call" and isinstance(arguments, dict):
+                    wrapped_name = str(arguments.get("name", "")); wrapped_arguments = arguments.get("arguments") or {}
+                    if isinstance(wrapped_arguments, str):
+                        try: wrapped_arguments = json.loads(wrapped_arguments)
+                        except ValueError: wrapped_arguments = {}
+                    if normalize_name(wrapped_name): name, arguments = wrapped_name, wrapped_arguments
+                short = normalize_name(name)
+                if short:
+                    order += 1
+                    uses[block.get("id")] = (order, line_no, name, short, arguments if isinstance(arguments, dict) else {})
+            elif block.get("type") == "tool_result": results[block.get("tool_use_id")] = block
+
+now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+records = [] if config_seen else [{
+    "timestamp": now, "run": os.path.basename(RUN.rstrip("/")), "episode": EPISODE,
+    "event": "arxiv_config", "arxiv_call_cap": ARXIV_CALL_CAP,
+    "openalex_lane": OPENALEX_LANE, "openalex_lane_share": OPENALEX_LANE_SHARE,
+    "openalex_global_max": OPENALEX_DAILY_MAX, "source_log": os.path.relpath(SOURCE, RUN),
+}]
+for tool_id, (event_order, line_no, name, short, arguments) in uses.items():
+    if (str(EPISODE), tool_id) in seen: continue
+    block = results.get(tool_id); text = result_text(block.get("content") if block else ""); payload = parse_payload(text)
+    error = None
+    if block is None: error = "missing tool_result"
+    elif block.get("is_error"): error = payload.get("error") if isinstance(payload, dict) else text[:500]
+    elif isinstance(payload, dict) and payload.get("error"): error = payload.get("error")
+    elif payload is None: error = "unparseable arXiv tool result: " + text[:300]
+    returned_urls, returned_ids, files = [], [], []
+    if isinstance(payload, dict):
+        returned_urls = [str(x) for x in payload.get("returned_urls", []) if x]
+        returned_ids = [str(x) for x in payload.get("returned_ids", []) if x]
+        files = [str(x) for x in payload.get("files", []) if x]
+        if payload.get("source_url") and payload["source_url"] not in returned_urls: returned_urls.append(payload["source_url"])
+        if short == "arxiv_fetch" and payload.get("id") and payload["id"] not in returned_ids: returned_ids.append(payload["id"])
+    refused = bool(payload.get("refused")) if isinstance(payload, dict) else False
+    if not refused and "arXiv tool cap of" in text and "was refused" in text: refused = True
+    if error is None and re.search(r"(?:MCP|tool).*(?:error|failed)", text, re.I) and payload is None: error = text[:500]
+    records.append({
+        "timestamp": now, "run": os.path.basename(RUN.rstrip("/")), "episode": EPISODE,
+        "order": event_order, "source_line": line_no, "tool_call_id": tool_id, "tool_name": name,
+        "arxiv_tool": short, "query": arguments.get("query") if short in {"arxiv_search", "arxiv_local_search"} else None,
+        "id": arguments.get("id") if short == "arxiv_fetch" else None,
+        "version": payload.get("version") if isinstance(payload, dict) else None, "arguments": arguments,
+        "returned_ids": returned_ids, "returned_urls": returned_urls,
+        "bytes": payload.get("bytes") if isinstance(payload, dict) else None,
+        "download_bytes": payload.get("download_bytes") if isinstance(payload, dict) else None, "files": files,
+        "main_tex_path": payload.get("main_tex_path") if isinstance(payload, dict) else None,
+        "cache_status": payload.get("cache_status") if isinstance(payload, dict) else None,
+        "cache_scope": payload.get("cache_scope") if isinstance(payload, dict) else None,
+        "cache_key": payload.get("cache_key") if isinstance(payload, dict) else None,
+        "resolve_cache_status": payload.get("resolve_cache_status") if isinstance(payload, dict) else None,
+        "network_fetches": payload.get("network_fetches") if isinstance(payload, dict) else None,
+        "backend": payload.get("backend") if isinstance(payload, dict) else "arxiv",
+        "source": payload.get("source") if isinstance(payload, dict) else None,
+        "fallback_from": payload.get("fallback_from") if isinstance(payload, dict) else None,
+        "fallback_reason": payload.get("fallback_reason") if isinstance(payload, dict) else None,
+        "openalex_refused": payload.get("openalex_refused") if isinstance(payload, dict) else None,
+        "openalex_lane": payload.get("openalex_lane", OPENALEX_LANE) if isinstance(payload, dict) else OPENALEX_LANE,
+        "openalex_lane_share": payload.get("openalex_lane_share", OPENALEX_LANE_SHARE) if isinstance(payload, dict) else OPENALEX_LANE_SHARE,
+        "openalex_lane_used": payload.get("openalex_lane_used") if isinstance(payload, dict) else None,
+        "openalex_global_used": payload.get("openalex_global_used") if isinstance(payload, dict) else None,
+        "openalex_global_max": payload.get("openalex_global_max", OPENALEX_DAILY_MAX) if isinstance(payload, dict) else OPENALEX_DAILY_MAX,
+        "openalex_borrow_allowed": payload.get("openalex_borrow_allowed") if isinstance(payload, dict) else None,
+        "openalex_borrowed": payload.get("openalex_borrowed") if isinstance(payload, dict) else None,
+        "openalex_quota_charged": payload.get("openalex_quota_charged") if isinstance(payload, dict) else None,
+        "success": error is None and bool(payload.get("success", True) if isinstance(payload, dict) else False),
+        "error": error, "latency_ms": payload.get("duration_ms") if isinstance(payload, dict) else None,
+        "result_chars": len(text),
+        "arxiv_call_cap": payload.get("arxiv_call_cap", ARXIV_CALL_CAP) if isinstance(payload, dict) else ARXIV_CALL_CAP,
+        "arxiv_call": payload.get("arxiv_call") if isinstance(payload, dict) else None,
+        "refused": refused, "source_log": os.path.relpath(SOURCE, RUN),
+    })
+
+if records:
+    with open(OUT, "a") as out:
+        for record in records: out.write(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n")

@@ -1,0 +1,975 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,array}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\nest}{\operatorname{nest}}
+\newcommand{\Hyp}{\operatorname{Hyp}}
+\newcommand{\UnionPred}{\mathrm{UNION}}
+
+\title{The cubic implication for commutative hyperfields under recursive hyper-sums}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We study the following question for a commutative hyperfield \(\mathbb H\):
+if \(0\in x\boxplus y\boxplus z\), must one also have
+\[
+0\in x^3\boxplus y^3\boxplus z^3\boxplus -xyz\boxplus -xyz\boxplus -xyz\;?
+\]
+All iterated hyper-sums are interpreted by the standard recursive left-fold, or \textsc{nest}, reading.
+We prove that the implication holds for every quotient hyperfield \(F/G\), where \(F\) is a field and
+\(G\le F^\times\), and for every finite ample hyperfield.
+We also give an exhaustive verification: every commutative hyperfield of order at most seven satisfies the implication.
+Finally, we show that a nonstandard pairwise-overlap reading, \textsc{union}, is not equivalent to \textsc{nest} and makes the implication false.
+The unrestricted problem for arbitrary commutative hyperfields remains open.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+The original problem asks whether, in a hyperfield \(\mathbb H\) with multivalued addition \(\boxplus\), the condition
+\[
+0\in x\boxplus y\boxplus z
+\]
+implies
+\[
+0\in x^3\boxplus y^3\boxplus z^3\boxplus -xyz\boxplus -xyz\boxplus -xyz.
+\]
+Here \(-xyz\) means the additive hyperinverse of the product \(xyz\).
+
+There is an important convention issue. For hypergroups and hyperfields, the standard meaning of an iterated hyper-sum is recursive:
+\[
+x_1\boxplus\cdots\boxplus x_n
+\]
+means the set obtained by folding the binary hyperoperation from the left, or equivalently any parenthesization when associativity holds. This is the convention used, for example, in Liu's definition of iterated hyper-sums \cite{Liu}. We make this precise in Section~\ref{sec:prelim} and call it the \textsc{nest} reading.
+
+With that convention, the main positive results of this paper are the following.
+
+\begin{itemize}
+\item For every field \(F\) and every subgroup \(G\le F^\times\), the implication holds in the quotient hyperfield \(F/G\), in every characteristic and including zero-class triples.
+\item For every finite ample hyperfield, the implication holds for all triples.
+\item Every commutative hyperfield of order at most seven satisfies the implication. This is an exhaustive finite verification over all isomorphism classes.
+\end{itemize}
+
+There is also a negative demarcation. If one replaces the recursive \textsc{nest} premise by the pairwise-overlap predicate
+\[
+\exists u\in x\boxplus y,\quad \exists v\in y\boxplus z
+\quad\text{with}\quad
+0\in u\boxplus v,
+\]
+then the implication fails already in the two-element Krasner hyperfield. Thus the recursive reading is essential.
+The general question for arbitrary commutative hyperfields remains open. The results above settle all quotient hyperfields, all finite ample hyperfields, and all commutative hyperfields through order seven.
+
+\section{Recursive hyper-sums and elementary structural lemmas}
+\label{sec:prelim}
+
+For subsets \(A,B\subseteq H\) and \(c\in H\), write
+\[
+A\boxplus B=\bigcup_{a\in A,\ b\in B}a\boxplus b,
+\qquad
+cA=\{ca:a\in A\}.
+\]
+
+\begin{definition}\label{def:hyperfield}
+A \emph{commutative hyperfield} is a set \(H\) with distinguished elements \(0\neq 1\), a commutative multiplication making \(H\) a monoid with identity \(1\), zero absorbing, and \(H^\times=H\setminus\{0\}\) an abelian group, together with a hyperaddition
+\[
+\boxplus:H\times H\to \{\text{nonempty subsets of }H\}
+\]
+satisfying:
+\begin{enumerate}
+\item \(x\boxplus 0=\{x\}\) for all \(x\in H\);
+\item \(x\boxplus y=y\boxplus x\);
+\item for each \(x\in H\) there is a unique element \(-x\in H\) such that \(0\in x\boxplus(-x)\);
+\item associativity: \((x\boxplus y)\boxplus z=x\boxplus(y\boxplus z)\) as sets;
+\item reversibility: \(x\in y\boxplus z\) if and only if \(z\in x\boxplus(-y)\);
+\item distributivity: \(a(x\boxplus y)=ax\boxplus ay\) for all \(a,x,y\in H\).
+\end{enumerate}
+\end{definition}
+
+The recursive left-fold, or \textsc{nest}, interpretation of iterated hyper-sums is the following.
+
+\begin{definition}\label{def:nest}
+For \(a_1,\dots,a_n\in H\), define
+\[
+\nest(a_1)=\{a_1\},
+\]
+and for \(n\ge 2\),
+\[
+\nest(a_1,\dots,a_n)
+=
+\bigcup_{u\in \nest(a_1,\dots,a_{n-1})} u\boxplus a_n.
+\]
+We write
+\[
+0\in a_1\boxplus\cdots\boxplus a_n
+\]
+to mean
+\[
+0\in \nest(a_1,\dots,a_n).
+\]
+\end{definition}
+
+Because hyperaddition is associative, the left-fold set agrees with any parenthesization, but the left-fold definition fixes a completely unambiguous semantics.
+
+% RECORDS: 671
+\begin{lemma}\label{lem:negation}
+Let \(H\) be a commutative hyperfield. Then:
+\begin{enumerate}
+\item for every \(x\in H\), \(-x=(-1)x\);
+\item \((-1)^2=1\);
+\item for every \(x\in H\), \((-x)^3=-x^3\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+First, \(-0=0\), since \(0\boxplus 0=\{0\}\).
+
+For \(x\neq 0\), we have \(0\in 1\boxplus(-1)\). Multiplying by \(x\) and using distributivity gives
+\[
+0\in x(1\boxplus(-1))=x\boxplus x(-1).
+\]
+By uniqueness of the hyperinverse of \(x\), this forces \(x(-1)=-x\). The case \(x=0\) is immediate, so \(-x=(-1)x\) for all \(x\).
+
+Let \(u=-1\). Since \(1\boxplus 0=\{1\}\), we have \(0\notin 1\boxplus 0\), hence \(u\neq 0\), so \(u\in H^\times\). From
+\[
+0\in 1\boxplus u
+\]
+we multiply by \(u^{-1}\). Using distributivity and commutativity,
+\[
+0\in u^{-1}(1\boxplus u)=u^{-1}\boxplus 1=1\boxplus u^{-1}.
+\]
+Thus \(u^{-1}\) is a hyperinverse of \(1\). By uniqueness, \(u^{-1}=u\). Hence \(u^2=1\), i.e.\ \((-1)^2=1\).
+
+Finally,
+\[
+(-x)^3=((-1)x)^3=(-1)^3x^3=(-1)x^3=-x^3,
+\]
+using \((-1)^2=1\) and the first part.
+\end{proof}
+
+% RECORDS: 1704
+\begin{lemma}\label{lem:reversal}
+Let \(S\subseteq H\) and \(w\in H\). Then
+\[
+0\in S\boxplus w
+\]
+if and only if
+\[
+-w\in S.
+\]
+\end{lemma}
+
+\begin{proof}
+If \(-w\in S\), then by commutativity and the defining property of the hyperinverse,
+\[
+0\in (-w)\boxplus w\subseteq S\boxplus w.
+\]
+Conversely, if \(0\in S\boxplus w\), then there exists \(s\in S\) such that \(0\in s\boxplus w\). By commutativity, \(0\in w\boxplus s\), so \(s\) is a hyperinverse of \(w\). Uniqueness gives \(s=-w\), hence \(-w\in S\).
+\end{proof}
+
+% RECORDS: 1704
+\begin{lemma}\label{lem:scale-nest}
+Let \(c\in H^\times\). For all \(a_1,\dots,a_n\in H\),
+\[
+c\,\nest(a_1,\dots,a_n)=\nest(ca_1,\dots,ca_n).
+\]
+Consequently,
+\[
+0\in \nest(a_1,\dots,a_n)
+\]
+if and only if
+\[
+0\in \nest(ca_1,\dots,ca_n).
+\]
+\end{lemma}
+
+\begin{proof}
+The proof is by induction on \(n\). For \(n=1\),
+\[
+c\nest(a_1)=c\{a_1\}=\{ca_1\}=\nest(ca_1).
+\]
+Assume the result for \(n-1\). Then
+\[
+\begin{aligned}
+c\nest(a_1,\dots,a_n)
+&=c\left(\bigcup_{u\in\nest(a_1,\dots,a_{n-1})} u\boxplus a_n\right)\\
+&=\bigcup_{u\in\nest(a_1,\dots,a_{n-1})} c(u\boxplus a_n)\\
+&=\bigcup_{u\in\nest(a_1,\dots,a_{n-1})} (cu\boxplus ca_n)\\
+&=\bigcup_{v\in c\nest(a_1,\dots,a_{n-1})} v\boxplus ca_n\\
+&=\bigcup_{v\in\nest(ca_1,\dots,ca_{n-1})} v\boxplus ca_n\\
+&=\nest(ca_1,\dots,ca_n).
+\end{aligned}
+\]
+Since multiplication by \(c\in H^\times\) fixes \(0\) and is bijective, the statement about membership of \(0\) follows.
+\end{proof}
+
+For a hyperfield \(H\), define its hypothesis set
+\[
+\Hyp(H)=\{(x,y,z)\in H^3:0\in x\boxplus y\boxplus z\}.
+\]
+
+% RECORDS: 1171
+\begin{lemma}\label{lem:nonvacuous}
+For every commutative hyperfield \(H\),
+\[
+0\in 1\boxplus(-1)\boxplus 0.
+\]
+In particular, \(\Hyp(H)\neq\varnothing\).
+\end{lemma}
+
+\begin{proof}
+By definition of the hyperinverse,
+\[
+0\in 1\boxplus(-1).
+\]
+Since \(w\boxplus 0=\{w\}\) for every \(w\), we have
+\[
+\nest(1,-1,0)
+=
+\bigcup_{u\in 1\boxplus(-1)} u\boxplus 0
+=
+\bigcup_{u\in 1\boxplus(-1)} \{u\}
+=
+1\boxplus(-1).
+\]
+Thus \(0\in\nest(1,-1,0)\). Hence \((1,-1,0)\in\Hyp(H)\).
+\end{proof}
+
+We now separate the standard \textsc{nest} reading from a nonstandard pairwise-overlap reading.
+
+\begin{definition}
+For \(x,y,z\in H\), define the predicate \(\UnionPred(x,y,z)\) by
+\[
+\UnionPred(x,y,z)
+\]
+if and only if there exist \(u\in x\boxplus y\) and \(v\in y\boxplus z\) such that
+\[
+0\in u\boxplus v.
+\]
+\end{definition}
+
+% RECORDS: 705, 709, 604
+\begin{proposition}\label{prop:union-fails}
+The predicate \(\UnionPred\) is not equivalent to the \textsc{nest} premise. Moreover, if one replaces the \textsc{nest} premise by \(\UnionPred\), the cubic implication is false.
+\end{proposition}
+
+\begin{proof}
+Consider the two-element Krasner hyperfield
+\[
+\mathbb K=\{0,1\},
+\]
+with usual multiplication and hyperaddition
+\[
+0\boxplus0=\{0\},\qquad
+0\boxplus1=1\boxplus0=\{1\},\qquad
+1\boxplus1=\{0,1\}.
+\]
+Take \((x,y,z)=(0,1,0)\).
+
+For the \textsc{union} premise, we must choose \(u\in0\boxplus1=\{1\}\) and \(v\in1\boxplus0=\{1\}\). Thus \(u=v=1\), and
+\[
+0\in1\boxplus1=\{0,1\}.
+\]
+So \(\UnionPred(0,1,0)\) holds.
+
+For the \textsc{nest} premise,
+\[
+\nest(0,1,0)=(0\boxplus1)\boxplus0=\{1\}\boxplus0=\{1\},
+\]
+so \(0\notin\nest(0,1,0)\).
+
+Finally, the six conclusion terms are
+\[
+0^3=0,\qquad 1^3=1,\qquad 0^3=0,\qquad -0\cdot1\cdot0=0,
+\]
+with the last term repeated three times. Hence the left-fold is
+\[
+\nest(0,1,0,0,0,0)=\{1\},
+\]
+which does not contain \(0\). Thus the implication fails under the \textsc{union} premise.
+\end{proof}
+
+\section{Quotient hyperfields}\label{sec:quotient}
+
+Let \(F\) be a field and \(G\le F^\times\) a subgroup. For \(a\in F\), write
+\[
+[a]=
+\begin{cases}
+aG, & a\neq 0,\\
+0, & a=0.
+\end{cases}
+\]
+The quotient hyperfield \(F/G\) has underlying set
+\[
+\{0\}\cup F^\times/G.
+\]
+Multiplication is
+\[
+[a][b]=[ab],
+\]
+and hyperaddition is
+\[
+[a]\boxplus[b]=\{[g_1a+g_2b]:g_1,g_2\in G\}.
+\]
+
+% RECORDS: 604
+\begin{proposition}\label{prop:quotient-hyperfield}
+For every field \(F\) and subgroup \(G\le F^\times\), the structure \(F/G\) is a commutative hyperfield.
+\end{proposition}
+
+\begin{proof}
+Well-definedness of addition is immediate: if \(a'=\alpha a\) and \(b'=\beta b\) with \(\alpha,\beta\in G\), then
+\[
+\{[r a'+s b']:r,s\in G\}
+=
+\{[r\alpha a+s\beta b]:r,s\in G\}
+=
+\{[ra+sb]:r,s\in G\},
+\]
+because multiplication by \(\alpha\) and \(\beta\) permutes \(G\). If one representative is zero, the same conclusion is even simpler. Multiplication is similarly well-defined, and the nonzero classes form the group \(F^\times/G\).
+The zero class is an additive identity because
+\[
+[0]\boxplus[a]=\{[g\cdot0+h a]:g,h\in G\}=\{[a]\}.
+\]
+Commutativity is clear.
+
+For hyperinverses, \(-[a]=[-a]\). Indeed,
+\[
+0=[a-a]\in [a]\boxplus[-a].
+\]
+If \(0\in[a]\boxplus[b]\), then for some \(r,s\in G\),
+\[
+ra+sb=0.
+\]
+If \(a=0\), then \(sb=0\), so \(b=0\), and \([b]=[0]=[-a]\). If \(a\neq0\), then from \(sb=-ra\) we obtain
+\[
+b=-r\,s^{-1}a=(rs^{-1})(-a),
+\]
+so \([b]=[-a]\). Thus the hyperinverse is unique.
+
+For reversibility, suppose \([x]\in[y]\boxplus[z]\). Then for some \(r,s\in G\),
+\[
+[x]=[ry+sz].
+\]
+Let \(w=ry+sz\). If \(w=0\), then \([x]=0\), and
+\[
+sz=-ry,
+\]
+so
+\[
+z=s^{-1}r(-y),
+\]
+hence \([z]=[-y]\). Since \([x]=0\), we have
+\[
+[x]\boxplus[-y]=[0]\boxplus[-y]=\{[-y]\},
+\]
+so \([z]\in[x]\boxplus[-y]\).
+
+If \(w\neq0\), equality of classes gives a scalar \(t\in G\) such that
+\[
+x=t(ry+sz)=try+tsz.
+\]
+Then
+\[
+tsz=x-try=x+(tr)(-y),
+\]
+and therefore
+\[
+z=(ts)^{-1}x+(ts)^{-1}tr(-y),
+\]
+with both coefficients in \(G\). Hence \([z]\in[x]\boxplus[-y]\).
+The converse is the same calculation with the roles reversed. Suppose \([z]\in[x]\boxplus[-y]\). Then for some \(r,s\in G\),
+\[
+[z]=[rx+s(-y)].
+\]
+Let \(w=rx-sy\). If \(w=0\), then \([z]=0\), and
+\[
+rx=sy,
+\]
+so
+\[
+x=r^{-1}s y,
+\]
+hence \([x]=[y]\). Since \([z]=0\),
+\[
+[y]\boxplus[z]=[y]\boxplus[0]=\{[y]\},
+\]
+so \([x]\in[y]\boxplus[z]\). If \(w\neq0\), choose \(t\in G\) with
+\[
+z=t(rx-sy)=trx-tsy.
+\]
+Then
+\[
+trx=z+tsy,
+\]
+so
+\[
+x=(tr)^{-1}z+(tr)^{-1}ts y,
+\]
+with coefficients in \(G\). Hence \([x]\in[y]\boxplus[z]\).
+
+Associativity follows from the coefficient description. Let
+\[
+C(a,b,c)=\{[\alpha a+\beta b+\gamma c]:\alpha,\beta,\gamma\in G\}.
+\]
+An element of \(([a]\boxplus[b])\boxplus[c]\) has the form
+\[
+[q(ra+sb)+tc]=[(qr)a+(qs)b+tc],
+\]
+with \(q,r,s,t\in G\), so it lies in \(C(a,b,c)\). Conversely, given \(\alpha,\beta,\gamma\in G\), take the intermediate class \([\alpha a+\beta b]\in[a]\boxplus[b]\). Then
+\[
+[\alpha a+\beta b+\gamma c]\in[\alpha a+\beta b]\boxplus[c],
+\]
+using coefficient \(1\) on the partial sum and coefficient \(\gamma\) on \(c\). If \(\alpha a+\beta b=0\), then the intermediate class is \(0\), and the same conclusion holds because \([\gamma c]=[c]\). Thus
+\[
+([a]\boxplus[b])\boxplus[c]=C(a,b,c).
+\]
+The same argument gives
+\[
+[a]\boxplus([b]\boxplus[c])=C(a,b,c),
+\]
+so associativity holds.
+
+Finally, distributivity holds because for \(d\neq0\),
+\[
+[d]([a]\boxplus[b])
+=
+\{[d(ra+sb)]:r,s\in G\}
+=
+\{[(dr)a+(ds)b]:r,s\in G\}
+=
+[da]\boxplus[db],
+\]
+and for \(d=0\) both sides are \(\{0\}\).
+\end{proof}
+
+The key computational fact is the following unfolding lemma.
+
+% RECORDS: 604
+\begin{lemma}\label{lem:quotient-unfolding}
+Let \(w_1,\dots,w_n\in F\). Then
+\[
+\nest([w_1],\dots,[w_n])
+=
+\left\{
+\left[\sum_{i=1}^n h_i w_i\right]:h_i\in G
+\right\}.
+\]
+In particular,
+\[
+0\in\nest([w_1],\dots,[w_n])
+\]
+if and only if there exist \(h_1,\dots,h_n\in G\) such that
+\[
+\sum_{i=1}^n h_i w_i=0.
+\]
+\end{lemma}
+
+\begin{proof}
+We prove the set equality by induction on \(n\).
+
+For \(n=1\), if \(w_1\neq0\), then
+\[
+\{[h_1w_1]:h_1\in G\}=\{[w_1]\},
+\]
+and if \(w_1=0\), both sides are \(\{[0]\}\).
+
+Assume the result for \(n-1\). An element of
+\[
+\nest([w_1],\dots,[w_n])
+\]
+lies in \(u\boxplus[w_n]\) for some
+\[
+u\in\nest([w_1],\dots,[w_{n-1}]).
+\]
+By induction, \(u=[s]\) for some
+\[
+s=\sum_{i=1}^{n-1} r_iw_i,\qquad r_i\in G.
+\]
+Then \(u\boxplus[w_n]\) consists of classes
+\[
+[q s' + h_n w_n],
+\]
+where \(q,h_n\in G\) and \(s'\) is any representative of \(u\). Every representative of \(u=[s]\) has the form \(\lambda s\) for some \(\lambda\in G\). Thus
+\[
+[q s'+h_nw_n]
+=
+\left[\sum_{i=1}^{n-1} (q\lambda r_i)w_i+h_nw_n\right],
+\]
+with all coefficients in \(G\). Hence every element of the left-fold has the required coefficient form.
+
+Conversely, given coefficients \(h_1,\dots,h_n\in G\), set
+\[
+s=\sum_{i=1}^{n-1}h_iw_i.
+\]
+By induction,
+\[
+u=[s]\in\nest([w_1],\dots,[w_{n-1}]).
+\]
+Then
+\[
+\left[\sum_{i=1}^n h_iw_i\right]
+=
+[s+h_nw_n]
+\in u\boxplus[w_n],
+\]
+using coefficient \(1\) on the representative \(s\) and coefficient \(h_n\) on \(w_n\). This proves the set equality.
+
+Since \([v]=[0]\) if and only if \(v=0\), the membership statement for \(0\) follows immediately.
+\end{proof}
+
+% RECORDS: 604
+\begin{theorem}\label{thm:quotient}
+Let \(F\) be a field and \(G\le F^\times\) a subgroup. For all \(x,y,z\in F/G\), under the \textsc{nest} reading,
+\[
+0\in x\boxplus y\boxplus z
+\]
+implies
+\[
+0\in x^3\boxplus y^3\boxplus z^3\boxplus -xyz\boxplus -xyz\boxplus -xyz.
+\]
+\end{theorem}
+
+\begin{proof}
+Choose representatives \(X,Y,Z\in F\) such that
+\[
+x=[X],\qquad y=[Y],\qquad z=[Z],
+\]
+with the convention that the zero class is represented by \(0\).
+
+By Lemma~\ref{lem:quotient-unfolding}, the premise gives \(g_1,g_2,g_3\in G\) such that
+\[
+g_1X+g_2Y+g_3Z=0.
+\]
+Set
+\[
+a=g_1X,\qquad b=g_2Y,\qquad c=g_3Z.
+\]
+Then
+\[
+a+b+c=0.
+\]
+Over the integers one has the polynomial identity
+\[
+a^3+b^3+c^3-3abc
+=
+(a+b+c)(a^2+b^2+c^2-ab-bc-ca).
+\]
+Since this is an identity with integer coefficients, it holds in every field. Therefore
+\[
+a^3+b^3+c^3-3abc=0.
+\]
+
+Now define six elements of \(G\) by
+\[
+h_1=g_1^3,\qquad h_2=g_2^3,\qquad h_3=g_3^3,
+\]
+and
+\[
+h_4=h_5=h_6=g_1g_2g_3.
+\]
+Since \(G\) is a subgroup, all \(h_i\) lie in \(G\). Then
+\[
+\begin{aligned}
+&h_1X^3+h_2Y^3+h_3Z^3
++h_4(-XYZ)+h_5(-XYZ)+h_6(-XYZ)\\
+&=(g_1X)^3+(g_2Y)^3+(g_3Z)^3
+-3(g_1X)(g_2Y)(g_3Z)\\
+&=a^3+b^3+c^3-3abc\\
+&=0.
+\end{aligned}
+\]
+The six hyperfield terms in the desired conclusion are represented by
+\[
+X^3,\quad Y^3,\quad Z^3,\quad -XYZ,\quad -XYZ,\quad -XYZ.
+\]
+Applying Lemma~\ref{lem:quotient-unfolding} with the coefficients \(h_1,\dots,h_6\) gives
+\[
+0\in x^3\boxplus y^3\boxplus z^3\boxplus -xyz\boxplus -xyz\boxplus -xyz.
+\]
+\end{proof}
+
+\section{Finite ample hyperfields}\label{sec:ample}
+
+We now prove the implication for finite ample hyperfields. The definition of ampleness is taken from \cite{ample}.
+
+\begin{definition}
+Let \(H\) be a finite hyperfield. Define
+\[
+m=\min_{w\in H^\times} |(w\boxplus1)\setminus\{0\}|
+\]
+and
+\[
+k=\min_{w\in H^\times} |\{u\in H^\times:w\in u\boxplus1\}|.
+\]
+We say that \(H\) is \emph{ample} if
+\[
+m+k>|H^\times|.
+\]
+\end{definition}
+
+The following counting lemma is Lemma~3.1 of \cite{ample}; we include the proof for completeness.
+
+% RECORDS: 1704
+\begin{lemma}\label{lem:counting}
+Let \(H\) be a finite hyperfield satisfying \(m+k>|H^\times|\). Then for all \(x,y,z\in H^\times\),
+\[
+H^\times\subseteq (x\boxplus y)\boxplus z.
+\]
+\end{lemma}
+
+\begin{proof}
+Fix \(t\in H^\times\). Let
+\[
+A=(x\boxplus y)\setminus\{0\}.
+\]
+By distributivity and commutativity,
+\[
+x\boxplus y=x(1\boxplus x^{-1}y)=x((x^{-1}y)\boxplus1),
+\]
+so multiplication by \(x^{-1}\) gives
+\[
+|A|=|((x^{-1}y)\boxplus1)\setminus\{0\}|\ge m.
+\]
+
+Let
+\[
+B=\{u\in H^\times:t\in u\boxplus z\}.
+\]
+Multiplication by \(z^{-1}\) bijects \(B\) with
+\[
+\{v\in H^\times:tz^{-1}\in v\boxplus1\}.
+\]
+By the definition of \(k\), this latter set has cardinality at least \(k\). Hence \(|B|\ge k\).
+
+Both \(A\) and \(B\) are subsets of \(H^\times\), and
+\[
+|A|+|B|\ge m+k>|H^\times|.
+\]
+Therefore \(A\cap B\neq\varnothing\). Choose \(u\in A\cap B\). Then \(u\in x\boxplus y\) and \(t\in u\boxplus z\), so
+\[
+t\in (x\boxplus y)\boxplus z.
+\]
+Since \(t\in H^\times\) was arbitrary, the result follows.
+\end{proof}
+
+% RECORDS: 1704
+\begin{lemma}\label{lem:propagation}
+Let \(H\) be a finite ample hyperfield. Then for every \(c\in H^\times\),
+\[
+H^\times\subseteq H^\times\boxplus c,
+\]
+where
+\[
+H^\times\boxplus c=\bigcup_{u\in H^\times}u\boxplus c.
+\]
+\end{lemma}
+
+\begin{proof}
+Since \((w\boxplus1)\setminus\{0\}\subseteq H^\times\) for every \(w\), we have \(m\le |H^\times|\). Ampleness gives
+\[
+k>|H^\times|-m\ge0.
+\]
+Since \(k\) is an integer, \(k\ge1\). Thus for every \(w\in H^\times\), there exists \(u\in H^\times\) such that
+\[
+w\in u\boxplus1.
+\]
+Equivalently,
+\[
+H^\times\subseteq H^\times\boxplus1.
+\]
+Multiplying this inclusion by \(c\in H^\times\), and using distributivity together with \(cH^\times=H^\times\), gives
+\[
+H^\times\subseteq H^\times\boxplus c.
+\]
+\end{proof}
+
+% RECORDS: 1704
+\begin{theorem}\label{thm:ample}
+Let \(H\) be a finite ample hyperfield. For all \(x,y,z\in H\), under the \textsc{nest} reading,
+\[
+0\in x\boxplus y\boxplus z
+\]
+implies
+\[
+0\in x^3\boxplus y^3\boxplus z^3\boxplus -xyz\boxplus -xyz\boxplus -xyz.
+\]
+\end{theorem}
+
+\begin{proof}
+First suppose that one of \(x,y,z\) is zero. The three cases are identical in substance, so assume \(y=0\). Since \(u\boxplus0=\{u\}\),
+\[
+\nest(x,0,z)=x\boxplus z.
+\]
+The premise gives \(0\in x\boxplus z\), so by uniqueness of hyperinverses,
+\[
+z=-x.
+\]
+If \(x=0\), then all six conclusion terms are zero, and the conclusion is immediate. If \(x\neq0\), then by Lemma~\ref{lem:negation},
+\[
+z^3=(-x)^3=-x^3.
+\]
+Also \(-xyz=0\). Hence the six-term left-fold reduces to
+\[
+\nest(x^3,0,z^3,0,0,0)=x^3\boxplus z^3=x^3\boxplus(-x^3),
+\]
+which contains \(0\).
+
+Now assume \(x,y,z\in H^\times\). Put
+\[
+a=xy^{-1},\qquad b=zy^{-1}.
+\]
+By Lemma~\ref{lem:scale-nest}, multiplication by \(y^{-3}\in H^\times\) preserves membership of \(0\) in a nested sum. Under this scaling, the six conclusion terms become
+\[
+a^3,\quad 1,\quad b^3,\quad -ab,\quad -ab,\quad -ab.
+\]
+Thus it suffices to prove that for all \(a,b\in H^\times\),
+\[
+0\in\nest(a^3,1,b^3,-ab,-ab,-ab).
+\]
+
+Let
+\[
+S_0=\nest(a^3,1,b^3).
+\]
+By Lemma~\ref{lem:counting},
+\[
+H^\times\subseteq S_0.
+\]
+Set
+\[
+c=-ab\in H^\times.
+\]
+By Lemma~\ref{lem:propagation},
+\[
+H^\times\subseteq H^\times\boxplus c.
+\]
+Therefore
+\[
+S_1:=S_0\boxplus c\supseteq H^\times\boxplus c\supseteq H^\times,
+\]
+and similarly
+\[
+S_2:=S_1\boxplus c\supseteq H^\times.
+\]
+Since \(ab\in H^\times\), we have \(ab\in S_2\). But \(c=-ab\), so
+\[
+0\in ab\boxplus c\subseteq S_2\boxplus c.
+\]
+Finally,
+\[
+S_2\boxplus c=\nest(a^3,1,b^3,-ab,-ab,-ab),
+\]
+so the desired conclusion holds.
+\end{proof}
+
+\section{Exhaustive verification through order seven}\label{sec:small}
+
+We now describe the exhaustive finite verification for all commutative hyperfields of order at most seven.
+
+% RECORDS: 654, 829, 1320
+\begin{lemma}\label{lem:normal-form}
+Let \(H\) be a commutative hyperfield and \(G=H^\times\). For \(a,b\in G\),
+\[
+a\boxplus b=a(1\boxplus a^{-1}b).
+\]
+Consequently, the entire addition table on \(G\) is determined by the subsets
+\[
+S_r=1\boxplus r,\qquad r\in G.
+\]
+Commutativity is equivalent to
+\[
+S_{r^{-1}}=r^{-1}S_r
+\]
+for all \(r\in G\). In particular, if \(r=r^{-1}\neq1\), then \(S_r\) is \(r\)-invariant.
+
+Conversely, let \(G\) be a finite abelian group and let \(H=\{0\}\cup G\). An assignment \(r\mapsto S_r\) of nonempty subsets \(S_r\subseteq H\) satisfying
+\[
+S_{r^{-1}}=r^{-1}S_r
+\]
+extends uniquely, by the displayed formula and \(0\boxplus x=x\boxplus0=\{x\}\), to a commutative and distributive table. The remaining hyperfield axioms --- unique hyperinverse, reversibility, and associativity --- must then be checked on the completed table.
+\end{lemma}
+
+\begin{proof}
+For \(a,b\in G\), distributivity gives
+\[
+a(1\boxplus a^{-1}b)=a\boxplus aa^{-1}b=a\boxplus b.
+\]
+Thus the table is determined by the sets \(S_r=1\boxplus r\).
+
+Commutativity gives
+\[
+S_r=1\boxplus r=r\boxplus1=r(1\boxplus r^{-1})=rS_{r^{-1}},
+\]
+so
+\[
+S_{r^{-1}}=r^{-1}S_r.
+\]
+If \(r=r^{-1}\neq1\), this says \(S_r=rS_r\), i.e.\ \(S_r\) is \(r\)-invariant.
+
+Conversely, given such nonempty sets, define for \(a,b\in G\)
+\[
+a\boxplus b=aS_{a^{-1}b},
+\]
+and set \(0\boxplus x=x\boxplus0=\{x\}\). For \(c\in G\),
+\[
+c(a\boxplus b)=caS_{a^{-1}b}=(ca)\boxplus(cb),
+\]
+and the case \(c=0\) is immediate, so distributivity holds. The commutativity constraints ensure
+\[
+a\boxplus b=b\boxplus a.
+\]
+Indeed, with \(r=a^{-1}b\),
+\[
+b\boxplus a=bS_{r^{-1}}=b(r^{-1}S_r)=a S_r=a\boxplus b.
+\]
+The hypergroup axioms are then finite conditions on the completed table.
+\end{proof}
+
+% RECORDS: 654, 829, 1320, 1171, 671
+\begin{theorem}\label{thm:small-orders}
+Every commutative hyperfield \(H\) with \(2\le |H|\le7\) satisfies the cubic implication under the \textsc{nest} reading:
+for all \(x,y,z\in H\),
+\[
+0\in x\boxplus y\boxplus z
+\]
+implies
+\[
+0\in x^3\boxplus y^3\boxplus z^3\boxplus -xyz\boxplus -xyz\boxplus -xyz.
+\]
+The exhaustive enumeration gives the counts in Table~\ref{tab:small}; in particular, there are \(334\) isomorphism classes through order seven and \(51176\) hypothesis triples, with zero failures.
+\end{theorem}
+
+\begin{proof}
+Let \(H\) be a commutative hyperfield of order \(n\le7\). Then \(G=H^\times\) is a finite abelian group of order \(n-1\). The possible groups are
+\[
+C_1,\ C_2,\ C_3,\ C_4,\ V_4,\ C_5,\ C_6
+\]
+for orders
+\[
+2,3,4,5,5,6,7,
+\]
+respectively.
+
+By Lemma~\ref{lem:normal-form}, for each fixed \(G\), every commutative hyperfield structure is obtained by choosing admissible nonempty subsets \(S_r=1\boxplus r\) satisfying the commutativity constraints, extending them to a full table, and checking the hyperfield axioms. Isomorphism classes are obtained by quotienting by \(\operatorname{Aut}(G)\). For each representative, the implication is tested on every ordered triple \((x,y,z)\in H^3\), using the recursive \textsc{nest} definition. Isomorphisms preserve all operations and therefore preserve the truth of the implication.
+
+The enumeration procedure is finite and exhaustive. For each group \(G\):
+\begin{enumerate}
+\item choose representatives of the inversion classes \(\{r,r^{-1}\}\) in \(G\);
+\item for each representative \(r\), enumerate all nonempty subsets \(S_r\subseteq H\), imposing \(r\)-invariance when \(r=r^{-1}\neq1\);
+\item define \(S_{r^{-1}}=r^{-1}S_r\);
+\item extend to a full table by \(a\boxplus b=aS_{a^{-1}b}\) and \(0\boxplus x=\{x\}\);
+\item retain exactly those tables satisfying unique hyperinverse, reversibility, and associativity;
+\item quotient by \(\operatorname{Aut}(G)\);
+\item test the cubic implication on all triples of each representative.
+\end{enumerate}
+Lemma~\ref{lem:normal-form} guarantees completeness of this parametrization.
+
+For \(|H|\le6\), the possible groups are
+\[
+C_1,\ C_2,\ C_3,\ C_4,\ V_4,\ C_5.
+\]
+The enumeration produces the isomorphism-class counts
+\[
+2,\ 5,\ 7,\ 27,\ 16
+\]
+for orders
+\[
+2,\ 3,\ 4,\ 5,\ 6,
+\]
+respectively. The counts at orders \(2,3,4,5\) agree with Liu's classification \cite{Liu}; the order-six count \(16\) is part of the exhaustive verification. Over all these representatives, there are \(3535\) hypothesis triples and no failures.
+
+For \(|H|=7\), the multiplicative group is necessarily \(C_6\). Let \(g\) be a generator. Lemma~\ref{lem:normal-form} reduces the table to the four sets
+\[
+A=S_1,\qquad B=S_g,\qquad C=S_{g^2},\qquad D=S_{g^3}.
+\]
+Commutativity forces
+\[
+S_{g^4}=g^4C,\qquad S_{g^5}=g^5B,
+\]
+and \(D\) is \(g^3\)-invariant. By Lemma~\ref{lem:negation}, the hyperinverse constant \(-1\) satisfies \((-1)^2=1\), so in \(C_6\) one has
+\[
+-1\in\{1,g^3\}.
+\]
+Thus there are two negation regimes. Enumerating all subset assignments satisfying these constraints and the hyperinverse condition gives \(250\) surviving tables when \(-1=g^3\) and \(239\) surviving tables when \(-1=1\). Quotienting by \(\operatorname{Aut}(C_6)\) gives
+\[
+141+136=277
+\]
+isomorphism classes. This agrees with the independent count in \cite{Linzi}. Every representative was rechecked against the full hyperfield axioms on the complete table and then tested on all \(343\) ordered triples. Across the \(277\) classes there are \(47641\) hypothesis triples and no failures.
+
+Combining orders \(2\) through \(7\), the total number of isomorphism classes is
+\[
+2+5+7+27+16+277=334,
+\]
+and the total number of hypothesis triples is
+\[
+3535+47641=51176.
+\]
+In every case the conclusion held for every hypothesis triple.
+
+By Lemma~\ref{lem:nonvacuous}, the hypothesis set is nonempty for every hyperfield, so the zero-failure counts are not vacuous.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\(|H|\) & \(H^\times\) & isomorphism classes & hypothesis triples & failures\\
+\hline
+2 & \(C_1\) & 2 & 9 & 0\\
+3 & \(C_2\) & 5 & 65 & 0\\
+4 & \(C_3\) & 7 & 199 & 0\\
+5 & \(C_4,\ V_4\) & 27 & 1611 & 0\\
+6 & \(C_5\) & 16 & 1651 & 0\\
+7 & \(C_6\) & 277 & 47641 & 0\\
+\hline
+Total & & 334 & 51176 & 0\\
+\hline
+\end{tabular}
+\caption{Exhaustive verification through order seven.}
+\label{tab:small}
+\end{table}
+
+\section{Open cases and concluding remarks}\label{sec:open}
+
+The unrestricted problem for arbitrary commutative hyperfields remains open. The results above settle:
+\begin{itemize}
+\item all quotient hyperfields \(F/G\);
+\item all finite ample hyperfields;
+\item all commutative hyperfields of order at most seven.
+\end{itemize}
+The remaining open cases include finite non-ample hyperfields of order at least eight and infinite non-quotient hyperfields not covered by ampleness. The finite ample proof relies on a finite counting argument; an infinite analogue would be needed for infinite ample-style classes. The nonstandard \textsc{union} reading is not equivalent to the recursive \textsc{nest} reading and makes the implication false, as shown in Proposition~\ref{prop:union-fails}.
+
+\begin{thebibliography}{9}
+
+\bibitem{Liu}
+Z.~Liu,
+\emph{Finite hyperfields of order \(n\le 5\)},
+arXiv:2004.07241v5.
+
+\bibitem{ample}
+arXiv:2507.18908v1.
+
+\bibitem{Linzi}
+Linzi,
+arXiv:2608.03625v1.
+
+\end{thebibliography}
+
+\end{document}

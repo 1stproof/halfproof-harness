@@ -1,0 +1,868 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\divis}{div}
+\DeclareMathOperator{\NS}{NS}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Bl}{Bl}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\eul}{e}
+\DeclareMathOperator{\coker}{coker}
+
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\LambdaK}{\Lambda_{\mathrm{K3}}}
+\newcommand{\Lcheck}{\check{L}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cM}{\mathcal{M}}
+
+\begin{document}
+
+\title{Mirror-lattice arithmetic and the residual geometric gap for\\
+$H$-polarised Tyurin degenerations of K3 surfaces}
+
+\author{}
+
+\maketitle
+
+\begin{abstract}
+We analyse the mirror-pair existence problem for a very general $H$-polarised Tyurin degeneration of K3 surfaces and a very general $H\oplus E_8\oplus E_8$-quasipolarised K3 surface.  We prove the lattice-theoretic prerequisites in the case $L=H$: the orthogonal complement of $L$ is $\mathrm{II}_{2,18}$, every primitive rank-two isotropic sublattice is doubly admissible, the mirror lattice is $H\oplus E_8\oplus E_8$, the admissibility parameter is $m=1$, and the relevant primitive embeddings are unique.  We also record the conditional consequences of an actual mirror pair, the non-balanced Type~II monodromy and $q$-arithmetic, a self-contained consistency check for the $V_6\cup V_{12}$ ansatz, an explicit monodromy obstruction on an elliptic fibration with singular fibres $2\,\mathrm{II}^*+4\,\mathrm{I}_1$ for most $q$-values, and the fact that the corrected positivity clause $(A|_{V_i})^2>0$ is not consumed by the mirror-side lattice and monodromy axioms.  The original existential assertion is the very general $L=H$ instance of the forward direction of Giovenzana--Thompson Conjecture~5.10; the cited work labels this direction as conjectural and does not supply the elliptic fibration or the allowable loop.  Constructing that compatible pair remains the geometric gap.
+\end{abstract}
+
+\section{Introduction and status of the mirror-pair assertion}
+
+The problem concerns a Tyurin degeneration
+\[
+\pi\colon \cX\to \Delta
+\]
+of K3 surfaces with central fibre $X_0=V_1\cup V_2$, which is $H$-polarised in the corrected sense.  Thus, over the punctured disc $\Delta^*$ there is a trivial local subsystem $\cL\subset R^2\pi_*\bZ$ with fibre $H$, and there is an effective flat nef Cartier divisor $A$ on $\cX$ such that $A_p$ is nef and big for $p\neq 0$, $[A_p]\in \cL_p$, and
+\[
+(A|_{V_i})^2>0,\qquad i=1,2.
+\]
+The degeneration is assumed very general in the Alexeev--Brunyate--Engel compactified moduli sense~\cite{ABE22}.  The question asks whether, for a very general $H\oplus E_8\oplus E_8$-quasipolarised K3 surface $Y$, there is an elliptic fibration $Y\to \bP^1$ and an allowable loop $\gamma$ compatible with the quasipolarisation, such that the two objects form a mirror pair in the sense of Giovenzana--Thompson~\cite{GT24}.
+The main conclusion of this paper is a precise status statement.
+
+% RECORDS: 559,661
+\begin{theorem}[Status]\label{thm:status}
+The existential assertion in the original problem is the very general $L=H$ instance of the forward direction of Giovenzana--Thompson Conjecture~5.10~\cite{GT24}, after identifying the mirror lattice $\Lcheck$ with $H\oplus E_8\oplus E_8$.  Giovenzana--Thompson state this forward direction as a conjecture and do not supply the elliptic fibration $\pi\colon Y\to \bP^1$ or the allowable loop $\gamma$.
+
+The lattice-theoretic prerequisites for this instance are proved in Theorem~\ref{thm:mirror-H} and Proposition~\ref{prop:primitive-embedding}; the closed lattice-incidence reduction is Proposition~\ref{prop:GT-criterion}; conditional consequences of an actual mirror pair are Theorem~\ref{thm:consequences}; and the non-balanced monodromy arithmetic is Theorem~\ref{thm:typeII}.  The construction of an elliptic fibration $\pi\colon Y\to \bP^1$ and an allowable loop $\gamma$ satisfying Definition~4.21 compatibility is therefore the remaining geometric obligation.
+\end{theorem}
+
+\begin{proof}
+Giovenzana--Thompson Conjecture~5.10~\cite{GT24} predicts, in its forward direction, that an $L$-polarised Tyurin degeneration with a suitable $m$-admissible primitive isotropic class in $L^\perp$ gives rise to a ${\check L}$-quasipolarised K3 surface with an elliptic fibration and an allowable loop, compatible in the sense of~\cite[Definition~4.21]{GT24}, and forming a mirror pair in the sense of~\cite[Definition~5.1]{GT24}.  The introduction and Remark~5.11 of~\cite{GT24} identify the choice of the loop $\gamma$, and conversely the choice of birational model, as the difficult part, not determined by lattice theory alone.
+
+For $L=H$, Theorem~\ref{thm:mirror-H} below proves that
+\[
+L^\perp \cong H\oplus H\oplus E_8\oplus E_8\cong \mathrm{II}_{2,18},
+\]
+that every primitive rank-two isotropic sublattice $I\subset L^\perp$ is doubly admissible, and that for a primitive isotropic generator $e_1\in I$ the mirror lattice
+\[
+\Lcheck = {e_1}^{\perp}_{L^{\perp}}/\bZ e_1
+\]
+is even unimodular of signature $(1,17)$, hence isomorphic to $H\oplus E_8\oplus E_8$.  The same theorem proves that the relevant admissibility clauses hold with $m=1$.  Therefore the quasipolarisation lattice appearing in the original problem is exactly the mirror lattice predicted by the $L=H$ case of the conjecture.
+
+The very general hypothesis in the problem excludes Noether--Lefschetz loci in the compactified moduli space of~\cite{ABE22}; it does not supply the fibration or the loop.  The monodromy-invariance clause is already part of the definition of an $H$-polarised Tyurin degeneration: the local subsystem $\cL$ is required to be trivial.  Consequently, the original existential statement is precisely the very general $L=H$ case of the forward mirror construction conjectured in~\cite{GT24}, and the part not supplied by the cited lattice criteria is the existence of the compatible pair $(\pi,\gamma)$.
+\end{proof}
+
+The rest of the paper proves the lattice, incidence, monodromy and obstruction statements used in this status assessment, and isolates the remaining geometric obligations.
+
+\section{Notation and the Giovenzana--Thompson criteria}
+
+\begin{convention}\label{conv:lattices}
+All lattices are free $\bZ$-modules equipped with integral non-degenerate symmetric bilinear forms.  The hyperbolic plane $H$ has a basis $u,v$ with $u^2=v^2=0$ and $\langle u,v\rangle=1$.  The lattice $E_8$ is the negative definite even unimodular $E_8$ root lattice.  The K3 lattice is
+\[
+\LambdaK = H^{\oplus 3}\oplus E_8^{\oplus 2},
+\]
+an even unimodular lattice of signature $(3,19)$.  For a primitive sublattice $L\subset \LambdaK$, we write $L^\perp$ for its orthogonal complement in $\LambdaK$.  If $I\subset L^\perp$ is a primitive rank-two isotropic sublattice, we write $I^\perp/I$ for the quotient of the orthogonal complement of $I$ in $\LambdaK$ by $I$.
+
+We write $\mathrm{II}_{r,s}$ for the unique indefinite even unimodular lattice of signature $(r,s)$ when $r-s\equiv 0\pmod 8$.  For a surface or fibration piece $W$, the symbol $\eul(W)$ denotes its topological Euler number.
+\end{convention}
+
+We use the admissibility terminology of~\cite{GT24}.
+
+\begin{definition}[{\cite[Definitions~3.30 and 3.31]{GT24}}]
+Let $M$ be a non-degenerate lattice and $e\in M$ a primitive isotropic vector.  The divisibility $\divis(e)$ is the positive generator of the image of the map
+\[
+\langle e,-\rangle_M\colon M\to \bZ.
+\]
+The vector $e$ is $m$-admissible in $M$ if $\divis(e)=m$ and there is an isotropic class $g\in M$ with $\divis(g)=m$ and $\langle e,g\rangle=m$.
+
+A primitive rank-two isotropic sublattice $I=\langle e_1,e_2\rangle\subset M$ is doubly admissible in $M$ if there exist isotropic classes $g_1,g_2\in M$ such that
+\[
+\langle e_1,g_1\rangle=\langle e_2,g_2\rangle=1,
+\qquad
+\langle e_1,g_2\rangle=\langle e_2,g_1\rangle=0.
+\]
+An $L$-polarised Tyurin degeneration is doubly admissible if the associated monodromy lattice $I\subset L^\perp$ is doubly admissible in $L^\perp$.
+\end{definition}
+
+We use the following criterion from~\cite{GT24}.
+
+% RECORDS: 74
+\begin{proposition}[Giovenzana--Thompson criterion]\label{prop:GT-criterion}
+Assume that an $L$-polarised Tyurin degeneration $X\to\Delta$ and an $\Lcheck$-quasipolarised K3 fibration $Y$ are both doubly admissible.  Then they form a mirror pair in the sense of~\cite[Definition~5.1]{GT24} if and only if there exists an isometry
+\[
+\psi\colon (\bZ F\oplus \bZ \tau)^\perp/(\bZ F\oplus \bZ\tau)
+\longrightarrow I^\perp/I
+\]
+such that
+\[
+\psi(\Gamma)= (\operatorname{im} L)^\perp_{I^\perp/I}
+\]
+and, for $i=1,2$,
+\[
+\psi\circ \phi_Y\bigl([r_i(b)]^\perp\bigr)
+=
+\phi_X\bigl(K_{V_i}^\perp\bigr).
+\]
+Here $F$ is the fibre class on the mirror side, $\tau$ is the lifted class in $\Lcheck^\perp$, $\Gamma$ is the natural rank-$16$ negative-definite quotient lattice on the mirror side, and $\phi_X,\phi_Y$ are the period-lattice identifications used in~\cite{GT24}.
+
+In the source~\cite[Proposition~5.3]{GT24}, the first displayed condition is written as $\psi(\Gamma)=L^\perp$ inside $I^\perp/I$.  This means the orthogonal complement of the image of $L$ in the quotient $I^\perp/I$: the form on $I^\perp$ descends to $I^\perp/I$ because $I$ is isotropic, and $L$ maps to a primitive sublattice.  In the case $L=H$, this complement is identified with $\Gamma$ in Theorem~\ref{thm:mirror-H}.
+\end{proposition}
+
+\begin{proof}
+This is precisely~\cite[Proposition~5.3]{GT24}.  The only hypotheses used there are the double admissibility of both sides.  In the forward direction the isometry $\psi$ is part of Definition~5.1.  In the converse direction, double admissibility supplies the primitivity clauses required by Definition~5.1(1) via~\cite[Propositions~3.33 and 4.28]{GT24}; the lifting clause Definition~5.1(3) is obtained by the argument of~\cite[Lemma~3.32]{GT24}, since the relevant primitive isotropic vectors lie in hyperbolic-plane summands and are unique up to isometry; and the $m$-admissibility clause Definition~5.1(4) follows from the admissibility data.  Thus the existence of such a $\psi$ is equivalent to the mirror-pair condition under the stated hypotheses.
+\end{proof}
+
+% RECORDS: 89
+\begin{proposition}[Marking invariance]\label{prop:marking-invariance}
+Conditions (1)--(3) of~\cite[Definition~5.1]{GT24} depend only on the isometry classes of the lattice data
+\[
+(L,\ I\subset L^\perp,\ \Gamma,\ \psi),
+\]
+not on the choice of marking.  The only choice-dependence is the labelling of $V_1$ and $V_2$, and the global sign ambiguity already present in the pseudolattice comparison.
+\end{proposition}
+
+\begin{proof}
+The conditions in Definition~5.1(1)--(3) are formulated in terms of primitive embeddings, quotient lattices, and the existence of an isometry $\psi$ between quotient lattices satisfying subspace equalities.  None of these clauses refers to a basis or to a particular marking.
+
+A change of marking conjugates the period identifications by isometries of the ambient K3 lattice.  Such isometries induce isometries of the quotient lattices
+\[
+I^\perp/I
+\quad\text{and}\quad
+(\bZ F\oplus \bZ \tau)^\perp/(\bZ F\oplus \bZ\tau).
+\]
+If an isometry $\psi$ satisfying the required equalities exists before the marking change, then conjugating it by the induced isometries gives one after the marking change, and conversely.  The equalities involving $K_{V_i}^\perp$ and $[r_i(b)]^\perp$ are preserved under these induced isometries.
+
+Swapping the labels $V_1$ and $V_2$ swaps the two indexed equalities, and the global sign ambiguity of~\cite[Proposition~2.37]{GT24} preserves all inner products.  No further dependence on markings remains.
+\end{proof}
+
+\section{The mirror lattice for $L=H$}
+
+We now prove the explicit lattice arithmetic for the case $L=H$.
+
+% RECORDS: 807,1157
+\begin{theorem}\label{thm:mirror-H}
+Let $L\cong H$ be primitively embedded in $\LambdaK$, and let $I=\langle e_1,e_2\rangle\subset L^\perp$ be a primitive rank-two isotropic sublattice with primitive isotropic generators $e_1,e_2$.  Then:
+\begin{enumerate}
+\item $L^\perp\cong H\oplus H\oplus E_8\oplus E_8\cong \mathrm{II}_{2,18}$.
+\item $I$ is doubly admissible in $L^\perp$.
+\item With respect to the double admissibility data, there is an orthogonal decomposition
+\[
+L^\perp = H_1\oplus H_2\oplus \Gamma,
+\]
+where $H_1=\langle e_1,g_1\rangle\cong H$, $H_2=\langle e_2,g_2\rangle\cong H$, and $\Gamma$ is an even unimodular negative definite lattice of rank $16$.
+\item The mirror lattice
+\[
+\Lcheck = {e_1}^{\perp}_{L^{\perp}}/\bZ e_1
+\]
+is isomorphic to $H_2\oplus\Gamma$, hence is even unimodular of signature $(1,17)$ and therefore
+\[
+\Lcheck \cong \mathrm{II}_{1,17}\cong H\oplus E_8\oplus E_8.
+\]
+\item $\divis(e_1)=\divis(e_2)=1$ in $L^\perp$, and the $m$-admissibility clauses hold with $m=1$.  If the mirror-side complement $\Lcheck^\perp$ is identified with $H\oplus H$ and $\tau$ is chosen as the primitive isotropic vector corresponding to $e_1$ under the lift used in Definition~5.1(3), then $\tau$ is also $1$-admissible.
+\item One has
+\[
+I^\perp/I \cong L\oplus \Gamma \cong H\oplus \Gamma \cong H\oplus E_8\oplus E_8,
+\]
+and the orthogonal complement of the image of $L$ in $I^\perp/I$ is naturally isomorphic to $\Gamma$.  The embedding $L\hookrightarrow I^\perp/I$ is primitive.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $L\cong H$ is unimodular of signature $(1,1)$ and $\LambdaK$ is even unimodular of signature $(3,19)$, the primitive unimodular sublattice $L$ is an orthogonal direct summand:
+\[
+\LambdaK = L\oplus L^\perp.
+\]
+Indeed, for $x\in \LambdaK$, the functional $\ell\mapsto \langle x,\ell\rangle$ on $L$ is represented by a unique element of $L$ because $L$ is unimodular; subtracting this element leaves a vector orthogonal to $L$.  Hence $L^\perp$ is even unimodular of signature
+\[
+(3,19)-(1,1)=(2,18)
+\]
+and rank $20$.  By the classification of indefinite even unimodular lattices~\cite{MH73}, there is a unique such lattice:
+\[
+L^\perp\cong \mathrm{II}_{2,18}\cong H\oplus H\oplus E_8\oplus E_8.
+\]
+
+We now prove double admissibility.  Because $L^\perp$ is unimodular and $I$ is primitive, the pairing map
+\[
+L^\perp \longrightarrow \Hom(I,\bZ)
+\]
+is surjective.  Thus we may choose $h_1\in L^\perp$ with
+\[
+\langle e_1,h_1\rangle=1,\qquad \langle e_2,h_1\rangle=0.
+\]
+Since $L^\perp$ is even, $h_1^2$ is even.  Put
+\[
+g_1 = h_1-\frac{h_1^2}{2}e_1.
+\]
+Then
+\[
+g_1^2=h_1^2-h_1^2\langle e_1,h_1\rangle=0,
+\]
+and the pairings with $e_1,e_2$ are unchanged, so
+\[
+\langle e_1,g_1\rangle=1,\qquad \langle e_2,g_1\rangle=0.
+\]
+Similarly choose $h_2$ with
+\[
+\langle e_2,h_2\rangle=1,\qquad \langle e_1,h_2\rangle=0.
+\]
+Replace $h_2$ by
+\[
+h_2' = h_2-\langle g_1,h_2\rangle e_1,
+\]
+so that $\langle g_1,h_2'\rangle=0$, while the pairings with $e_1,e_2$ remain unchanged.  Since $h_2'$ has even square, put
+\[
+g_2 = h_2'-\frac{(h_2')^2}{2}e_2.
+\]
+Then $g_2$ is isotropic and satisfies
+\[
+\langle e_2,g_2\rangle=1,\qquad \langle e_1,g_2\rangle=0,\qquad \langle g_1,g_2\rangle=0.
+\]
+Thus $g_1,g_2$ are the required double-admissibility witnesses.
+The pairs $H_1=\langle e_1,g_1\rangle$ and $H_2=\langle e_2,g_2\rangle$ are hyperbolic planes, mutually orthogonal by construction.  Let
+\[
+\Gamma = (H_1\oplus H_2)^\perp_{L^\perp}.
+\]
+Because $H_1\oplus H_2$ is unimodular and $L^\perp$ is unimodular, $\Gamma$ is an orthogonal direct summand and is unimodular.  It is even because $L^\perp$ is even.  Its rank is $20-4=16$, and its signature is
+\[
+(2,18)-(2,2)=(0,16),
+\]
+so $\Gamma$ is negative definite.  The precise isomorphism class of $\Gamma$ is not needed; the argument below uses only that it is even, unimodular and negative definite.
+
+Inside $H_1=\langle e_1,g_1\rangle$, the vectors orthogonal to $e_1$ are exactly the multiples of $e_1$, since
+\[
+\langle ae_1+bg_1,e_1\rangle=b.
+\]
+Therefore
+\[
+{e_1}^{\perp}_{L^{\perp}} = \bZ e_1\oplus H_2\oplus \Gamma,
+\]
+and quotienting by $\bZ e_1$ gives
+\[
+\Lcheck = {e_1}^{\perp}_{L^{\perp}}/\bZ e_1 \cong H_2\oplus \Gamma.
+\]
+This lattice is even (quotient of an even lattice by an isotropic vector).  It is unimodular because in the above decomposition it is the direct summand $H_2\oplus \Gamma$ of the unimodular lattice $L^\perp$.  Its signature is $(1,17)$.  By the classification of indefinite even unimodular lattices~\cite{MH73},
+\[
+\Lcheck\cong \mathrm{II}_{1,17}\cong H\oplus E_8\oplus E_8.
+\]
+
+Since $\langle e_1,g_1\rangle=1$, the divisibility of $e_1$ in $L^\perp$ is $1$; similarly $\divis(e_2)=1$.  The isotropic witness $g_1$ has divisibility $1$ because $\langle e_1,g_1\rangle=1$, and likewise for $g_2$.  Hence $e_1$ and $e_2$ are $1$-admissible in $L^\perp$.  The mirror-side complement $\Lcheck^\perp$ is also even unimodular, of signature $(2,2)$, hence isomorphic to $H\oplus H$.  After choosing the standard lift identifying $\tau$ with a primitive isotropic vector in one $H$-summand, the same argument gives $\divis(\tau)=1$, so the mirror-side $m$-admissibility clause also holds with $m=1$.
+
+Finally, in the decomposition
+\[
+L^\perp = H_1\oplus H_2\oplus \Gamma,
+\]
+the orthogonal complement of $I=\langle e_1,e_2\rangle$ inside $L^\perp$ is
+\[
+I^\perp\cap L^\perp = \bZ e_1\oplus \bZ e_2\oplus \Gamma = I\oplus \Gamma.
+\]
+Inside $\LambdaK$, since $L$ is orthogonal to $L^\perp$, we have
+\[
+I^\perp_{\LambdaK} = L\oplus I\oplus \Gamma.
+\]
+Quotienting by $I$ gives
+\[
+I^\perp/I \cong L\oplus \Gamma.
+\]
+Because $L\cong H$ and $\Gamma$ is negative definite unimodular of rank $16$, the indefinite lattice $L\oplus\Gamma$ has signature $(1,17)$ and is even unimodular, hence isomorphic to $H\oplus E_8\oplus E_8$ by the indefinite classification.  The image of $L$ is an orthogonal direct summand, so the embedding $L\hookrightarrow I^\perp/I$ is primitive, and its orthogonal complement is $\Gamma$.
+\end{proof}
+
+The primitive embedding of the mirror lattice into the K3 lattice is also rigid.
+
+% RECORDS: 1157,807
+\begin{proposition}\label{prop:primitive-embedding}
+Let
+\[
+M = H\oplus E_8\oplus E_8.
+\]
+There is, up to isometry of $\LambdaK$, a unique primitive embedding
+\[
+M\hookrightarrow \LambdaK,
+\]
+and its orthogonal complement is isomorphic to $H\oplus H$.  Moreover, in the decomposition of Theorem~\ref{thm:mirror-H}, the primitive embedding $L\hookrightarrow I^\perp_{\LambdaK}$ factors through primitive embeddings
+\[
+L\hookrightarrow M'\cong M\hookrightarrow I^\perp_{\LambdaK},
+\]
+where $M' = L\oplus\Gamma$.
+\end{proposition}
+
+\begin{proof}
+The lattice $M$ is even unimodular of signature $(1,17)$, and $\LambdaK$ is even unimodular of signature $(3,19)$.  In the standard decomposition
+\[
+\LambdaK = (H\oplus H)\oplus (H\oplus E_8\oplus E_8),
+\]
+the second summand gives an explicit primitive embedding of $M$ with complement $H\oplus H$.
+
+For uniqueness, we invoke Nikulin's primitive embedding theorem~\cite[Proposition~1.6.1]{Nik80}.  Its hypotheses are satisfied because both $M$ and the desired complement $H\oplus H$ are indefinite even lattices with trivial discriminant groups, and the rank and signature conditions are
+\[
+\rank M = 18,\qquad \rank(H\oplus H)=4,\qquad (1,17)+(2,2)=(3,19).
+\]
+The discriminant-form obstruction is therefore vacuous.  Hence the primitive embedding is unique up to isometry of $\LambdaK$, and the complement is forced to be $H\oplus H$.
+
+For the factorisation, use the decomposition from Theorem~\ref{thm:mirror-H}:
+\[
+I^\perp_{\LambdaK} = L\oplus I\oplus \Gamma.
+\]
+Let
+\[
+M' = L\oplus \Gamma.
+\]
+Then $M'\cong H\oplus\Gamma$ is even unimodular of signature $(1,17)$, hence $M'\cong M$ by the indefinite classification~\cite{MH73}.  The inclusion $M'\hookrightarrow I^\perp_{\LambdaK}$ is primitive because the quotient is the free lattice $I$, and $L\hookrightarrow M'$ is primitive because it is an orthogonal direct-summand inclusion.  Thus
+\[
+L\hookrightarrow M'\cong M\hookrightarrow I^\perp_{\LambdaK}.
+\]
+\end{proof}
+
+\section{Consequences conditional on the existence of a mirror pair}
+
+We now record what follows if a mirror pair actually exists.
+
+% RECORDS: 339
+\begin{theorem}\label{thm:consequences}
+Assume that an $H$-polarised Tyurin degeneration $X_0=V_1\cup V_2$ and an $H\oplus E_8\oplus E_8$-quasipolarised K3 fibration form a mirror pair in the sense of~\cite[Definition~5.1]{GT24}.  Then for each $j=1,2$ there are pseudolattice isomorphisms
+\[
+H_2(Y_j,F_p;\bZ)\cong K_0^{\mathrm{num}}(D(V_j))
+\]
+and
+\[
+H_1(F_p;\bZ)\cong K_0^{\mathrm{num}}(D(C)),
+\]
+making the natural square commute.  Moreover, after fixing the auxiliary chamber/polarization datum $h$ required in~\cite[Theorem~4.7]{AE25}, the corresponding chambered analytic moduli spaces satisfy
+\[
+\dim \overline{\cM}_{H,h} = 18,
+\qquad
+\dim \overline{\cM}_{H\oplus E_8\oplus E_8,h}=2.
+\]
+\end{theorem}
+
+\begin{proof}
+The pseudolattice statement is~\cite[Theorem~5.4]{GT24}; its hypotheses are exactly that the two objects form a mirror pair in the sense of Definition~5.1.  Its proof uses Definition~5.1(2) together with~\cite[Proposition~2.37]{GT24} to lift the mirror isometry to isometries
+\[
+\psi_j\colon \NS(H_2(Y_j,F_p;\bZ))\to \NS(V_j)
+\]
+satisfying
+\[
+\psi_j([r_j(b)])=-K_{V_j},
+\]
+and then applies~\cite[Proposition~2.21]{GT24} to obtain the pseudolattice isomorphisms.
+
+For the dimension statement, we use Theorem~4.7 of Alexeev--Engel~\cite{AE25}.  That theorem concerns the chambered moduli space $\overline{\cM}_{\Lambda,h}$ associated with a non-degenerate lattice $\Lambda$ and an auxiliary chamber/polarization datum $h$.  For such a datum, the theorem gives a smooth complex analytic space of dimension
+\[
+20-\rank \Lambda.
+\]
+The lattices in question here are non-degenerate: $H$ has signature $(1,1)$, and $H\oplus E_8\oplus E_8$ has signature $(1,17)$.  For $L=H$, $\rank H=2$, so the $H$-polarised side has dimension
+\[
+20-2=18.
+\]
+For the mirror side, $\rank(H\oplus E_8\oplus E_8)=18$, so the dimension is
+\[
+20-18=2.
+\]
+\end{proof}
+
+\section{Non-balanced Type~II monodromy and the $V_6\cup V_{12}$ consistency check}
+
+We state the Type~II monodromy filtration only under an explicit non-balanced hypothesis.  The balanced case $q=0$ is left open.
+
+% RECORDS: 351
+\begin{theorem}\label{thm:typeII}
+Let $\pi\colon \cX\to \Delta$ be an $H$-polarised Tyurin degeneration of K3 surfaces with central fibre $X_0=V_1\cup_C V_2$, and let $X$ be a nearby smooth fibre.  Let $T$ be the local monodromy on $H^2(X;\bZ)$ and $N=\log T$.
+
+\begin{enumerate}
+\item Assume explicitly that the degeneration is non-balanced Type~II in the sense that $T$ is unipotent, $N^2=0$, and $I=\im N$ is a primitive rank-two isotropic sublattice.  Then $I\subset L^\perp$,
+\[
+I^\perp = \ker N,
+\]
+and the filtration
+\[
+0\subset I=\im N\subset I^\perp=\ker N\subset H^2(X;\bZ)
+\]
+is the relative monodromy weight filtration in the sense of the Friedman--Scattone theory as summarized in~\cite[\S3.1]{GT24}.  Moreover,
+\[
+I^\perp/I\cong H\oplus E_8\oplus E_8.
+\]
+No assertion is made here for the balanced case $q=0$.
+
+\item On a candidate mirror fibration split by a loop $\gamma$, impose the mirror-pairing relation
+\[
+12-\eul(Y_1)=K_{V_1}^2=:q
+\]
+and assume $q\neq 0$.  If Assumption~4.9(1) of~\cite{GT24} holds for the first disc fibration, then the anticlockwise boundary monodromy matrices are
+\[
+T_1=
+\begin{pmatrix}
+1 & -q\\
+0 & 1
+\end{pmatrix},
+\qquad
+T_2=
+\begin{pmatrix}
+1 & q\\
+0 & 1
+\end{pmatrix},
+\]
+and the Euler numbers satisfy
+\[
+\eul(Y_1)=12-q,
+\qquad
+\eul(Y_2)=12+q.
+\]
+Allowability of the loop $\gamma$ in the sense of~\cite[Definition~4.11]{GT24} requires both clauses of Assumption~4.9.  The first clause is exactly the displayed matrix condition; the second clause, primitivity of $r(a)$ in the relevant relative homology, is retained as an explicit hypothesis and is not proved here.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+For the first part, the explicit non-balanced Type~II hypothesis gives $T$ unipotent, $N^2=0$, and $I=\im N$ primitive rank two.  Since $T$ is an isometry of the intersection form, its logarithm $N$ is infinitesimally orthogonal:
+\[
+\langle Nx,y\rangle + \langle x,Ny\rangle=0.
+\]
+Because the $H$-polarisation is monodromy invariant, $T$ acts trivially on $L$, hence $N$ acts trivially on $L$.  Thus, for $x\in H^2(X;\bZ)$ and $\ell\in L$,
+\[
+\langle Nx,\ell\rangle = -\langle x,N\ell\rangle=0,
+\]
+so $I=\im N\subset L^\perp$.  The isotropy of $I$ follows from $N^2=0$ and infinitesimal orthogonality:
+\[
+\langle Nx,Ny\rangle=-\langle x,N^2y\rangle=0.
+\]
+
+We now derive the equality $I^\perp=\ker N$.  For $y\in H^2(X;\bZ)$,
+\[
+y\in (\im N)^\perp
+\iff
+\langle Nx,y\rangle=0\quad\text{for all }x
+\]
+\[
+\iff
+-\langle x,Ny\rangle=0\quad\text{for all }x
+\]
+by infinitesimal orthogonality.  Since the intersection form on $H^2(X;\bZ)$ is non-degenerate, this is equivalent to $Ny=0$.  Hence
+\[
+I^\perp=(\im N)^\perp=\ker N.
+\]
+
+For a nilpotent operator $N$ with $N^2=0$, the relative monodromy weight filtration of the limiting mixed Hodge structure is the filtration whose nontrivial steps are $\im N$ and $\ker N$; in the present Type~II K3 setting this is the Friedman--Scattone filtration as summarized in~\cite[\S3.1]{GT24}.  Thus the displayed filtration is precisely that weight filtration.
+
+Finally, since $I\subset L^\perp$ is a primitive rank-two isotropic sublattice, Theorem~\ref{thm:mirror-H} gives
+\[
+I^\perp/I\cong H\oplus E_8\oplus E_8.
+\]
+
+For the second part, Assumption~4.9(1) of~\cite{GT24} gives, in a symplectic basis of $H_1(F;\bZ)$,
+\[
+T_1=
+\begin{pmatrix}
+1 & \eul(Y_1)-12\\
+0 & 1
+\end{pmatrix}.
+\]
+Using $q=12-\eul(Y_1)$ gives
+\[
+T_1=
+\begin{pmatrix}
+1 & -q\\
+0 & 1
+\end{pmatrix}.
+\]
+By~\cite[Remark~4.12]{GT24}, the second boundary monodromy is inverse to the first:
+\[
+T_2=T_1^{-1}=
+\begin{pmatrix}
+1 & q\\
+0 & 1
+\end{pmatrix}.
+\]
+The same remark gives
+\[
+\eul(Y_1)+\eul(Y_2)=24,
+\]
+so with $\eul(Y_1)=12-q$ one obtains $\eul(Y_2)=12+q$.
+
+Finally,~\cite[Definition~4.11]{GT24} declares $\gamma$ allowable when both disc fibrations satisfy Assumption~4.9.  Clause~(1) is the matrix condition just verified.  Clause~(2), the primitivity of $r(a)$, is not a consequence of the Euler-number arithmetic and is therefore kept as an explicit hypothesis.
+\end{proof}
+
+We now check the self-contained numerical consistency of the $V_6\cup V_{12}$ ansatz.  The monodromy matrices below are derived directly from~\cite[Assumption~4.9(1) and Remark~4.12]{GT24}, not from the conditional Type~II theorem above.
+
+% RECORDS: 564
+\begin{proposition}\label{prop:V6V12}
+Let $C\subset \bP^2$ be a smooth plane cubic and let $V_d=\Bl_d \bP^2$ be the blow-up of $\bP^2$ in $d$ distinct points on $C$.  Let $D\subset V_d$ be the strict transform of $C$.  For the ansatz
+\[
+X_0 = V_6\cup_D V_{12},
+\]
+the following hold.
+\begin{enumerate}
+\item On $V_d$ one has
+\[
+D = -K_{V_d},\qquad D^2 = K_{V_d}^2 = 9-d.
+\]
+Thus $\deg N_{D/V_6}=+3$ and $\deg N_{D/V_{12}}=-3$; the numerical $d$-semistability condition is satisfied, equivalently $6+12=18$.
+\item The topological Euler numbers are
+\[
+\eul(V_6)=9,\qquad \eul(V_{12})=15,
+\]
+and hence
+\[
+\eul(V_6)+\eul(V_{12})=24.
+\]
+\item If disc fibrations $Y_i$ with $\eul(Y_i)=\eul(V_i)$ satisfy Assumption~4.9(1) of~\cite{GT24}, then their anticlockwise boundary monodromies are
+\[
+\begin{pmatrix}
+1 & -3\\
+0 & 1
+\end{pmatrix},
+\qquad
+\begin{pmatrix}
+1 & 3\\
+0 & 1
+\end{pmatrix},
+\]
+which are mutually inverse, and
+\[
+12-\eul(Y_1)=3=K_{V_6}^2.
+\]
+\end{enumerate}
+No existence, dominance, very-general occurrence, or allowability assertion is made.
+\end{proposition}
+
+\begin{proof}
+Let $h$ denote the pullback of the hyperplane class on $\bP^2$, and let $E_1,\dots,E_d$ be the exceptional divisors over distinct points of $C$.  Then
+\[
+K_{V_d} = -3h + \sum_{i=1}^d E_i.
+\]
+The strict transform of the cubic $C$ has class
+\[
+D = 3h - \sum_{i=1}^d E_i = -K_{V_d}.
+\]
+Therefore
+\[
+D^2 = K_{V_d}^2 = 9-d.
+\]
+For $d=6$ this gives $D^2=3$, and for $d=12$ it gives $D^2=-3$.  Since $\deg N_{D/V_d}=D^2$, the normal bundle degrees are $+3$ and $-3$, and their sum is $0$.  Thus the numerical condition for $d$-semistability is satisfied.
+
+The Euler characteristic of $\bP^2$ is $3$, and each blow-up at a distinct point adds $1$, so
+\[
+\eul(V_d)=3+d.
+\]
+Hence
+\[
+\eul(V_6)=9,\qquad \eul(V_{12})=15,
+\]
+and the sum is $24$.
+
+If $Y_1$ has Euler number $9$ and satisfies Assumption~4.9(1) of~\cite{GT24}, then by that assumption itself its anticlockwise boundary monodromy is
+\[
+\begin{pmatrix}
+1 & 9-12\\
+0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & -3\\
+0 & 1
+\end{pmatrix}.
+\]
+For $Y_2$ with Euler number $15$ one obtains
+\[
+\begin{pmatrix}
+1 & 15-12\\
+0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 3\\
+0 & 1
+\end{pmatrix}.
+\]
+These matrices are inverse, as required by~\cite[Remark~4.12]{GT24}.  Finally,
+\[
+12-\eul(Y_1)=12-9=3=K_{V_6}^2.
+\]
+\end{proof}
+
+\section{Extremal-fibration obstruction and the corrected positivity clause}
+
+We now prove a monodromy obstruction for certain allowable-loop candidates on an elliptic fibration with singular fibres $2\,\mathrm{II}^*+4\,\mathrm{I}_1$.
+
+% RECORDS: 1484,351
+\begin{theorem}\label{thm:extremal-obstruction}
+Let $\pi\colon Y\to \bP^1$ be an elliptic fibration on a K3 surface whose singular fibres are
+\[
+2\,\mathrm{II}^*+4\,\mathrm{I}_1,
+\]
+with Euler numbers $\eul(\mathrm{II}^*)=10$ and $\eul(\mathrm{I}_1)=1$.  Let $\gamma$ be a simple loop enclosing a subset $S$ of singular fibres, and put
+\[
+\eul_1 = \sum_{F\subset S} \eul(F),\qquad q=12-\eul_1.
+\]
+Then:
+\begin{enumerate}
+\item Assumption~4.9(1) of~\cite{GT24} holds for $\gamma$ if and only if it holds for one of the two sides, since the two anticlockwise boundary monodromies are inverse and $\eul_1+\eul_2=24$.
+\item If
+\[
+|q|\in \{2,3,4,5,6,7\}
+\quad\text{or}\quad
+|q|\geq 10,
+\]
+then no such loop satisfies Assumption~4.9(1).
+\item The residual cases
+\[
+|q|\in\{0,1,8,9\}
+\]
+are not decided by the fibre configuration alone; they depend on the actual monodromy representation and vanishing-cycle conjugation data.
+\item In particular, the value $q=3$ required by the $V_6\cup V_{12}$ ansatz of Proposition~\ref{prop:V6V12} is excluded for this extremal fibration.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The Euler numbers of the singular fibres are
+\[
+\eul(\mathrm{II}^*)=10,\qquad \eul(\mathrm{I}_1)=1,
+\]
+by Kodaira's table~\cite{Kod63}.  The multiset of Euler numbers is therefore
+\[
+\{10,10,1,1,1,1\}.
+\]
+The possible subset sums are
+\[
+0,1,2,3,4,
+\]
+using only $\mathrm{I}_1$ fibres;
+\[
+10,11,12,13,14,
+\]
+using exactly one $\mathrm{II}^*$ fibre; and
+\[
+20,21,22,23,24,
+\]
+using both $\mathrm{II}^*$ fibres.  There are no subset sums $5,6,7,8,9,15,16,17,18,19$.
+
+Swapping the two sides replaces $\eul_1$ by $24-\eul_1$ and $q$ by $-q$.  Also, if one side has monodromy
+\[
+\begin{pmatrix}
+1 & \eul_1-12\\
+0 & 1
+\end{pmatrix},
+\]
+then the other side has the inverse matrix.  Hence it suffices to consider $\eul_1\le 12$, namely
+\[
+\eul_1\in\{0,1,2,3,4,10,11,12\}.
+\]
+The corresponding $q$-values are
+\[
+12,11,10,9,8,2,1,0.
+\]
+
+For the monodromy arguments, let
+\[
+U_n=
+\begin{pmatrix}
+1 & n\\
+0 & 1
+\end{pmatrix}.
+\]
+For $A\in \SL_2(\bZ)$ define
+\[
+c(A)=\gcd\{\text{entries of }A-I\},
+\]
+with $c(I)=0$.  The integer $c(A)$ is invariant under $\SL_2(\bZ)$-conjugacy: if $B=PAP^{-1}$, then $B-I=P(A-I)P^{-1}$, and multiplication on the left and right by unimodular integral matrices preserves the ideal of $\bZ$ generated by the entries.  If $A$ is conjugate to $U_n$, then $c(A)=|n|$.  Assumption~4.9(1) requires the disc monodromy to be conjugate to $U_{\eul_1-12}$, so it requires $c(A)=|\eul_1-12|=|q|$.
+
+We first exclude $q=2$, i.e.\ $\eul_1=10$.  A subset with Euler sum $10$ must consist of a single $\mathrm{II}^*$ fibre.  The local monodromy of a $\mathrm{II}^*$ fibre has finite order $6$~\cite{Kod63}; in particular it is not unipotent.  It therefore cannot be conjugate to $U_{-2}$.
+
+Next consider $q=12$, i.e.\ $\eul_1=0$.  The enclosed subset is empty, so the monodromy is trivial, whereas Assumption~4.9(1) would require $U_{-12}$, which has $c=12$.  This is impossible.
+
+For $q=11$, i.e.\ $\eul_1=1$, the enclosed subset is a single $\mathrm{I}_1$ fibre.  The monodromy is conjugate to $U_1$ up to orientation, so $c=1$, whereas the required matrix has $c=11$.  Thus this case is impossible.
+
+For $q=10$, i.e.\ $\eul_1=2$, the enclosed subset consists of two $\mathrm{I}_1$ fibres.  The disc monodromy is a product of two positive Dehn twists about primitive vanishing cycles.  Write a positive Dehn twist about a primitive cycle $v$ as
+\[
+\tau_v(x)=x+(x\cdot v)v.
+\]
+For two primitive cycles $v,w$ on an elliptic curve, one computes
+\[
+\tr(\tau_v\tau_w)=2-(v\cdot w)^2.
+\]
+If the product is conjugate to a matrix $U_n$, its trace is $2$, hence $v\cdot w=0$.  In rank two with a symplectic intersection form, primitive vectors with zero intersection are proportional, so $w=\pm v$.  Since $\tau_{-v}=\tau_v$, the product is $\tau_v^2$, hence conjugate to $U_2$, with $c=2$.  The required matrix has $c=10$, so this case is impossible.
+
+The values $|q|=3,4,5,6,7$ would require $\eul_1=9,8,7,6,5$ or the complementary values $15,16,17,18,19$, none of which is a subset sum of $\{10,10,1,1,1,1\}$.  The values $|q|\ge 13$ are impossible because $0\le \eul_1\le 24$.  Together with the explicit exclusions of $q=10,11,12$, this proves the stated exclusion range.
+
+The remaining cases are
+\[
+\eul_1=3,4,11,12,
+\]
+corresponding to
+\[
+|q|=9,8,1,0.
+\]
+For $\eul_1=3,4$ the disc monodromy is a product of three or four $\mathrm{I}_1$ twists.  For $\eul_1=11,12$ it involves a $\mathrm{II}^*$ monodromy multiplied by products of $\mathrm{I}_1$ twists.  In all these cases the trace and the gluing number depend on the conjugating matrices in the global monodromy representation
+\[
+\pi_1(\bP^1\setminus \Sigma)\to \SL_2(\bZ),
+\]
+and are not determined solely by the fibre configuration.  Hence these residual cases are left undecided.
+
+Finally, the $V_6\cup V_{12}$ ansatz of Proposition~\ref{prop:V6V12} has $q=3$.  Since $|q|=3$ lies in the excluded range, the extremal fibration $2\,\mathrm{II}^*+4\,\mathrm{I}_1$ cannot carry the required allowable loop for that value of $q$.
+\end{proof}
+
+We now analyse the corrected positivity condition
+\[
+(A|_{V_i})^2>0.
+\]
+
+% RECORDS: 1222
+\begin{proposition}\label{prop:positivity-redundancy}
+The corrected positivity clause $(A|_{V_i})^2>0$ is not consumed by the mirror-side axioms~\cite[Definitions~4.11, 4.21 and 5.1]{GT24}: no clause of those definitions evaluates $(A|_{V_i})^2$.  Moreover, there is a numerical central-fibre model
+\[
+V_1=\Bl_7\bP^2,\qquad V_2=\Bl_{11}\bP^2,
+\]
+with distinct blown-up points on a smooth plane cubic, with $q=2$, candidate monodromy matrices
+\[
+\begin{pmatrix}
+1 & -2\\
+0 & 1
+\end{pmatrix},
+\qquad
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix}
+\]
+under Assumption~4.9(1) and Remark~4.12 of~\cite{GT24}, Euler numbers $10$ and $14$, a nef restriction class on $V_1$ of square $0$, and also a nef restriction class on $V_1$ of positive square.  Thus the corrected clause is non-vacuous as a condition on $A$, but it is redundant for the lattice and monodromy clauses of the mirror-side axioms.  No global family, global divisor $A$, very-general occurrence, or full satisfaction of the mirror axioms is asserted.
+\end{proposition}
+
+\begin{proof}
+First inspect the definitions.  Definition~4.11 declares a loop allowable precisely when Assumption~4.9 holds for both disc fibrations.  Assumption~4.9(1) is a monodromy-matrix condition, and Assumption~4.9(2) is the primitivity of $r(a)$ in relative homology.  Definition~4.21 is a lattice-incidence condition: the quasipolarisation lattice contains the fibre class $F$, and its orthogonal complement contains the lifted class $\tau$.  Definition~5.1 consists of primitive-embedding conditions, the existence of the isometry $\psi$, the lift $\widehat\psi$, and $m$-admissibility.  None of these clauses contains or evaluates the number $(A|_{V_i})^2$.
+
+Now construct the numerical witness.  Let
+\[
+V_d=\Bl_d\bP^2
+\]
+with the blown-up points distinct and lying on a smooth cubic, and let $D$ be the strict transform of the cubic.  As in Proposition~\ref{prop:V6V12},
+\[
+K_{V_d}^2=D^2=9-d,
+\qquad
+\eul(V_d)=3+d.
+\]
+For $d_1=7$ and $d_2=11$ one has $d_1+d_2=18$, hence the numerical $d$-semistability condition holds.  The invariants are
+\[
+K_{V_1}^2=2,\qquad K_{V_2}^2=-2,
+\]
+and
+\[
+\eul(V_1)=10,\qquad \eul(V_2)=14.
+\]
+Thus $q=K_{V_1}^2=2$, and, if Assumption~4.9(1) and Remark~4.12 of~\cite{GT24} are imposed, the corresponding inverse monodromy matrices are
+\[
+\begin{pmatrix}
+1 & -2\\
+0 & 1
+\end{pmatrix},
+\qquad
+\begin{pmatrix}
+1 & 2\\
+0 & 1
+\end{pmatrix}.
+\]
+
+On $V_1=\Bl_7\bP^2$, let $h$ be the pullback of the hyperplane class and $E_1$ the exceptional divisor over the first blown-up point.  Put
+\[
+P = h-E_1.
+\]
+The complete linear system $|h-E_1|$ is the proper transform of the pencil of lines through the first blown-up point.  On $\Bl_{p_1}\bP^2$ it is base-point-free; after blowing up the remaining distinct points it remains base-point-free, because for every later blown-up point there is a line through $p_1$ not passing through that point.  Hence $P$ is nef.  Its self-intersection is
+\[
+P^2 = (h-E_1)^2 = h^2 - 2h\cdot E_1 + E_1^2 = 1 - 0 - 1 = 0.
+\]
+Therefore $P$ is nef but not big: a big nef divisor on a smooth projective surface has positive self-intersection.  Taking $A|_{V_1}=P$ gives a central-fibre restriction with square $0$, violating the corrected positivity clause on $V_1$, while the numerical monodromy data remain consistent with $q=2$.
+
+On the other hand, the hyperplane class $h$ on $V_1=\Bl_7\bP^2$ is nef and satisfies
+\[
+h^2=1>0.
+\]
+Thus the corrected clause is not vacuous: it excludes classes such as $P=h-E_1$ of square zero, while admitting classes such as $h$ of positive square.
+
+This proves that the corrected clause excludes some central-fibre restriction classes, so it is non-vacuous as a condition on $A$, but also that no clause of Definitions~4.11, 4.21 or 5.1 uses this inequality.  The construction is only a restriction-class and numerical-monodromy witness: it does not construct a global effective flat nef Cartier divisor $A$ on a total family, nor does it establish very-general occurrence or the full mirror axioms.
+\end{proof}
+
+\section{Open points}
+
+The following points remain open.
+
+\begin{enumerate}
+\item The original existential assertion is not proved in this paper: for a very general $H$-polarised Tyurin degeneration and a very general $H\oplus E_8\oplus E_8$-quasipolarised K3 surface, no compatible elliptic fibration $\pi$ and allowable loop $\gamma$ are constructed.
+\item Assumption~4.9(2), the primitivity of $r(a)$ in the relative homology of the disc fibration, remains an explicit hypothesis in our monodromy analysis.
+\item The relation between the corrected positivity clause $(A|_{V_i})^2>0$ and the non-balanced condition $q\neq 0$ is not proved.  In this paper $q\neq 0$ is used only as a standing hypothesis.
+\item The balanced case $q=0$ is not settled under the problem hypotheses.
+\item For an elliptic fibration with singular fibres $2\,\mathrm{II}^*+4\,\mathrm{I}_1$, the residual cases $|q|\in\{0,1,8,9\}$ require the actual monodromy representation and vanishing-cycle conjugation data.
+\item The existence, uniqueness and classification of elliptic fibrations on the very general $H\oplus E_8\oplus E_8$-quasipolarised K3 surface, including the possible occurrence of non-extremal $24\,\mathrm{I}_1$ models, remain open.
+\item The precise cusp-complement type $\Gamma\cong E_8\oplus E_8$ versus $\Gamma\cong D_{16}^+$, and its effect on the $\psi(\Gamma)=(\operatorname{im}L)^\perp$ conjunct for a specific degeneration, is not resolved.
+\item The representability, closedness and global stack-theoretic structure of the mirror-pair incidence locus are open.
+\item The precise boundary-stratum interpretation of the very-general Noether--Lefschetz condition in the Alexeev--Brunyate--Engel compactification needs further clarification.
+\item The global existence of the divisor $A$ in the positivity-clause witness is not established.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{ABE22}
+V.~Alexeev, A.~Brunyate and P.~Engel,
+\emph{Compactifications of moduli of elliptic {K3} surfaces: stable pair and toroidal},
+Geom. Topol. \textbf{26} (2022), no.~8, 3525--3588.
+
+\bibitem{AE25}
+V.~Alexeev and P.~Engel,
+preprint, arXiv:2505.22557v4, 2025.
+
+\bibitem{GT24}
+L.~Giovenzana and A.~Thompson,
+\emph{Degenerations and fibrations of {K3} surfaces: lattice polarisations and mirror symmetry},
+preprint, arXiv:2405.12009v3, May 2024.
+
+\bibitem{Kod63}
+K.~Kodaira,
+\emph{On compact analytic surfaces. {II}},
+Ann. of Math. (2) \textbf{77} (1963), 563--626.
+
+\bibitem{MH73}
+J.~Milnor and D.~Husemoller,
+\emph{Symmetric Bilinear Forms},
+Springer-Verlag, 1973.
+
+\bibitem{Nik80}
+V.~V.~Nikulin,
+\emph{Integer symmetric bilinear forms and some of their geometric applications},
+Izv. Akad. Nauk SSSR Ser. Mat. \textbf{43} (1979), no.~1, 111--177; English transl., Math. USSR Izv. \textbf{14} (1980), no.~1, 103--167.
+
+\end{thebibliography}
+
+\end{document}

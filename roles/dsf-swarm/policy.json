@@ -1,0 +1,9 @@
+{
+ "acceptance": {
+  "k_accept": 2,
+  "k_refute": 1,
+  "n_critics": 3
+ },
+ "critic_models": [],
+ "critic_workers": []
+}

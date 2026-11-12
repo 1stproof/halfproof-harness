@@ -1,0 +1,597 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage[colorlinks=true]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\gp}{\mathrm{gp}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\PSh}{\operatorname{PSh}}
+\newcommand{\Sh}{\operatorname{Sh}}
+\newcommand{\Lan}{\operatorname{Lan}}
+\newcommand{\Match}{\operatorname{Match}}
+
+\begin{document}
+
+\title{Maximal sieves on the birhizomic stratum site:\\
+positive answers for rank-one and valuative monoids}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+We study the adjunction between sheaves on the birhizomic site of a monoid \(P\) and sheaves on the trivial site of the face-stratum subcategory \(B_P\).  We prove that if every birhizomic covering sieve of every stratum in \(B_P\) is maximal, then for every presheaf of abelian groups \(F\) on \(B_P^{\op}\) the adjunction unit
+\[
+F \longrightarrow R\pi_*\pi^{-1}F
+\]
+is a quasi-isomorphism.  We verify this maximal-sieve condition for all rank-one monoids and for all finitely generated valuative monoids.  Thus the original question has a positive answer in these two regimes.  The general non-valuative case and the necessity of the maximal-sieve condition remain open.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+A \emph{monoid} in this paper is an integral, saturated, sharp, commutative, unital monoid, written additively.  For a monoid \(M\), we write \(M^{\gp}\) for its associated group.  The monoid induces a translation-invariant partial order on \(M^{\gp}\) by
+\[
+g\geq 0 \quad\Longleftrightarrow\quad g\in M.
+\]
+A monoid is \emph{valuative} if this partial order is total.
+
+Given a monoid \(P\), let \(A_P\) be the category whose objects are monoid homomorphisms \(P\to Q\), with \(Q\) again integral, saturated and sharp, and whose morphisms are commutative triangles under \(P\).  For \(x\in P\), let
+\[
+b_x : P \longrightarrow Q_x := P[-x]^\sharp
+\]
+denote the initial map under \(P\) which sends \(x\) to \(0\).  Let \(B_P\subset A_P\) be the full subcategory on the objects \(b_x\).  The opposite category \(A_P^{\op}\) carries the birhizomic Grothendieck topology, while \(B_P^{\op}\) carries the trivial topology.
+
+The inclusion \(B_P^{\op}\subset A_P^{\op}\) induces, by left Kan extension followed by sheafification, an inverse-image functor
+\[
+\pi^{-1}:\Sh(B_P^{\op})\longrightarrow \Sh(A_P^{\op}),
+\]
+with right adjoint
+\[
+\pi_*:\Sh(A_P^{\op})\longrightarrow \Sh(B_P^{\op}).
+\]
+Since the topology on \(B_P^{\op}\) is trivial, every presheaf on \(B_P^{\op}\) is a sheaf.  The question addressed in this paper is:
+
+\begin{quote}
+For every presheaf of abelian groups \(F\) on \(B_P^{\op}\), is the unit
+\[
+F \longrightarrow R\pi_*\pi^{-1}F
+\]
+a quasi-isomorphism?
+\end{quote}
+
+We prove two positive answers.
+
+\begin{itemize}
+\item If \(P\) has rank one, i.e. \(\dim_{\mathbf Q}(P^{\gp}\otimes\mathbf Q)=1\), then the answer is yes (Theorem~\ref{thm:rank-one-yes}).
+\item If \(P\) is finitely generated and valuative, then the answer is yes (Theorem~\ref{thm:fg-valuative-yes}).
+\end{itemize}
+
+The main mechanism is a sufficient condition, denoted \((\mathrm{Max})\), saying that every birhizomic covering sieve of every stratum \(b_x\in B_P\) is maximal.  Under this condition, sheafification at strata is pointwise trivial, and \(\pi_*\) becomes exact.  We then verify \((\mathrm{Max})\) in the two regimes above.
+
+We do not prove the converse.  The general non-valuative case remains open; see Section~\ref{sec:open}.
+
+\section{Preliminaries}
+
+\subsection{Basic conventions}
+
+All monoids are assumed integral, saturated, sharp, commutative and unital.  For such a monoid \(M\), the group \(M^{\gp}\) is torsion-free.  Indeed, if \(ng=0\) for some \(n\geq 1\), then \(ng\in M\), so saturation gives \(g\in M\); similarly \(n(-g)=0\) gives \(-g\in M\); sharpness then forces \(g=0\).
+
+The order on \(M^{\gp}\) is defined by \(g\geq 0\) iff \(g\in M\).  A monoid is \emph{valuative} if for every \(g\in M^{\gp}\), either \(g\in M\) or \(-g\in M\).
+
+For \(x,y\in M^{\gp}\), the original problem writes \(x\prec y\) if there are integers \(m,n\) such that
+\[
+my\leq x\leq ny.
+\]
+A homomorphism \(f:M\to N\) is \emph{infinitesimal} if, whenever \(x\in M^{\gp}\), \(y\in M\), \(f(x)\in N\), \(x\prec y\), and \(f(y)\prec f(x)\), then \(x\in M\).
+
+Given \(P\xrightarrow{f}Q\xrightarrow{g}N\), the map \(f\) is \emph{birhizomic at} \(g\) if \(f\) is of finite presentation in the category of monoids and, for every factorization
+\[
+P\xrightarrow{h}M\xrightarrow{p}N
+\]
+of \(gf\) with \(p\) infinitesimal, there is a unique \(u:Q\to M\) such that \(pu=g\) and \(uf=h\).
+
+A family \(P\to Q_i\) is a \emph{birhizomic cover} if, for every valuative monoid \(V\) and every map \(v:P\to V\), there is some \(i\) and a factorization
+\[
+P\longrightarrow Q_i\longrightarrow V
+\]
+of \(v\) such that \(P\to Q_i\) is birhizomic at \(Q_i\to V\).  For an object \(P\to Q\) of \(A_P\), covering families in the birhizomic topology are defined by the same condition with \(Q\) in place of \(P\).  In this paper we use only the valuative factorization part of the definition.
+
+\subsection{Faces and the stratum category}
+
+For \(x\in P\), define
+\[
+F_x := \{z\in P \mid \exists w\in P,\ n\geq 1\text{ such that } z+w=nx\}.
+\]
+This is the smallest face of \(P\) containing \(x\); see Lemma~\ref{lem:face-generated}.
+
+The object \(b_x:P\to Q_x=P[-x]^\sharp\) is the initial map under \(P\) killing \(x\).  In Proposition~\ref{prop:Qx-model} we give an explicit model for \(Q_x\) and prove that the kernel of \(P\to Q_x\) is exactly \(F_x\).
+
+Let \(A_P\) be the category of monoid homomorphisms \(P\to Q\) under \(P\), and let \(B_P\subset A_P\) be the full subcategory on the objects \(b_x\).  We write \(j:B_P\hookrightarrow A_P\) for the inclusion.  On opposite categories we have
+\[
+i:B_P^{\op}\hookrightarrow A_P^{\op}.
+\]
+
+The site \(A_P^{\op}\) carries the birhizomic topology \(J\).  The site \(B_P^{\op}\) carries the trivial topology.  We identify presheaves on \(B_P^{\op}\) with covariant functors \(B_P\to \Ab\), and similarly for \(A_P^{\op}\).  Under this identification, the inverse-image functor is
+\[
+\pi^{-1}=a\circ \Lan_j,
+\]
+where \(\Lan_j:\Ab^{B_P}\to \Ab^{A_P}\) is left Kan extension along \(j\), and \(a\) is sheafification for the birhizomic topology on \(A_P^{\op}\).  The direct-image functor is restriction:
+\[
+\pi_* = j^*\circ \iota,
+\]
+where \(\iota:\Sh(A_P^{\op})\hookrightarrow \PSh(A_P^{\op})\) is the inclusion.
+
+\section{The face-stratum category \(B_P\)}
+
+% RECORDS: 83
+\begin{lemma}\label{lem:face-generated}
+For every \(x\in P\), the subset \(F_x\subset P\) is the smallest face of \(P\) containing \(x\).
+\end{lemma}
+
+\begin{proof}
+First, \(F_x\) is a submonoid.  Indeed, \(0+x=x\), so \(0\in F_x\).  If \(z_1+w_1=n_1x\) and \(z_2+w_2=n_2x\), then
+\[
+(z_1+z_2)+(w_1+w_2)=(n_1+n_2)x,
+\]
+so \(z_1+z_2\in F_x\).  Also \(x+0=1x\), so \(x\in F_x\).
+
+If \(a+b\in F_x\), say \(a+b+w=nx\), then
+\[
+a+(b+w)=nx,\qquad b+(a+w)=nx,
+\]
+so \(a,b\in F_x\).  Thus \(F_x\) is a face.
+
+Finally, if \(G\) is any face containing \(x\), then \(nx\in G\) for all \(n\geq 1\).  If \(z+w=nx\), then since \(nx\in G\) and \(G\) is a face, \(z\in G\).  Hence \(F_x\subset G\).  Therefore \(F_x\) is the smallest face containing \(x\).
+\end{proof}
+
+% RECORDS: 83
+\begin{proposition}\label{prop:Qx-model}
+Let \(x\in P\).  Let
+\[
+H:=P^{\gp}/\langle x\rangle,
+\]
+let \(T\subset H\) be its torsion subgroup, and let
+\[
+G:=H/T.
+\]
+Let \(\rho:P\to G\) be the composite map.  Define
+\[
+S:=\{s\in G\mid \exists m\geq 1\text{ with }ms\in \rho(P)\},
+\]
+and let
+\[
+U:=S\cap (-S).
+\]
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item \(Q_x:=S/U\) is an integral, saturated, sharp monoid.
+\item The composite map
+\[
+\varphi_x:P\xrightarrow{\rho}S\longrightarrow S/U=Q_x
+\]
+sends \(x\) to \(0\) and is initial among maps from \(P\) to integral, saturated, sharp monoids which send \(x\) to \(0\).
+\item The kernel of \(\varphi_x\) is exactly \(F_x\).
+\end{enumerate}
+Thus \(Q_x\) is canonically isomorphic to \(P[-x]^\sharp\).
+\end{proposition}
+
+\begin{proof}
+We first prove (i).  The set \(S\) is a submonoid of \(G\): if \(s,t\in S\), choose \(m,n\geq 1\) with \(ms,nt\in \rho(P)\).  Then
+\[
+mn(s+t)=n(ms)+m(nt)\in \rho(P),
+\]
+so \(s+t\in S\).  By definition, \(S\) is saturated in \(G\): if \(ns\in S\), then for some \(m\geq 1\), \(mns\in \rho(P)\), hence \(s\in S\).
+
+The subset \(U=S\cap(-S)\) is the subgroup of units of \(S\).  Form the quotient monoid \(Q_x=S/U\).  It is a submonoid of the group \(G/U\), hence integral.
+
+We check saturation.  Suppose \(n\overline{s}=\overline{t}\) in \(Q_x\), with \(t\in S\).  Then in \(G/U\),
+\[
+ns-t\in U.
+\]
+Since \(U\subset S\), we have
+\[
+ns=t+(ns-t)\in S.
+\]
+Because \(S\) is saturated, \(s\in S\).  Hence \(\overline{s}\in Q_x\).
+
+We check sharpness.  Suppose \(\overline{s}+\overline{t}=0\) in \(Q_x\), with \(s,t\in S\).  Then \(s+t\in U\), so \(-(s+t)\in S\).  Since \(t\in S\), we have
+\[
+-s=t+(-(s+t))\in S.
+\]
+Thus \(s\in S\cap(-S)=U\), so \(\overline{s}=0\).  Therefore \(Q_x\) is sharp.
+
+For (ii), first note that \(\rho(x)=0\) in \(H\), hence in \(G\), so \(\varphi_x(x)=0\).
+
+Let \(f:P\to R\) be a map to an integral, saturated, sharp monoid \(R\) with \(f(x)=0\).  Since \(R\) is integral, \(f\) extends uniquely to a group homomorphism
+\[
+f^{\gp}:P^{\gp}\longrightarrow R^{\gp}.
+\]
+Because \(f(x)=0\), this factors through \(H=P^{\gp}/\langle x\rangle\).  The group \(R^{\gp}\) is torsion-free: if \(ng=0\), saturation gives \(g,-g\in R\), and sharpness gives \(g=0\).  Therefore \(f^{\gp}\) factors uniquely through \(G=H/T\).  Let
+\[
+\alpha:G\longrightarrow R^{\gp}
+\]
+be the resulting homomorphism.
+
+If \(s\in S\), choose \(m\geq 1\) with \(ms=\rho(p)\) for some \(p\in P\).  Then
+\[
+m\alpha(s)=f(p)\in R.
+\]
+Since \(R\) is saturated, \(\alpha(s)\in R\).  Thus \(\alpha(S)\subset R\).
+
+If \(u\in U\), then \(\alpha(u)\in R\) and \(-\alpha(u)\in R\).  Hence \(\alpha(u)\) is a unit in \(R\).  Since \(R\) is sharp, \(\alpha(u)=0\).  Therefore \(\alpha\) factors uniquely through \(S/U=Q_x\), giving a monoid homomorphism
+\[
+\overline{\alpha}:Q_x\longrightarrow R
+\]
+such that \(\overline{\alpha}\circ\varphi_x=f\).
+
+Uniqueness follows because \(P^{\gp}\) generates \(G\), hence \(Q_x^{\gp}\) is generated by the image of \(P\).  This proves the universal property.
+
+For (iii), first suppose \(z\in F_x\).  Then \(z+w=nx\) for some \(w\in P\), \(n\geq 1\).  Applying \(\rho\), we get
+\[
+\rho(z)+\rho(w)=n\rho(x)=0.
+\]
+Thus \(\rho(z)=-\rho(w)\in S\cap(-S)=U\), so \(\varphi_x(z)=0\).  Hence \(F_x\subset \ker(\varphi_x)\).
+
+Conversely, suppose \(\varphi_x(z)=0\).  Then \(\rho(z)\in U\), so \(-\rho(z)\in S\).  Hence there exist \(m\geq 1\) and \(p\in P\) such that
+\[
+m(-\rho(z))=\rho(p)
+\]
+in \(G\).  Equivalently, the class of \(-mz-p\) in \(H=P^{\gp}/\langle x\rangle\) is torsion.  Therefore there is \(\ell\geq 1\) such that
+\[
+\ell(-mz-p)\in \langle x\rangle
+\]
+in \(P^{\gp}\).  Thus for some integer \(c\),
+\[
+-\ell m z-\ell p = cx.
+\]
+Put \(B=\ell m>0\) and \(p'=\ell p\in P\).  Then
+\[
+Bz+p'=-cx.
+\]
+Let \(D=-c\).  If \(D>0\), then
+\[
+Bz+p'=Dx,
+\]
+so \(Bz\in F_x\).  Since \(F_x\) is a face and \(Bz=z+\cdots+z\), it follows that \(z\in F_x\).
+
+If \(D\leq 0\), then
+\[
+Bz+p'+|D|x=0
+\]
+in \(P\).  Since \(P\) is sharp, a sum of elements of \(P\) can be zero only if each summand is zero.  Hence \(Bz=0\), and sharpness gives \(z=0\).  Thus again \(z\in F_x\).
+
+Therefore \(\ker(\varphi_x)=F_x\).
+\end{proof}
+
+% RECORDS: 83
+\begin{corollary}\label{cor:B-face-poset}
+For \(x,y\in P\), the set
+\[
+\operatorname{Hom}_{B_P}(b_x,b_y)
+\]
+is a singleton if \(F_x\subset F_y\), and empty otherwise.  Hence \(B_P\) is equivalent to the poset of faces of the form \(F_x\).
+\end{corollary}
+
+\begin{proof}
+By the universal property of \(Q_x\), a map \(Q_x\to Q_y\) under \(P\) exists if and only if the composite
+\[
+P\longrightarrow Q_y
+\]
+kills \(x\).  By Proposition~\ref{prop:Qx-model}, this is equivalent to \(x\in F_y\).  Since \(F_y\) is a face, \(x\in F_y\) is equivalent to \(F_x\subset F_y\).  When such a map exists, it is unique by the same universal property.
+\end{proof}
+
+\section{Exactness of the inverse-image functor}
+
+We keep the identification \(\PSh(B_P^{\op})\simeq \Ab^{B_P}\) and \(\PSh(A_P^{\op})\simeq \Ab^{A_P}\).  Under this identification,
+\[
+\pi^{-1}=a\circ \Lan_j.
+\]
+
+% RECORDS: 719,83
+\begin{proposition}\label{prop:pi-inverse-exact}
+For every monoid \(P\), the functor
+\[
+\pi^{-1}:\PSh(B_P^{\op},\Ab)\longrightarrow \Sh(A_P^{\op},\Ab)
+\]
+is exact.
+\end{proposition}
+
+\begin{proof}
+Let \(F:B_P\to \Ab\) be a presheaf.  For an object \(X=(f:P\to Q)\) of \(A_P\), the left Kan extension is computed by
+\[
+(\Lan_jF)(X)=\varinjlim_{(b_x,u:b_x\to X)} F(b_x),
+\]
+where the colimit is over the comma category \((j\downarrow X)\).
+
+By Proposition~\ref{prop:Qx-model}, a map \(u:b_x\to X\) under \(P\) exists, uniquely, if and only if \(f(x)=0\).  Hence \((j\downarrow X)\) is equivalent to the poset of those \(x\in P\) such that \(f(x)=0\), with a morphism \(x\to x'\) exactly when \(F_x\subset F_{x'}\).
+
+This poset is filtered.  It is nonempty because \(f(0)=0\).  If \(f(x)=f(x')=0\), then \(f(x+x')=0\).  Also \(x\in F_{x+x'}\) and \(x'\in F_{x+x'}\), because
+\[
+x+x'=1\cdot (x+x'),
+\]
+so \(F_x,F_{x'}\subset F_{x+x'}\).  Thus \(x+x'\) is a common upper bound.  Since the category is a poset, parallel arrows are automatically equal.  Therefore \((j\downarrow X)\) is filtered.
+
+Filtered colimits of abelian groups are exact: representatives may be moved to a common index, and exactness is checked there.  Therefore \(\Lan_j\) is exact.
+
+Sheafification for abelian presheaves on a small site is exact; see \cite[Exp.~II, Prop.~3.4]{SGA4}.  Hence
+\[
+\pi^{-1}=a\circ \Lan_j
+\]
+is exact.
+\end{proof}
+
+\section{The maximal-sieve criterion}
+
+Let \(J\) denote the birhizomic topology on \(A_P^{\op}\).  A \emph{stratum} is an object \(b_x\in B_P\), viewed as an object of \(A_P^{\op}\).
+
+% RECORDS: 1216,1437
+\begin{lemma}\label{lem:valuative-strata-max}
+Suppose that for every \(x\in P\), the monoid \(Q_x=P[-x]^\sharp\) is valuative.  Then every \(J\)-covering sieve of every stratum \(b_x\) in \(A_P^{\op}\) is maximal.
+\end{lemma}
+
+\begin{proof}
+It is enough to show that every birhizomic covering family of a stratum generates the maximal sieve, because every covering sieve contains the sieve generated by a covering family.
+
+Fix \(x\in P\).  Let
+\[
+s_i:Q_x\longrightarrow Q_i
+\]
+be a birhizomic covering family of the stratum \(b_x\).  In \(A_P^{\op}\), this gives arrows
+\[
+U_i=(P\to Q_i)\longrightarrow b_x.
+\]
+By assumption, \(Q_x\) is valuative.  Apply the defining valuative factorization property of a birhizomic cover with \(V=Q_x\) and \(v=\id_{Q_x}\).  There exists some \(i\) and a map
+\[
+r:Q_i\longrightarrow Q_x
+\]
+such that
+\[
+r\circ s_i=\id_{Q_x}.
+\]
+Thus \(s_i\) is a split monomorphism under \(Q_x\).
+
+Now let
+\[
+U=(P\to Z)\longrightarrow b_x
+\]
+be any arrow into \(b_x\) in \(A_P^{\op}\).  Equivalently, it is a map
+\[
+t:Q_x\longrightarrow Z
+\]
+under \(P\).  Define
+\[
+h:=t\circ r:Q_i\longrightarrow Z.
+\]
+Then \(h\) is a map under \(P\), and the corresponding arrow
+\[
+U\longrightarrow U_i
+\]
+in \(A_P^{\op}\) makes the triangle commute:
+\[
+U\longrightarrow U_i\longrightarrow b_x
+\]
+is the original arrow \(U\to b_x\).  Hence every arrow into \(b_x\) factors through the covering arrow \(U_i\to b_x\).  The sieve generated by the covering family is therefore maximal, and any covering sieve containing it is maximal.
+\end{proof}
+
+We now state the main sufficient condition.
+
+\begin{equation}\label{eq:max-condition}
+\tag{Max}
+\text{Every \(J\)-covering sieve of every stratum \(b_x\in B_P\) is maximal.}
+\end{equation}
+
+% RECORDS: 1216,1437
+\begin{theorem}\label{thm:max-criterion}
+Assume \eqref{eq:max-condition}.  Then for every presheaf of abelian groups \(F\) on \(B_P^{\op}\), the unit
+\[
+F\longrightarrow R\pi_*\pi^{-1}F
+\]
+is a quasi-isomorphism.  Moreover, \(\pi_*\) is exact.
+\end{theorem}
+
+\begin{proof}
+First consider the underived unit
+\[
+F\longrightarrow \pi_*\pi^{-1}F.
+\]
+Since \(j:B_P\hookrightarrow A_P\) is fully faithful, the canonical map
+\[
+F\longrightarrow j^*\Lan_jF
+\]
+is an isomorphism.  Explicitly, for \(b\in B_P\), the comma category \((j\downarrow b)\) has terminal object \((b,\id_b)\), so
+\[
+(\Lan_jF)(b)\cong F(b).
+\]
+
+Let \(H\) be any presheaf on \(A_P^{\op}\).  We claim that under \eqref{eq:max-condition},
+\[
+(aH)(b)=H(b)
+\]
+for every stratum \(b\in B_P\).  Indeed, in the plus construction,
+\[
+H^+(b)=\varinjlim_{R\in J(b)} \Match(R,H).
+\]
+By \eqref{eq:max-condition}, the only covering sieve of \(b\) is the maximal sieve.  A matching family over the maximal sieve is uniquely determined by its value at \(\id_b\), so
+\[
+\Match(\text{maximal sieve},H)\cong H(b).
+\]
+Thus \(H(b)\to H^+(b)\) is an isomorphism.  Applying the same argument to \(H^+\), we obtain \((aH)(b)=H(b)\).
+
+Taking \(H=\Lan_jF\), we get
+\[
+(\pi_*\pi^{-1}F)(b)
+=(a\Lan_jF)(b)
+=(\Lan_jF)(b)
+\cong F(b).
+\]
+The underived unit is therefore an isomorphism of presheaves on \(B_P^{\op}\).
+
+Next we prove that \(\pi_*\) is exact.  Since \(\pi_*\) is a right adjoint, it is left exact.  It remains to show that it preserves epimorphisms.
+
+Let \(\varphi:G\to H\) be an epimorphism of abelian sheaves on \(A_P^{\op}\).  Fix a stratum \(b\in B_P\) and a section \(y\in H(b)\).  Consider the sieve
+\[
+S_y:=\{\, \alpha:U\to b \mid \alpha^*y\text{ lifts to }G(U)\,\}.
+\]
+Because \(\varphi\) is an epimorphism of sheaves, it is locally surjective, so \(S_y\) is a covering sieve.  By \eqref{eq:max-condition}, \(S_y\) is maximal.  Hence \(\id_b\in S_y\), so \(y\) lifts to \(G(b)\).  Thus
+\[
+G(b)\longrightarrow H(b)
+\]
+is surjective for every stratum \(b\).  Therefore \(\pi_*\varphi\) is an epimorphism of presheaves on \(B_P^{\op}\).
+
+Thus \(\pi_*\) is left exact and preserves epimorphisms.  Since it is additive, it is exact.  Consequently
+\[
+R^q\pi_*=0\qquad(q\geq 1).
+\]
+
+Finally, for any presheaf \(F\) on \(B_P^{\op}\), the complex \(R\pi_*\pi^{-1}F\) has cohomology only in degree \(0\), and its degree-\(0\) cohomology is \(\pi_*\pi^{-1}F\).  The degree-\(0\) map is the underived unit, which we proved is an isomorphism.  Therefore
+\[
+F\longrightarrow R\pi_*\pi^{-1}F
+\]
+is a quasi-isomorphism.
+\end{proof}
+
+\section{Rank-one monoids}
+
+% RECORDS: 1711
+\begin{lemma}\label{lem:rank-one-valuative}
+If \(\operatorname{rank}(P^{\gp})=1\), then \(P\) is valuative.
+\end{lemma}
+
+\begin{proof}
+Since \(P^{\gp}\) has rank one, it is nonzero and torsion-free.  Choose \(0\neq p\in P\).  Let \(g\in P^{\gp}\).  In the one-dimensional \(\mathbf Q\)-vector space \(P^{\gp}\otimes\mathbf Q\), the elements \(g\) and \(p\) are linearly dependent.  Hence there exist integers \(m\geq 1\) and \(k\) such that
+\[
+mg=kp.
+\]
+If \(k\geq 0\), then \(mg\in P\), so saturation gives \(g\in P\).  If \(k<0\), then
+\[
+m(-g)=(-k)p\in P,
+\]
+so saturation gives \(-g\in P\).  If \(k=0\), then \(mg=0\), hence \(g=0\) because \(P^{\gp}\) is torsion-free.  Thus for every \(g\in P^{\gp}\), either \(g\in P\) or \(-g\in P\), so \(P\) is valuative.
+\end{proof}
+
+% RECORDS: 1711,83
+\begin{lemma}\label{lem:rank-one-strata}
+Assume \(\operatorname{rank}(P^{\gp})=1\).  Then:
+\begin{enumerate}[label=(\roman*)]
+\item \(Q_0=P\).
+\item If \(x\neq 0\), then \(Q_x=0\).
+\item Every stratum \(Q_x\) is valuative.
+\item \(B_P\) has exactly two objects up to canonical isomorphism, namely \(b_0:P\to P\) and \(b_1:P\to 0\), with a single non-identity arrow \(b_0\to b_1\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For \(x=0\), the explicit model of Proposition~\ref{prop:Qx-model} gives \(Q_0=P\).
+
+Let \(x\neq 0\).  Since \(P^{\gp}\) has rank one, the quotient
+\[
+P^{\gp}/\langle x\rangle
+\]
+is a torsion group.  Hence its torsion-free quotient \(G\) is zero.  The model of Proposition~\ref{prop:Qx-model} therefore gives \(Q_x=0\).
+
+The monoid \(P\) is valuative by Lemma~\ref{lem:rank-one-valuative}, and the zero monoid is valuative because its associated order is trivially total.  Hence every stratum \(Q_x\) is valuative.
+
+Finally, if \(x\neq 0\), then \(Q_x=0\), so all nonzero \(x\) give the same object \(b_1:P\to 0\).  By Corollary~\ref{cor:B-face-poset}, there is a unique arrow \(b_0\to b_1\) because \(F_0=\{0\}\subset P=F_x\) for \(x\neq 0\), and there is no arrow \(b_1\to b_0\) because \(F_x=P\not\subset F_0\).  Thus \(B_P\) is the two-object poset \(b_0\to b_1\).
+\end{proof}
+
+% RECORDS: 1711,1216,83
+\begin{theorem}\label{thm:rank-one-yes}
+Let \(P\) be a monoid with \(\operatorname{rank}(P^{\gp})=1\).  Then for every presheaf of abelian groups \(F\) on \(B_P^{\op}\), the unit
+\[
+F\longrightarrow R\pi_*\pi^{-1}F
+\]
+is a quasi-isomorphism.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:rank-one-strata}, every stratum \(Q_x\) is valuative.  Lemma~\ref{lem:valuative-strata-max} therefore implies condition \eqref{eq:max-condition}.  The result then follows from Theorem~\ref{thm:max-criterion}.
+\end{proof}
+
+\section{Finitely generated valuative monoids}
+
+% RECORDS: 1437,83
+\begin{lemma}\label{lem:fg-valuative-strata}
+Let \(P\) be a finitely generated valuative monoid.  Then for every \(x\in P\), the monoid
+\[
+Q_x=P[-x]^\sharp
+\]
+is valuative.
+\end{lemma}
+
+\begin{proof}
+Use the explicit model of Proposition~\ref{prop:Qx-model}.  We have
+\[
+Q_x=S/U\subset G/U,
+\]
+where \(G\) is a quotient of \(P^{\gp}\), \(S\) is the saturation of the image of \(P\), and \(U=S\cap(-S)\).  Since \(S\) generates \(G\), the group completion of \(Q_x\) is
+\[
+Q_x^{\gp}\cong G/U.
+\]
+
+Let \(\gamma\in Q_x^{\gp}\).  Choose a lift \(g\in P^{\gp}\) of \(\gamma\).  Since \(P\) is valuative, either \(g\in P\) or \(-g\in P\).  If \(g\in P\), then its image in \(G\) lies in \(\rho(P)\subset S\), hence \(\gamma\in Q_x\).  If \(-g\in P\), then similarly \(-\gamma\in Q_x\).
+
+Thus for every \(\gamma\in Q_x^{\gp}\), either \(\gamma\in Q_x\) or \(-\gamma\in Q_x\).  Since \(Q_x\) is sharp, this order is antisymmetric.  Hence \(Q_x\) is valuative.
+\end{proof}
+
+% RECORDS: 1437,1216
+\begin{theorem}\label{thm:fg-valuative-yes}
+Let \(P\) be a finitely generated valuative monoid.  Then for every presheaf of abelian groups \(F\) on \(B_P^{\op}\), the unit
+\[
+F\longrightarrow R\pi_*\pi^{-1}F
+\]
+is a quasi-isomorphism.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:fg-valuative-strata}, every stratum \(Q_x\) is valuative.  Lemma~\ref{lem:valuative-strata-max} gives condition \eqref{eq:max-condition}.  Theorem~\ref{thm:max-criterion} then applies.
+\end{proof}
+
+\section{Open points}\label{sec:open}
+
+The following points remain open.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{General non-valuative monoids.}  The proof of \eqref{eq:max-condition} uses valuativity of the strata.  For non-valuative monoids, such as \(P=\mathbf N^2\), the argument fails.  No proof or counterexample is known for the general case.
+
+\item \textbf{Necessity of the maximal-sieve condition.}  We proved only the sufficiency direction:
+\[
+\eqref{eq:max-condition}\quad\Longrightarrow\quad
+F\to R\pi_*\pi^{-1}F\text{ is a quasi-isomorphism for all }F.
+\]
+The converse is not proved here.
+
+\item \textbf{Higher-rank non-finitely generated valuative monoids.}  The rank-one theorem covers all rank-one monoids, including non-finitely generated ones.  The valuative theorem above is stated for finitely generated valuative monoids.  Extension to arbitrary higher-rank valuative monoids is not addressed.
+
+\item \textbf{Higher cohomology and descent spectral sequences.}  In the positive regimes proved here, higher direct images vanish because \(\pi_*\) is exact.  The general behavior of higher cohomology and descent spectral sequences remains open.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+
+\bibitem{SGA4}
+M.~Artin, A.~Grothendieck, J.-L.~Verdier,
+\emph{Th\'eorie des Topos et Cohomologie \'{E}tale des Sch\'emas (\(SGA\) 4)},
+Tome 1, Lecture Notes in Mathematics 269, Springer, 1972.
+Expos\'e II, Proposition 3.4.
+
+\end{thebibliography}
+
+\end{document}

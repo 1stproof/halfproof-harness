@@ -1,0 +1,16 @@
+HalfProof
+Copyright (c) 2026 First Proof Foundation, Inc.
+
+Licensing:
+
+  * Source code authored by First Proof is licensed under the GNU Affero General
+    Public License v3.0 (AGPL-3.0). See the `LICENSE` file.
+
+  * Everything else in this repository — the Batch 3 problem statements under
+    `examples/`, the write-ups, grades and grader reports under `results/`, and
+    all documentation — is licensed under the Creative Commons
+    Attribution-ShareAlike 4.0 International License (CC-BY-SA-4.0). See the
+    `LICENSE-DOCS` file.
+
+The copyright holder is First Proof Foundation, Inc., which retains the sole
+right to relicense or dual-license this material.

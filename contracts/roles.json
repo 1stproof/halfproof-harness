@@ -1,0 +1,126 @@
+{
+  "all_roles": {
+    "automatic_model_or_host_fallback": false,
+    "cross_arm_reads": false,
+    "model_generated_search_summaries": false,
+    "raw_provider_credentials": false,
+    "undeclared_auxiliary_inference": false
+  },
+  "contract_version": 1,
+  "default": "deny",
+  "report_lock": {
+    "closing_review_role": "verifier",
+    "deny": [
+      "new-research-inference",
+      "shell",
+      "CAS",
+      "web",
+      "server-search",
+      "new-workers",
+      "research-board-writes"
+    ],
+    "enforcement": [
+      "gateway",
+      "sandbox"
+    ],
+    "old_writers": "fence publications; drain or cancel owned tools before source snapshot",
+    "one_way": true,
+    "preserve": [
+      "original-deadline",
+      "original-cap",
+      "liabilities",
+      "verification-counts",
+      "author-ready-clock"
+    ]
+  },
+  "roles": {
+    "orchestrator": {
+      "fresh_context": true,
+      "max_requests": 1,
+      "reads": [
+        "bounded-immutable-packet"
+      ],
+      "tools": [],
+      "writes": [
+        "single-schema-decision"
+      ]
+    },
+    "report": {
+      "reads": [
+        "frozen-own-notes",
+        "frozen-board",
+        "current-draft",
+        "compiler-diagnostics"
+      ],
+      "research": false,
+      "tools": [
+        "bounded-report-editor",
+        "deterministic-build-service"
+      ],
+      "writes": [
+        "bounded-report-files"
+      ]
+    },
+    "research": {
+      "reads": [
+        "own-arm",
+        "public-read-only-corpus"
+      ],
+      "requires_research_open": true,
+      "tools": [
+        "declared-research-tools"
+      ],
+      "writes": [
+        "own-scratch",
+        "authenticated-board"
+      ]
+    },
+    "reviewer": {
+      "fresh_context": true,
+      "peer-verdicts-visible": false,
+      "reads": [
+        "frozen-candidate",
+        "required-evidence"
+      ],
+      "tools": [
+        "source-retrieval",
+        "bounded-reproduction"
+      ],
+      "writes": [
+        "authenticated-private-review"
+      ]
+    },
+    "specialist": {
+      "final_author": false,
+      "models": [
+        "glm"
+      ],
+      "quorum": true,
+      "reads": [
+        "frozen-packet"
+      ],
+      "research_shell": false,
+      "tools": [
+        "bounded-packet-read"
+      ],
+      "writes": [
+        "ticket-reply"
+      ]
+    },
+    "verifier": {
+      "fresh_context": true,
+      "reads": [
+        "frozen-candidate",
+        "required-evidence"
+      ],
+      "research": false,
+      "tools": [
+        "source-retrieval",
+        "bounded-reproduction"
+      ],
+      "writes": [
+        "authenticated-session-local-verification"
+      ]
+    }
+  }
+}

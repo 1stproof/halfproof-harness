@@ -1,0 +1,751 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\D}{\mathbb D}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\M}{\mathcal M}
+\newcommand{\bM}{\overline{\M}}
+\newcommand{\bMg}{\overline{\M}_g}
+\newcommand{\bMfac}{\overline{\M}_{g_i,n_i}}
+\newcommand{\st}{\operatorname{st}}
+
+\title{Stratified pinning of boundary projections for deformations of totally geodesic surfaces}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We study the boundary-projection constancy problem for a holomorphic deformation \(V_t\) of a complex two-dimensional totally geodesic subvariety \(V_0\subset \M_g\).  Under the stated smooth-triviality and frontier-compatibility hypotheses, the desired conclusion is equivalent to constancy of a descended map \(t\mapsto Y_t\).  We prove that ordinary homology is blind to the motion of \(Y_t\), with the necessary compactness qualification.  We then prove positive conditional pinning theorems: if the stratified closure of \(V_0\) contains a valid frontier chain reaching a zero-dimensional stratum, or more generally a one-dimensional stratum filled by a component, then \(Y_t=Y_0\) for all \(t\).  We also construct explicit local affine-chart models satisfying the local hypotheses, even holomorphically, in which \(Y_t\) moves.  Finally, we record the central-fiber total-geodesy structure and explain why, in the absence of total geodesy for \(t\neq 0\), it does not by itself propagate the collapse.  The unconditional statement in the original problem remains open.
+\end{abstract}
+
+\section{Introduction}
+
+The original problem asks for the following.  Let \(V_0\subset \M_g\) be a smooth complex surface, totally geodesic for the Teichmüller metric, and let \(V_t\) be a holomorphic deformation of \(V_0\) over the unit disc \(\D\), smoothly trivial as a family of submanifolds.  Assume:
+
+\begin{enumerate}[label=(\roman*)]
+  \item for every boundary stratum \(\Delta_G\subset \bMg\), the family
+  \[
+  B_G(t):=\overline{V_t}\cap \Delta_G
+  \]
+  is smoothly trivial over \(\D\);
+  \item frontier compatibility holds: whenever, for strata \(\Delta_{G'}\) on the boundary of \(\Delta_G\), a smaller-stratum piece of \(V_0\) is locally the entire frontier of a larger-stratum piece, the same holds for every \(V_t\).
+\end{enumerate}
+
+Fix a product boundary stratum
+\[
+\Delta_\Gamma \cong \prod_{j=1}^k \M_{g_j,n_j}
+\]
+and a projection \(\pi_i:\Delta_\Gamma\to \M_{g_i,n_i}\).  Put
+\[
+\partial V_t:=B_\Gamma(t)=\overline{V_t}\cap \Delta_\Gamma .
+\]
+Assume \(\dim_\C \partial V_t=1\) and
+\[
+\pi_i(\partial V_t)=\{Y_t\}
+\]
+for every \(t\in \D\).  The desired conclusion is
+\[
+\pi_i(\partial V_t)=\{Y_0\}\quad\text{for all }t.
+\]
+
+The results in this paper describe exactly what follows from the stated hypotheses, what additional global incidence hypotheses make the conclusion true, and where the obstruction lies.
+
+First, the conclusion is equivalent to the constancy of a single descended map \(Y:\D\to \M_{g_i,n_i}\), \(t\mapsto Y_t\).  Under assumption (i), this descended map is a priori smooth, but not necessarily holomorphic.
+
+Second, ordinary homology cannot detect motion of \(Y_t\).  If the boundary curve \(\partial V_t\) is compact, then the pushforward of its fundamental class under \(\pi_i\) is zero for every \(t\).  Hence homological cycle-class invariants obtained from this pushforward are identically zero and cannot distinguish the points \(Y_t\).
+
+Third, there are positive conditional pinning theorems.  If the stratified closure of \(V_0\) contains a valid no-excess frontier chain reaching a zero-dimensional stratum, then \(Y_t=Y_0\) for all \(t\).  More generally, if such a chain passes through a one-dimensional stratum and fills a connected component of that stratum, then again \(Y_t=Y_0\).  These arguments are purely stratified and topological; they do not use total geodesy, metrics, or holomorphicity of \(Y\).
+
+Fourth, the local hypotheses (i), (ii), one-dimensionality of the boundary piece, and singleton factor projection do not by themselves force constancy.  We construct an explicit affine-chart holomorphic model satisfying all of these local conditions, with \(Y_t=t\).  Thus any proof of the original unconditional statement must use an additional global input.
+
+Finally, total geodesy gives strong structure at the central fiber.  By Wright's theorem and the Benirschke--Dozier--Riedel boundary theorem, \(V_0\) is a closed totally geodesic complex algebraic subvariety, and the components of \(\partial V_0\) are totally geodesic inside the stratum.  The hypothesis \(\pi_i(\partial V_0)=\{Y_0\}\) says that the \(i\)-th factor is collapsed at \(t=0\).  However, because \(V_t\) is not assumed totally geodesic for \(t\neq 0\), the same structure theorems do not apply away from the central fiber.  This is the precise propagation gap.
+
+Thus the unconditional statement in the original problem remains open.  What is proved here is the exact reduction, the homological blindness, the conditional positive pinning theorems, the local insufficiency of the stated local hypotheses, and the central-fiber total-geodesy structure together with the propagation gap.
+
+\section{Notation and preliminary conventions}
+
+All moduli spaces are understood as coarse moduli spaces unless otherwise stated.  The unit disc is denoted \(\D\).  The Deligne--Mumford compactification of \(\M_g\) is \(\bMg\).  Boundary strata are indexed by stable dual graphs.  If \(G'\) refines \(G\), we write \(G\succ G'\) and say that \(\Delta_{G'}\) lies on the boundary of \(\Delta_G\).
+
+For each \(t\in \D\), closures are taken in \(\bMg\) unless explicitly stated otherwise.  Define
+\[
+B_G(t):=\overline{V_t}\cap \Delta_G .
+\]
+Thus
+\[
+\partial V_t=B_\Gamma(t).
+\]
+The central hypothesis---in force throughout Sections~\ref{sec:stratified} and~\ref{sec:oneprime} below, and stated again in the relevant theorems---is
+\[
+\pi_i(B_\Gamma(t))=\{Y_t\}\subset \M_{g_i,n_i}.
+\]
+
+Assumption (ii) can be written as follows.  If \(G\succ G'\) and \(U\subset \bMg\) is open such that
+\[
+\overline{B_G(0)}\cap \Delta_{G'}\cap U
+=
+B_{G'}(0)\cap U,
+\]
+then for every \(t\in \D\),
+\[
+\overline{B_G(t)}\cap \Delta_{G'}\cap U
+=
+B_{G'}(t)\cap U.
+\]
+Thus assumption (ii) propagates no-excess frontier equalities from the central fiber to all fibers.
+
+The dimension formula for a boundary stratum of \(\bMg\) is standard \cite{DM69,Knu83}.  For a stable graph \(G\),
+\[
+\dim_\C \Delta_G = 3g-3-|E(G)|.
+\]
+Equivalently,
+\[
+\dim_\C \Delta_G=\sum_{v\in V(G)}(3g_v-3+n_v),
+\]
+where \(g_v\) is the genus of the vertex \(v\) and \(n_v\) is the number of incident half-edges and legs.  In particular, a zero-dimensional stratum is a maximally degenerate stratum, all of whose vertices are of type \((0,3)\).
+
+The problem assumes that the fixed stratum \(\Delta_\Gamma\) is a product of moduli spaces, without a finite quotient.  Deeper strata may involve finite graph automorphisms; all arguments here are set-theoretic on coarse spaces and are unaffected by these finite quotients.
+
+\section{Reduction to a descended map}\label{sec:reduction}
+
+% RECORDS: 134
+\begin{proposition}\label{prop:reduction}
+Assume \(\pi_i(\partial V_t)=\{Y_t\}\) for all \(t\).  Then the desired conclusion
+\[
+\pi_i(\partial V_t)=\{Y_0\}\quad\text{for all }t
+\]
+is equivalent to the constancy of the descended map
+\[
+Y:\D\longrightarrow \M_{g_i,n_i},\qquad t\longmapsto Y_t.
+\]
+Moreover, under assumption (i), the map \(Y\) is at least smooth.  It is not necessarily holomorphic unless additional analytic input is supplied.
+\end{proposition}
+
+\begin{proof}
+Let
+\[
+\mathcal B_\Gamma:=\bigcup_{t\in\D} B_\Gamma(t)
+\]
+be the total boundary family over \(\D\), viewed as a family inside \(\Delta_\Gamma\times \D\).  By assumption (i), the projection
+\[
+p:\mathcal B_\Gamma\to \D
+\]
+is a smoothly trivial family of one-dimensional boundary pieces.  Consider
+\[
+\rho_i:\mathcal B_\Gamma\to \M_{g_i,n_i},\qquad \rho_i(x,t)=\pi_i(x).
+\]
+For each \(t\), the restriction \(\rho_i|_{B_\Gamma(t)}\) is constant with value \(Y_t\) by hypothesis.  Hence \(\rho_i\) is constant on the fibers of \(p\), so there is a unique set-theoretic map \(Y:\D\to \M_{g_i,n_i}\) such that
+\[
+\rho_i=Y\circ p.
+\]
+
+Because \(p\) is smoothly trivial, it is in particular a smooth fiber bundle over the disc, and therefore admits smooth local sections.  Choosing such a section \(s:\D\to \mathcal B_\Gamma\), one has \(Y=\rho_i\circ s\), which is smooth.  Equivalently, under a smooth trivialization \(\mathcal B_\Gamma\cong B_\Gamma(0)\times \D\), fixing any point of \(B_\Gamma(0)\) gives a smooth representative of \(Y\).  This representative is independent of the chosen section because \(\rho_i\) is constant on the fibers of \(p\).
+
+The desired conclusion is precisely
+\[
+Y(t)=Y(0)
+\]
+for every \(t\in\D\).  Nothing in assumption (i) forces the trivialization to be holomorphic, so \(Y\) is a priori only smooth.
+\end{proof}
+
+\section{Homological and cycle-class blindness}
+
+% RECORDS: 171,246
+\begin{lemma}\label{lem:pushforward}
+Fix \(t\in \D\).  Suppose \(C_t\subset \Delta_\Gamma\) is a compact complex one-dimensional analytic cycle and
+\[
+\pi_i(C_t)=\{Y_t\}.
+\]
+Then
+\[
+(\pi_i)_*[C_t]=0\in H_2(\M_{g_i,n_i};\Z).
+\]
+\end{lemma}
+
+\begin{proof}
+Since \(C_t\) is compact and complex one-dimensional, it defines an ordinary singular homology class
+\[
+[C_t]\in H_2(\Delta_\Gamma;\Z).
+\]
+The restriction
+\[
+\pi_i|_{C_t}:C_t\to \M_{g_i,n_i}
+\]
+is the constant map with value \(Y_t\).  Thus it factors as
+\[
+C_t\longrightarrow \{Y_t\}\hookrightarrow \M_{g_i,n_i}.
+\]
+But
+\[
+H_2(\{Y_t\};\Z)=0
+\]
+because a point has vanishing singular homology in every positive degree.  By functoriality of singular homology,
+\[
+(\pi_i)_*[C_t]=0.
+\]
+\end{proof}
+
+% RECORDS: 171,246
+\begin{corollary}\label{cor:hom-blind}
+Assume \(\partial V_t\) is compact for every \(t\).  Then any invariant of the boundary curve of the form
+\[
+\psi\bigl((\pi_i)_*[\partial V_t]\bigr),
+\]
+where \(\psi\) is a group homomorphism, is identically zero.  Hence ordinary homology, and cycle-class invariants derived only from this homological pushforward, cannot distinguish \(Y_t\) from \(Y_0\).  In particular, the homology of \(\partial V_t\) alone cannot prove
+\[
+\pi_i(\partial V_t)=\{Y_0\}.
+\]
+\end{corollary}
+
+\begin{proof}
+This is immediate from Lemma~\ref{lem:pushforward}.  Since the pushforward class is zero for every \(t\), every homomorphism applied to it gives zero.  Thus the homological image is literally \(t\)-independent and carries no information about the position of \(Y_t\).
+
+If \(\partial V_t\) is not compact, then it does not define a fundamental class in ordinary singular homology.  One may instead use Borel--Moore homology, but pushforward along a non-proper map is not defined in general.  Here the map \(\pi_i|_{\partial V_t}\) factors through a point, so properness of that map is equivalent to compactness of \(\partial V_t\).  Thus the compactness qualification is exactly the one needed for the ordinary homology statement.
+\end{proof}
+
+\section{Stratified frontier pinning under condition \((F)\)}\label{sec:stratified}
+
+Throughout this section and the next, we work under assumption (i), under assumption (ii), and under the standing hypothesis that
+\[
+\pi_i(\partial V_t)=\pi_i(B_\Gamma(t))=\{Y_t\}
+\]
+for every \(t\in\D\), where \(\partial V_t = B_\Gamma(t)\) is a one-dimensional boundary piece.  The mechanism below is purely stratified and topological: it uses only smooth triviality, frontier compatibility, and discreteness at the bottom of a frontier chain.  It does not use total geodesy, metrics, or holomorphicity of the descended map.
+
+\subsection{Extended projections}
+
+% RECORDS: 280
+\begin{lemma}\label{lem:extended-projection}
+For every stratum \(\Delta_{G'}\) with \(G'\) refining \(\Gamma\), there exists a continuous partial-stabilization map
+\[
+\st_i^{G'}:\Delta_{G'}\longrightarrow \bMfac
+\]
+with the following properties.
+\begin{enumerate}[label=(\alph*)]
+\item If a net \((x_\alpha)_\alpha\subset\Delta_\Gamma\) converges to a point \(x\in\Delta_{G'}\), then \(\pi_i(x_\alpha)\to \st_i^{G'}(x)\).
+\item Consequently, if \(x\in \overline{B_\Gamma(t)}\cap\Delta_{G'}\), then \(\st_i^{G'}(x)=Y_t\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The map \(\st_i^{G'}\) is defined by taking a stable curve with dual graph \(G'\), contracting all nodes that are not in the subgraph corresponding to the \(i\)-th factor of \(\Gamma\), and then stabilizing to obtain a point of \(\overline{\M}_{g_i,n_i}\).  The product structure of \(\Delta_\Gamma=\prod_{j}\M_{g_j,n_j}\) fixes a unique choice of which edges belong to the \(i\)-th factor, so the contraction operation is canonically determined, independent of a further choice of contraction from \(G'\) to \(\Gamma\).  The resulting assignment is a morphism of moduli spaces (a composition of clutching and stabilization morphisms), hence continuous; see \cite{Knu83,DM69}.
+
+For the first property, note that the universal stable curve over the compactification provides a continuous family of curves.  The net \(x_\alpha\) of curves in \(\Delta_\Gamma\) approaches the deeper curve \(x\).  Contracting the extra nodes commutes with taking limits in the moduli space, so the stabilized curves converge to the stabilization of the limit; the projection \(\pi_i\) is exactly the specialization of this stabilization to the smooth stratum.  Thus \(\pi_i(x_\alpha)\to \st_i^{G'}(x)\).
+
+For the second property, take a net \(x_\alpha\in B_\Gamma(t)\subset\Delta_\Gamma\) converging to \(x\).  By the standing hypothesis, \(\pi_i(x_\alpha)=Y_t\) for all \(\alpha\).  The first property yields \(\pi_i(x_\alpha)\to\st_i^{G'}(x)\), so \(\st_i^{G'}(x)=\lim Y_t = Y_t\).
+\end{proof}
+
+\subsection{Discrete bottom pinning}
+
+% RECORDS: 280
+\begin{lemma}\label{lem:bottom-pinning}
+Suppose \(\Delta_{G_*}\) is zero-dimensional.  Then, under assumption (i), the family \(B_{G_*}(t)\) is constant:
+\[
+B_{G_*}(t)=B_{G_*}(0)
+\]
+for every \(t\in\D\).
+\end{lemma}
+
+\begin{proof}
+A zero-dimensional boundary stratum is a discrete coarse space.  Assumption (i) says that the family \(B_{G_*}(t)\) is smoothly trivial over the disc.  Smooth triviality gives a smoothly varying family of bijections \(B_{G_*}(0)\to B_{G_*}(t)\); in particular, for each \(p\in B_{G_*}(0)\), a continuous section
+\[
+\sigma_p:\D\to \bigcup_{t}B_{G_*}(t)
+\]
+with \(\sigma_p(0)=p\).  Composing with the natural map to the coarse stratum \(\Delta_{G_*}\) gives a continuous map
+\[
+\D\to \Delta_{G_*}.
+\]
+Since \(\D\) is connected and \(\Delta_{G_*}\) is discrete, this map is constant.  Hence \(\sigma_p(t)=p\) for all \(t\), so \(p\in B_{G_*}(t)\).  The same argument applies to every point of \(B_{G_*}(0)\), and smooth triviality preserves cardinality, so equality of sets follows.
+\end{proof}
+
+\subsection{Propagation of no-excess frontier equalities}
+
+% RECORDS: 280
+\begin{lemma}\label{lem:frontier-propagation}
+Let
+\[
+\Gamma=G_0\succ G_1\succ \cdots \succ G_m
+\]
+be a chain of strata.  Let \(p\) be a point and suppose there are nested open neighborhoods
+\[
+U_0\supset U_1\supset \cdots \supset U_{m-1}
+\]
+of \(p\) such that, for every \(t\in\D\) and every \(j=0,\dots,m-1\),
+\[
+\overline{B_{G_j}(t)}\cap \Delta_{G_{j+1}}\cap U_j
+=
+B_{G_{j+1}}(t)\cap U_j.
+\]
+If \(p\in B_{G_m}(t)\), then
+\[
+p\in \overline{B_\Gamma(t)}.
+\]
+\end{lemma}
+
+\begin{proof}
+If \(m=0\), then \(G_0=\Gamma=G_m\), and the conclusion is immediate.  Assume \(m\ge 1\).
+
+We prove by descending induction that
+\[
+p\in \overline{B_{G_j}(t)}
+\]
+for \(j=m-1,m-2,\dots,0\).
+
+For the first step, since \(p\in B_{G_m}(t)\) and \(p\in U_{m-1}\), the assumed equality for \(j=m-1\) gives
+\[
+p\in \overline{B_{G_{m-1}}(t)}\cap U_{m-1}.
+\]
+In particular,
+\[
+p\in \overline{B_{G_{m-1}}(t)}.
+\]
+
+Now suppose inductively that
+\[
+p\in \overline{B_{G_{j+1}}(t)}
+\]
+for some \(j\ge 0\), and \(p\in U_j\).  Since \(U_j\) is open, every neighborhood of \(p\) contains a point of \(U_j\); hence from \(p\in \overline{B_{G_{j+1}}(t)}\) we get
+\[
+p\in \overline{B_{G_{j+1}}(t)\cap U_j}.
+\]
+By the assumed equality,
+\[
+B_{G_{j+1}}(t)\cap U_j
+\subset
+\overline{B_{G_j}(t)}.
+\]
+Therefore
+\[
+p\in \overline{\overline{B_{G_j}(t)}}=\overline{B_{G_j}(t)}.
+\]
+Since the neighborhoods are nested, \(p\in U_{j-1}\) when \(j>0\), so the induction continues.  At \(j=0\) we obtain
+\[
+p\in \overline{B_{G_0}(t)}=\overline{B_\Gamma(t)}.
+\]
+\end{proof}
+
+\subsection{Condition \((F)\) and the zero-dimensional pinning theorem}
+
+% RECORDS: 280
+\begin{definition}\label{def:F}
+We say that condition \((F)\) holds if there exist a chain
+\[
+\Gamma=G_0\succ G_1\succ \cdots \succ G_m=G_*
+\]
+and a point \(p\in B_{G_*}(0)\) such that:
+
+\begin{enumerate}[label=(\alph*)]
+  \item \(\Delta_{G_*}\) is zero-dimensional;
+  \item if \(m\ge 1\), there are nested open neighborhoods
+  \[
+  U_0\supset U_1\supset \cdots \supset U_{m-1}
+  \]
+  of \(p\) such that, for each \(j=0,\dots,m-1\),
+  \[
+  \overline{B_{G_j}(0)}\cap \Delta_{G_{j+1}}\cap U_j
+  =
+  B_{G_{j+1}}(0)\cap U_j.
+  \]
+\end{enumerate}
+
+By assumption (ii), each of these equalities then holds for every \(t\in\D\).
+\end{definition}
+
+% RECORDS: 280
+\begin{theorem}\label{thm:F}
+Assume (i), (ii), condition \((F)\), and the standing hypothesis \(\pi_i(\partial V_t)=\pi_i(B_\Gamma(t))=\{Y_t\}\).  Then
+\[
+\pi_i(\partial V_t)=\{Y_0\}
+\]
+for every \(t\in\D\).
+\end{theorem}
+
+\begin{proof}
+Let \(p\) and the chain be as in Definition~\ref{def:F}.  Since \(\Delta_{G_*}\) is zero-dimensional, Lemma~\ref{lem:bottom-pinning} gives
+\[
+p\in B_{G_*}(t)
+\]
+for every \(t\).  The equalities in condition \((F)\), propagated to all \(t\) by assumption (ii), allow us to apply Lemma~\ref{lem:frontier-propagation} to the chain
+\[
+\Gamma=G_0\succ G_1\succ\cdots \succ G_m=G_*
+\]
+with the same nested neighborhoods.  Hence
+\[
+p\in \overline{B_\Gamma(t)}
+\]
+for every \(t\).  In particular \(p\in \overline{B_\Gamma(t)}\cap \Delta_{G_*}\), so by Lemma~\ref{lem:extended-projection} applied with \(G'=G_*\) we obtain
+\[
+Y_t = \st_i^{G_*}(p).
+\]
+The point \(p\) and the map \(\st_i^{G_*}\) are independent of \(t\).  Therefore
+\[
+Y_t = Y_0
+\]
+for every \(t\).  Since by hypothesis
+\[
+\pi_i(\partial V_t)=\{Y_t\},
+\]
+we obtain
+\[
+\pi_i(\partial V_t)=\{Y_0\}.
+\]
+\end{proof}
+
+\section{One-dimensional strata and condition \((F')\)}\label{sec:oneprime}
+
+% RECORDS: 488
+\begin{lemma}\label{lem:one-dim-strata}
+Let \(\Delta_G\) be a one-dimensional boundary stratum of \(\bMg\).  Then every coarse connected component of \(\Delta_G\) is, up to finite quotient, either \(\M_{0,4}\) or \(\M_{1,1}\).  Its Deligne--Mumford boundary consists of finitely many cusp points lying in zero-dimensional strata obtained by the standard boundary degeneration of the unique positive-dimensional factor.
+\end{lemma}
+
+\begin{proof}
+The dimension formula gives
+\[
+\dim_\C \Delta_G=\sum_{v\in V(G)}(3g_v-3+n_v)=1.
+\]
+Stability implies each summand is a nonnegative integer.  Hence exactly one vertex contributes \(1\), and all other vertices contribute \(0\).  The stability condition \(2g_v-2+n_v>0\) gives:
+
+\begin{itemize}
+  \item \(3g_v-3+n_v=1\) only for \((g_v,n_v)=(0,4)\) or \((1,1)\);
+  \item \(3g_v-3+n_v=0\) only for \((g_v,n_v)=(0,3)\).
+\end{itemize}
+
+Thus, up to finite quotient, the only positive-dimensional factor in \(\Delta_G\) is either \(\M_{0,4}\) or \(\M_{1,1}\).  Both are noncompact orbifold curves.  Their Deligne--Mumford compactifications add finitely many boundary points: three for \(\M_{0,4}\) (from the three \(2+2\) splittings of the four marked points) and one for \(\M_{1,1}\) (from the irreducible nodal cubic, a loop attached to the single \((0,3)\) vertex).  The corresponding boundary graphs have all vertex contributions equal to zero, so the resulting strata are zero-dimensional.
+\end{proof}
+
+% RECORDS: 488,280
+\begin{definition}\label{def:Fprime}
+We say that condition \((F')\) holds if there is a chain
+\[
+\Gamma=G_0\succ G_1\succ \cdots \succ G_m
+\]
+such that:
+
+\begin{enumerate}[label=(\alph*)]
+  \item for every \(j=0,\dots,m-1\),
+  \[
+  \overline{B_{G_j}(0)}\cap \Delta_{G_{j+1}}
+  =
+  B_{G_{j+1}}(0);
+  \]
+  \item \(\dim_\C \Delta_{G_m}=1\);
+  \item \(B_{G_m}(0)\) contains a connected component \(C\) of \(\Delta_{G_m}\).
+\end{enumerate}
+\end{definition}
+
+% RECORDS: 488,280
+\begin{theorem}\label{thm:Fprime}
+Assume (i), (ii), condition \((F')\), and the standing hypothesis \(\pi_i(\partial V_t)=\pi_i(B_\Gamma(t))=\{Y_t\}\).  Then
+\[
+\pi_i(\partial V_t)=\{Y_0\}
+\]
+for every \(t\in\D\).
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+\Gamma=G_0\succ G_1\succ \cdots \succ G_m
+\]
+be a chain satisfying \((F')\), and let \(C\subset B_{G_m}(0)\) be a connected component of \(\Delta_{G_m}\).  By Lemma~\ref{lem:one-dim-strata}, \(C\) is noncompact and has at least one cusp point
+\[
+p\in \overline C\setminus C
+\]
+in the Deligne--Mumford compactification.  Let \(\Delta_{G_*}\) be the stratum containing \(p\).  Again by Lemma~\ref{lem:one-dim-strata}, \(\Delta_{G_*}\) is zero-dimensional.
+
+Since \(C\subset B_{G_m}(0)\), we have
+\[
+p\in \overline{B_{G_m}(0)}\subset \overline{V_0}.
+\]
+Thus
+\[
+p\in B_{G_*}(0).
+\]
+Because \(\Delta_{G_*}\) is zero-dimensional, we may choose an open neighborhood \(U_m\) of \(p\) such that
+\[
+U_m\cap \Delta_{G_*}=\{p\}.
+\]
+Then
+\[
+B_{G_*}(0)\cap U_m=\{p\}.
+\]
+Also, since \(p\in \overline{B_{G_m}(0)}\),
+\[
+\overline{B_{G_m}(0)}\cap \Delta_{G_*}\cap U_m=\{p\}.
+\]
+Therefore the no-excess equality for the link \(G_m\succ G_*\) holds near \(p\) at \(t=0\):
+\[
+\overline{B_{G_m}(0)}\cap \Delta_{G_*}\cap U_m
+=
+B_{G_*}(0)\cap U_m.
+\]
+By assumption (ii), this equality propagates to every \(t\).
+
+The earlier links \(G_j\succ G_{j+1}\), \(j<m\), are globally no-excess at \(t=0\) by condition \((F')\), hence are locally no-excess near \(p\); assumption (ii) propagates those equalities to every \(t\), and the same nested neighborhoods \(U_0\supset\cdots \supset U_{m-1}\supset U_m\) of \(p\) witness them.  Therefore condition \((F)\) holds for the extended chain
+\[
+\Gamma=G_0\succ G_1\succ \cdots \succ G_m\succ G_*.
+\]
+The conclusion now follows from Theorem~\ref{thm:F}.
+\end{proof}
+
+% RECORDS: 488
+\begin{corollary}\label{cor:analytic-Fprime}
+In Theorem~\ref{thm:Fprime}, the requirement that \(B_{G_m}(0)\) contain a connected component of \(\Delta_{G_m}\) is automatic if \(B_{G_m}(0)\) is a nonempty closed complex-analytic subset of \(\Delta_{G_m}\) of dimension one.
+\end{corollary}
+
+\begin{proof}
+Decompose the one-dimensional stratum \(\Delta_{G_m}\) into its finitely many coarse connected components
+\[
+\Delta_{G_m}=\bigcup_\alpha S_\alpha.
+\]
+By Lemma~\ref{lem:one-dim-strata}, each \(S_\alpha\) is, up to finite quotient, either \(\M_{0,4}\) or \(\M_{1,1}\), in particular a connected one-dimensional complex manifold.  The intersection \(B_{G_m}(0)\cap S_\alpha\) is a closed complex-analytic subset of \(S_\alpha\), and \(B_{G_m}(0)\) is the finite union of these intersections.  Since the dimension of a finite union is the maximum of the dimensions of its members,
+\[
+\dim B_{G_m}(0)=\max_\alpha \dim \bigl(B_{G_m}(0)\cap S_\alpha\bigr).
+\]
+Because \(\dim B_{G_m}(0)=1\), there is an index \(\alpha\) with
+\[
+\dim \bigl(B_{G_m}(0)\cap S_\alpha\bigr)=1.
+\]
+Fix this \(\alpha\).  Then \(B_{G_m}(0)\cap S_\alpha\) is a closed complex-analytic subset of the connected one-dimensional complex manifold \(S_\alpha\) whose dimension is one.  If it were a proper subset, then---being a proper closed complex-analytic subset of a complex manifold of dimension one---it would have dimension at most zero, a contradiction.  Hence
+\[
+B_{G_m}(0)\cap S_\alpha=S_\alpha,
+\]
+so \(B_{G_m}(0)\) contains the connected component \(S_\alpha\) of \(\Delta_{G_m}\).
+\end{proof}
+
+% RECORDS: 488,280
+\begin{corollary}\label{cor:one-dimensional-stratum}
+Assume (i), (ii), the standing hypothesis \(\pi_i(\partial V_t)=\{Y_t\}\), and the standing hypotheses on \(\partial V_t\).  If \(\dim_\C \Delta_\Gamma=1\) and \(B_\Gamma(0)=\partial V_0\) contains a connected component of \(\Delta_\Gamma\), then
+\[
+\pi_i(\partial V_t)=\{Y_0\}
+\]
+for every \(t\in\D\).  In particular, the same conclusion holds if \(B_\Gamma(0)\) is a nonempty closed complex-analytic subset of \(\Delta_\Gamma\) of dimension one.  (The analyticity of \(B_\Gamma(0)\) follows from the algebraicity of \(\overline{V_0}\); see Section~\ref{sec:central}.)
+\end{corollary}
+
+\begin{proof}
+Apply Theorem~\ref{thm:Fprime} with \(m=0\).  The analytic alternative follows from Corollary~\ref{cor:analytic-Fprime} applied with \(G_m=\Gamma\).
+\end{proof}
+
+\begin{remark}
+The descent to a genuinely zero-dimensional ambient stratum is essential.  A smoothly trivial family of isolated points inside a positive-dimensional stratum can move.  Thus isolated points in positive-dimensional strata are not pinned by assumption (i) alone.  The local model in Section~\ref{sec:local-models} exhibits exactly this phenomenon.
+\end{remark}
+
+\section{Local holomorphic moving models}\label{sec:local-models}
+
+% RECORDS: 844,1413
+\begin{proposition}\label{prop:local-model}
+There is an affine-chart model satisfying the local analogues of assumptions (i) and (ii), with one-dimensional boundary pieces and factor projection a singleton, in which the descended point \(Y_t\) moves.
+
+Explicitly, let
+\[
+X=\C^4
+\]
+with coordinates \((x,y,s,z)\).  Let the model boundary divisor and deeper stratum be
+\[
+\widetilde\Delta_G=\{z=0\},\qquad
+\widetilde\Delta_{G'}=\{z=0,\ x=0\},
+\]
+and let the model factor projection be
+\[
+\widetilde\pi_i(x,y,s,z)=s.
+\]
+For \(t\in\D\), define
+\[
+V_t=\{(x,x^2,t,z):x,z\in\C\}\subset X.
+\]
+Then:
+
+\begin{enumerate}[label=(\alph*)]
+  \item the family \(V_t\) is holomorphically trivial over \(\D\);
+  \item the boundary pieces
+  \[
+  B_G(t):=V_t\cap \widetilde\Delta_G
+  =
+  \{(x,x^2,t,0):x\in\C\}
+  \]
+  are one-dimensional and holomorphically trivial;
+  \item the deeper pieces
+  \[
+  B_{G'}(t):=V_t\cap \widetilde\Delta_{G'}
+  =
+  \{(0,0,t,0)\}
+  \]
+  are zero-dimensional and holomorphically trivial;
+  \item the frontier-compatibility condition (ii) holds for the link \(G\succ G'\);
+  \item the factor projection is constant on each boundary piece:
+  \[
+  \widetilde\pi_i(B_G(t))=\{t\};
+  \]
+  \item nevertheless \(Y_t=t\) is nonconstant.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The total family is
+\[
+\mathcal V=\{((x,y,s,z),t): y=x^2,\ s=t\}\subset X\times \D.
+\]
+It is cut out by closed holomorphic equations, and the map
+\[
+\C^2\times\D\to \mathcal V,\qquad (x,z,t)\mapsto ((x,x^2,t,z),t)
+\]
+is a biholomorphism.  Hence the family is holomorphically, therefore smoothly, trivial.
+
+Define the holomorphic automorphism
+\[
+\tau_t:X\to X,\qquad \tau_t(x,y,s,z)=(x,y,s-t,z).
+\]
+It preserves both \(\widetilde\Delta_G\) and \(\widetilde\Delta_{G'}\), because it fixes \(x\) and \(z\), and it maps \(V_t\) to \(V_0\).  Therefore the stratum intersections are holomorphically trivial.
+
+Since \(V_t\) is closed in \(X\), its closure in \(X\) is itself.  Thus
+\[
+B_G(t)=V_t\cap \{z=0\}
+=
+\{(x,x^2,t,0):x\in\C\},
+\]
+which is closed and one-dimensional, and
+\[
+B_{G'}(t)=V_t\cap \{z=0,x=0\}
+=
+\{(0,0,t,0)\}.
+\]
+Also,
+\[
+\overline{B_G(t)}\cap \widetilde\Delta_{G'}
+=
+B_G(t)\cap \widetilde\Delta_{G'}
+=
+\{(0,0,t,0)\}
+=
+B_{G'}(t).
+\]
+At \(t=0\), this gives the premise of the frontier-compatibility condition; for general \(t\), it gives the propagated conclusion.  Hence the analogue of (ii) holds.
+
+Finally,
+\[
+\widetilde\pi_i(B_G(t))=\{t\}.
+\]
+Thus the descended map is \(Y(t)=t\), which is holomorphic and nonconstant.
+\end{proof}
+
+% RECORDS: 1413,844
+\begin{corollary}\label{cor:holomorphic-insufficiency}
+The local hypotheses (i), (ii), one-dimensionality of the boundary piece, and singleton factor projection do not logically force \(Y_t\) to be constant.  Even strengthening (i) to holomorphic triviality and assuming that the descended map \(Y(t)\) is holomorphic is insufficient in a local affine-chart model.
+\end{corollary}
+
+\begin{proof}
+The model of Proposition~\ref{prop:local-model} satisfies all the listed strengthened local hypotheses, yet \(Y_t=t\) is nonconstant.  Therefore those hypotheses alone cannot imply the desired constancy.
+
+This is a local insufficiency statement.  The model is not a global family in \(\bMg\), carries no Teichmüller metric, and does not address total geodesy.  It shows only that any proof of the original problem must use an additional global input not present in these local incidence conditions.
+\end{proof}
+
+\section{Central total geodesy and the propagation gap}\label{sec:central}
+
+% RECORDS: 46,309
+\begin{proposition}\label{prop:central-structure}
+Under the original hypotheses, \(V_0\) is a closed totally geodesic complex algebraic subvariety of \(\M_g\).  In particular, since a Teichmüller disk has complex dimension one, \(V_0\) is not a Teichmüller disk.  Moreover, for the fixed product stratum \(\Delta_\Gamma\), every irreducible component of
+\[
+\partial V_0=\overline{V_0}\cap \Delta_\Gamma
+\]
+is a totally geodesic subvariety of \(\Delta_\Gamma\).  The hypothesis
+\[
+\pi_i(\partial V_0)=\{Y_0\}
+\]
+says that the \(i\)-th factor is collapsed at \(t=0\).
+\end{proposition}
+
+\begin{proof}
+Since \(V_0\) is totally geodesic in \(\M_g\), its preimage in Teichmüller space is locally totally geodesic.  Choose a connected component \(\widetilde V_0\) of the preimage that maps onto \(V_0\).  It is a totally geodesic complex submanifold of Teichmüller space of complex dimension \(2>1\).  By Wright's theorem \cite[Theorem~1.1]{Wri17} (applied with \(n=0\)), the image in \(\M_g\) of such a submanifold is a closed totally geodesic subvariety.  Thus \(V_0\) itself is a closed totally geodesic subvariety of \(\M_g\); in the algebraic reading of ``subvariety'' this already includes algebraicity, and in the analytic reading it is supplied by the quoted theorem.  Since Teichmüller disks are complex geodesics and hence have complex dimension one, a complex two-dimensional totally geodesic subvariety cannot be a Teichmüller disk.
+
+Now apply the boundary theorem of Benirschke--Dozier--Riedel \cite[Theorem~1.4]{BDR}: if \(N\subset \M_{g,n}\) is a totally geodesic complex algebraic subvariety, then every irreducible component of \(\overline N\cap \Delta_\Gamma\) is a totally geodesic subvariety of the stratum \(\Delta_\Gamma\).  The hypotheses are satisfied with \(N=V_0\) and \(n=0\), since \(V_0\) is totally geodesic and algebraic by the preceding paragraph.  Hence every irreducible component of \(\partial V_0\) is totally geodesic in \(\Delta_\Gamma\).
+
+Finally, the hypothesis \(\pi_i(\partial V_0)=\{Y_0\}\)---this is the \(t=0\) instance of the standing hypothesis---is exactly the containment
+\[
+\partial V_0\subset \pi_i^{-1}(Y_0),
+\]
+which says that the \(i\)-th factor direction is collapsed at the central fiber.
+\end{proof}
+
+% RECORDS: 309,46
+\begin{proposition}\label{prop:propagation-gap}
+Under the hypotheses of the original problem alone, the total-geodesy structure theorems used in Proposition~\ref{prop:central-structure} do not apply to \(V_t\) or \(\partial V_t\) for \(t\neq 0\).  Consequently, the central-fiber collapse
+\[
+\pi_i(\partial V_0)=\{Y_0\}
+\]
+does not by itself imply
+\[
+\pi_i(\partial V_t)=\{Y_0\}
+\]
+for \(t\neq 0\).
+\end{proposition}
+
+\begin{proof}
+Wright's theorem requires the submanifold in question to be totally geodesic.  The boundary theorem of Benirschke--Dozier--Riedel requires the interior subvariety \(N\) to be totally geodesic and algebraic.  The original problem explicitly states that \(V_t\) is not assumed totally geodesic for \(t\neq 0\).  Therefore the hypotheses of these theorems are not verified for \(V_t\) when \(t\neq 0\), unless one supplies an additional argument proving total geodesy away from the central fiber.
+
+Thus Proposition~\ref{prop:central-structure} proves collapse at \(t=0\), but the desired conclusion is a propagation statement: the collapsed factor must not re-inflate for \(t\neq 0\).  The cited total-geodesy theorems do not supply that propagation under the stated hypotheses.
+\end{proof}
+
+\section{Conclusion and open points}
+
+The results above give the following exact state of the problem.
+
+\begin{itemize}
+  \item The desired conclusion is equivalent to constancy of the descended map \(Y(t)=Y_t\).
+  \item Ordinary homology of the boundary curve cannot detect motion of \(Y_t\), with the compactness qualification stated in Corollary~\ref{cor:hom-blind}.
+  \item If the stratified closure of \(V_0\) contains a valid no-excess frontier chain reaching a zero-dimensional stratum, then \(Y_t=Y_0\) for all \(t\).
+  \item More generally, if such a chain passes through a one-dimensional stratum filled by a component, then again \(Y_t=Y_0\).
+  \item The local hypotheses (i), (ii), one-dimensionality, and factor-constancy do not force constancy, even in holomorphic local models.
+  \item Total geodesy gives strong structure at \(t=0\), but because \(V_t\) is not assumed totally geodesic for \(t\neq 0\), that structure does not automatically propagate.
+\end{itemize}
+
+The following points remain open:
+\begin{enumerate}[label=(OP\arabic*)]
+  \item The unconditional theorem requested in the original problem is not proved here.
+  \item It is not proved that every complex-two totally geodesic \(V_0\) satisfying the problem admits a frontier chain satisfying \((F)\) or \((F')\).
+  \item It is not proved that total geodesy forces such a frontier chain.
+  \item The local moving models are affine-chart models.  They have not been realized globally as boundary pieces of a deformation of a totally geodesic surface in \(\bMg\).  Ruling out or constructing such a global example remains open.
+  \item The descended map \(Y\) is a priori only smooth.  The local model shows that even upgrading to holomorphic \(Y\) is insufficient without an additional global constraint.
+\end{enumerate}
+
+A proof of the unconditional statement would require a global pinning input beyond local smooth or holomorphic triviality, such as a global incidence theorem, a metric-rigidity propagation mechanism, or an additional compactification constraint not present in the local models.
+
+\begin{thebibliography}{9}
+
+\bibitem{DM69}
+P.~Deligne and D.~Mumford,
+\newblock \emph{The irreducibility of the space of curves of given genus},
+\newblock Inst. Hautes \'Etudes Sci. Publ. Math. No.~36 (1969), 75--109.
+
+\bibitem{Knu83}
+F.~F.~Knudsen,
+\newblock \emph{The projectivity of the moduli space of stable curves. II. The stacks \(\M_{g,n}\)},
+\newblock Math. Scand. \textbf{52} (1983), no.~2, 161--199.
+
+\bibitem{Wri17}
+A.~Wright,
+\newblock \emph{Totally geodesic submanifolds of Teichm\"uller space},
+\newblock arXiv:1702.03249v3, Theorem~1.1.
+
+\bibitem{BDR}
+N.~Benirschke, E.~Dozier, and S.~Riedel,
+\newblock \emph{Totally geodesic submanifolds of moduli spaces of curves},
+\newblock arXiv:2412.06765v1, Theorem~1.4.
+
+\end{thebibliography}
+
+\end{document}

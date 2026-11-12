@@ -1,0 +1,1 @@
+Propose one approach at a time, stated as a conjecture, with the single check that would confirm or refute it. Check your starting formulas against the problem statement before posting. Post something every turn.

@@ -1,0 +1,192 @@
+{
+    "mcpServers": {
+        "arxiv": {
+            "command": "/usr/bin/python3",
+            "args": [
+                "/harness/arxiv_entry.py"
+            ],
+            "timeout": 120000,
+            "versionNegotiation": "auto",
+            "trust": true,
+            "includeTools": [
+                "arxiv_search",
+                "arxiv_local_search",
+                "arxiv_fetch"
+            ]
+        }
+    },
+    "mcp": {
+        "allowed": [
+            "arxiv"
+        ]
+    },
+    "security": {
+        "auth": {
+            "selectedType": "openai"
+        },
+        "folderTrust": {
+            "enabled": false
+        }
+    },
+    "modelProviders": {
+        "openai": [
+            {
+                "id": "deepseek/deepseek-v4.1-flash",
+                "name": "DeepSeek V4.1 Flash via OpenRouter",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 900000,
+                    "streamIdleTimeoutMs": 600000,
+                    "maxRetries": 5,
+                    "retryInitialDelayMs": 3000,
+                    "retryMaxDelayMs": 300000,
+                    "contextWindowSize": 196608,
+                    "reasoning": {
+                        "effort": "high"
+                    },
+                    "extra_body": {}
+                }
+            },
+            {
+                "id": "moonshotai/kimi-k3",
+                "name": "Kimi K3 via OpenRouter",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 3600000,
+                    "streamIdleTimeoutMs": 900000,
+                    "maxRetries": 5,
+                    "retryInitialDelayMs": 3000,
+                    "retryMaxDelayMs": 300000,
+                    "contextWindowSize": 196608,
+                    "reasoning": {
+                        "effort": "xhigh"
+                    },
+                    "extra_body": {}
+                }
+            },
+            {
+                "id": "deepseek/deepseek-v4-pro",
+                "name": "DeepSeek V4 Pro via OpenRouter",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 3600000,
+                    "streamIdleTimeoutMs": 900000,
+                    "maxRetries": 5,
+                    "retryInitialDelayMs": 3000,
+                    "retryMaxDelayMs": 300000,
+                    "contextWindowSize": 196608,
+                    "reasoning": {
+                        "effort": "high"
+                    },
+                    "extra_body": {}
+                }
+            },
+            {
+                "id": "z-ai/glm-5.3",
+                "name": "GLM-5.3 via OpenRouter",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 3600000,
+                    "streamIdleTimeoutMs": 900000,
+                    "maxRetries": 5,
+                    "retryInitialDelayMs": 3000,
+                    "retryMaxDelayMs": 300000,
+                    "contextWindowSize": 196608,
+                    "reasoning": {
+                        "effort": "high"
+                    },
+                    "extra_body": {}
+                }
+            },
+            {
+                "id": "qwen/qwen3.8-max",
+                "name": "Qwen3.8 Max via OpenRouter",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 3600000,
+                    "streamIdleTimeoutMs": 900000,
+                    "maxRetries": 5,
+                    "retryInitialDelayMs": 3000,
+                    "retryMaxDelayMs": 300000,
+                    "contextWindowSize": 196608,
+                    "reasoning": {
+                        "effort": "high"
+                    },
+                    "extra_body": {}
+                }
+            },
+            {
+                "id": "qwen/qwen3.8-2.4t-a95b",
+                "name": "Qwen3.8 2.4T A95B via OpenRouter",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 3600000,
+                    "streamIdleTimeoutMs": 900000,
+                    "maxRetries": 5,
+                    "retryInitialDelayMs": 3000,
+                    "retryMaxDelayMs": 300000,
+                    "contextWindowSize": 196608,
+                    "reasoning": {
+                        "effort": "xhigh"
+                    },
+                    "extra_body": {}
+                }
+            }
+        ]
+    },
+    "model": {
+        "name": "deepseek/deepseek-v4.1-flash",
+        "goalTokenBudget": -1,
+        "goalMaxTurns": -1,
+        "goalMaxActiveMinutes": -1,
+        "maxWallTimeSeconds": 36000,
+        "maxToolCalls": -1,
+        "skipLoopDetection": true
+    },
+    "context": {
+        "autoCompactThreshold": 0.5
+    },
+    "tools": {
+        "approvalMode": "yolo",
+        "visible": [
+            "mcp__arxiv__arxiv_search",
+            "mcp__arxiv__arxiv_local_search",
+            "mcp__arxiv__arxiv_fetch"
+        ],
+        "core": [
+            "read_file",
+            "write_file",
+            "edit",
+            "grep_search",
+            "glob",
+            "run_shell_command"
+        ],
+        "disabled": [
+            "web_fetch",
+            "web_search"
+        ]
+    },
+    "permissions": {
+        "deny": [
+            "WebFetch",
+            "web_search"
+        ]
+    },
+    "memory": {
+        "enableManagedAutoMemory": false,
+        "enableManagedAutoDream": false,
+        "enableAutoSkill": false,
+        "enableTeamMemory": false,
+        "enableTeamMemorySync": false
+    },
+    "privacy": {
+        "usageStatisticsEnabled": false
+    },
+    "$version": 4
+}

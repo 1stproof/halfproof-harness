@@ -1,0 +1,549 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\T}{\mathbb T}
+
+\title{An orientation obstruction to local holomorphic coordinates for symplectic simple normal crossing divisors}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We prove that the existence of local product coordinates with holomorphic defining functions for a symplectic divisor forces an orientation-agreement condition on every stratum: the intersection orientation of the stratum must agree with its symplectic orientation. This condition is invariant under deformations of the symplectic form through forms for which the divisor remains a symplectic simple normal crossing divisor. Using this obstruction, we construct a closed counterexample on the standard symplectic four-torus: two embedded symplectic tori meeting transversely in one point with oriented intersection sign \(-1\). Consequently, under the literal reading of the problem in which ``symplectic simple normal crossings divisor'' only requires symplectic strata and transverse crossings, the answer is negative, even after allowing any permitted cohomologous deformation of the symplectic form. If one instead adopts the stronger simple-crossings convention requiring orientation agreement by definition, this particular obstruction is excluded by hypothesis.
+\end{abstract}
+
+\section{Introduction}
+
+The motivating question is the following. Let \((M,\omega)\) be a closed symplectic manifold and \(D\subset M\) a symplectic simple normal crossings divisor. Does there exist an \(\omega\)-tame almost complex structure \(J\) such that locally on \(M\) there are smooth complex coordinates \((z_1,\dots,z_n)\) in which, for some \(0\le r\le n\), the functions \(z_1,\dots,z_r\) are \(J\)-holomorphic and
+\[
+D=\{z_1\cdots z_r=0\}?
+\]
+One is also allowed to replace \(\omega\) by a symplectic form connected to it by a path of cohomologous symplectic forms along which \(D\) remains a symplectic simple normal crossings divisor.
+
+The phrase ``symplectic simple normal crossings divisor'' is not defined in the question. We distinguish two common readings.
+
+\begin{itemize}
+\item \textbf{Bare reading.} A divisor is a finite union of embedded symplectic branches with transverse intersections, and every stratum is required to be symplectic. No orientation-agreement condition is imposed.
+\item \textbf{Orientation-agreeing reading.} In addition to the above, for every stratum the intersection orientation agrees with the symplectic orientation. This is the simple-crossings convention used in~\cite{FMZ}.
+\end{itemize}
+
+Under the bare reading, we give a negative answer. The main result is that there exists a closed symplectic four-manifold, namely the standard symplectic four-torus, and a divisor consisting of two embedded symplectic tori meeting transversely in one point with oriented intersection sign \(-1\), such that no permitted deformation of the symplectic form can admit the requested tame almost complex structure and local product coordinates.
+
+The obstruction is conceptually simple. If the requested local coordinates exist, then the branches and strata of the divisor are \(J\)-invariant. Tameness identifies the complex orientation of each stratum with its \(\omega\)-orientation. At the same time, the product coordinate model identifies the same complex orientation with the intersection orientation. Hence intersection orientation and \(\omega\)-orientation must agree on every stratum. This agreement cannot be destroyed by a deformation through symplectic forms keeping the strata symplectic, because the relevant orientations vary continuously and cannot flip sign.
+
+The torus example violates this necessary condition at a depth-two stratum: the unique intersection point has intersection orientation opposite to its canonical symplectic orientation. Therefore the requested local model cannot exist, even after any allowed deformation.
+
+If the intended definition of ``symplectic simple normal crossings divisor'' includes orientation agreement, then the example constructed here is not admissible. In that stronger convention the obstruction is void by hypothesis, and the existence question is not settled by the argument below.
+
+\section{Bare symplectic normal crossing divisors and orientations}
+
+Let \((M^{2n},\omega)\) be a closed symplectic manifold. By a \emph{branch} we mean a closed embedded connected symplectic submanifold of real codimension \(2\). A \emph{bare symplectic simple normal crossing divisor} is a finite union
+\[
+D=\bigcup_{i=1}^N D_i
+\]
+of branches such that for every subset \(I\subset\{1,\dots,N\}\), the intersection
+\[
+V_I=\bigcap_{i\in I}D_i
+\]
+is either empty or is a transverse intersection whose connected components are symplectic submanifolds of \((M,\omega)\). We set \(V_\emptyset=M\). The connected components of the various \(V_I\) are called \emph{strata}. At a point \(p\in D\), the set of indices of branches containing \(p\) is denoted \(I(p)\), and the local stratum through \(p\) is the connected component of \(V_{I(p)}\) containing \(p\).
+
+Every symplectic manifold and every symplectic submanifold has a canonical orientation. If \(S\) is a symplectic submanifold of dimension \(2k\), its \(\omega\)-orientation is the orientation determined by the volume form
+\[
+(\omega|_S)^k.
+\]
+For a zero-dimensional symplectic stratum, the orientation is the canonical positive orientation of a point.
+
+We now define the intersection orientation of a stratum in terms of the ambient symplectic orientation and the symplectic orientations of the branches.
+
+Let \(p\in V_I\). Write
+\[
+\operatorname{or}_\omega(T_pM)
+\]
+for the orientation of \(T_pM\) determined by \(\omega^n\), and write
+\[
+\operatorname{or}_\omega(T_pD_i)
+\]
+for the orientation of \(T_pD_i\) determined by \((\omega|_{D_i})^{n-1}\).
+
+If \(A\subset B\) are oriented real vector spaces, the quotient \(B/A\) receives the unique orientation such that
+\[
+\operatorname{or}(B)=\operatorname{or}(A)\wedge \operatorname{or}(B/A).
+\]
+For each \(i\in I\), orient the normal space
+\[
+N_i=T_pM/T_pD_i
+\]
+by the rule
+\[
+\operatorname{or}_\omega(T_pM)
+=
+\operatorname{or}_\omega(T_pD_i)\wedge \operatorname{or}(N_i).
+\]
+
+Because the branches meet transversely, there is a canonical isomorphism
+\[
+T_pM/T_pV_I \cong \bigoplus_{i\in I} N_i.
+\]
+The \emph{intersection orientation}
+\[
+\operatorname{or}_{\mathrm{int}}(T_pV_I)
+\]
+is the orientation of \(T_pV_I\) determined by
+\begin{equation}\label{eq:intersection-orientation}
+\operatorname{or}_\omega(T_pM)
+=
+\operatorname{or}_{\mathrm{int}}(T_pV_I)
+\wedge
+\operatorname{or}(N_{i_1})
+\wedge\cdots\wedge
+\operatorname{or}(N_{i_r}),
+\end{equation}
+where \(I=\{i_1,\dots,i_r\}\). Since each \(N_i\) has real dimension \(2\), the right-hand side is independent of the ordering of the indices \(i_1,\dots,i_r\).
+
+For \(|I|=1\), the definition immediately gives
+\[
+\operatorname{or}_{\mathrm{int}}(T_pD_i)=\operatorname{or}_\omega(T_pD_i).
+\]
+Thus the first possible obstruction occurs at strata of depth at least two.
+
+We say that a stratum \(V_I\) satisfies \emph{orientation agreement} at \(p\) if
+\[
+\operatorname{or}_{\mathrm{int}}(T_pV_I)
+=
+\operatorname{or}_\omega(T_pV_I).
+\]
+The divisor satisfies orientation agreement if this holds at every point of every stratum.
+
+\section{Linear algebra lemmas}
+
+% RECORDS: 116
+\begin{lemma}\label{lem:tame-orientation}
+Let \(V\) be a real vector space of dimension \(2m\) with an almost complex structure \(J\). Suppose a two-form \(\Omega\) tames \(J\), meaning
+\[
+\Omega(v,Jv)>0
+\]
+for every nonzero \(v\in V\). Then the orientation of \(V\) determined by \(\Omega^m\) is the \(J\)-complex orientation. More generally, if \(W\subset V\) is a \(J\)-invariant subspace, then the orientation of \(W\) determined by \((\Omega|_W)^{\dim W/2}\) is the \(J\)-complex orientation of \(W\).
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the statement for \(V\) itself, because if \(W\subset V\) is \(J\)-invariant, then \(\Omega|_W\) tames \(J|_W\):
+\[
+\Omega(w,Jw)>0
+\]
+for every nonzero \(w\in W\).
+
+Choose any inner product \(h\) on \(V\), and replace it by the \(J\)-invariant inner product
+\[
+g(u,v)=\frac12\bigl(h(u,v)+h(Ju,Jv)\bigr).
+\]
+Define
+\[
+\Omega_0(u,v)=g(Ju,v).
+\]
+Then \(\Omega_0\) is a symplectic form compatible with \(J\). In particular,
+\[
+\Omega_0(v,Jv)=g(Jv,Jv)=g(v,v)>0
+\]
+for \(v\neq 0\), so \(\Omega_0\) also tames \(J\).
+
+For \(t\in[0,1]\), set
+\[
+\Omega_t=(1-t)\Omega+t\Omega_0.
+\]
+Since both \(\Omega\) and \(\Omega_0\) tame \(J\), their positive linear combination also tames \(J\):
+\[
+\Omega_t(v,Jv)
+=(1-t)\Omega(v,Jv)+t\Omega_0(v,Jv)>0
+\]
+for every nonzero \(v\). A taming form is nondegenerate: if \(\iota_v\Omega_t=0\), then
+\[
+0=\Omega_t(v,Jv)>0
+\]
+unless \(v=0\). Hence \(\Omega_t^m\) is nonzero for every \(t\).
+
+Fix a \(J\)-complex basis of \(V\). The real-valued function
+\[
+t\longmapsto \Omega_t^m(e_1,Je_1,\dots,e_m,Je_m)
+\]
+is continuous and never zero, so its sign is constant. For the compatible form \(\Omega_0\), this sign is positive. Therefore the sign is also positive for \(\Omega\). Thus \(\Omega^m\) defines the \(J\)-complex orientation.
+\end{proof}
+
+% RECORDS: 116,640
+\begin{lemma}\label{lem:complex-intersection}
+Let \((V,J)\) be a complex vector space of complex dimension \(n\). Let
+\[
+H_1,\dots,H_r\subset V
+\]
+be transverse complex hyperplanes, and put
+\[
+S=\bigcap_{i=1}^r H_i.
+\]
+Orient \(V\), each \(H_i\), and \(S\) by their \(J\)-complex orientations. Orient each quotient \(N_i=V/H_i\) by the convention
+\[
+\operatorname{or}_J(V)=\operatorname{or}_J(H_i)\wedge \operatorname{or}(N_i).
+\]
+Then the intersection orientation of \(S\) defined by
+\[
+\operatorname{or}_J(V)
+=
+\operatorname{or}_{\mathrm{int}}(S)
+\wedge
+\operatorname{or}(N_1)\wedge\cdots\wedge\operatorname{or}(N_r)
+\]
+is the \(J\)-complex orientation of \(S\).
+\end{lemma}
+
+\begin{proof}
+Because the hyperplanes \(H_i\) are transverse complex hyperplanes, their annihilators in the complex dual space are linearly independent. Choose complex-linear coordinates
+\[
+\zeta_1,\dots,\zeta_n
+\]
+on \(V\) such that
+\[
+H_i=\{\zeta_i=0\}
+\]
+for \(1\le i\le r\). Let
+\[
+e_1,Je_1,\dots,e_n,Je_n
+\]
+be the associated real basis, oriented by \(J\).
+
+The complex orientation of \(S\) is represented by the blocks
+\[
+(e_{r+1},Je_{r+1}),\dots,(e_n,Je_n).
+\]
+For each \(i\le r\), the complex orientation of \(H_i\) is represented by all blocks except \((e_i,Je_i)\). The quotient orientation of \(N_i=V/H_i\) is then represented by the missing block \((e_i,Je_i)\), because moving a real two-dimensional block past other real two-dimensional blocks changes orientation by an even sign.
+
+Thus the orientation
+\[
+\operatorname{or}_{\mathrm{int}}(S)
+\wedge
+\operatorname{or}(N_1)\wedge\cdots\wedge\operatorname{or}(N_r)
+\]
+is represented by the ordered list of two-dimensional blocks consisting first of the blocks outside \(I=\{1,\dots,r\}\), followed by the blocks indexed by \(I\). This differs from the ambient ordered list of blocks only by a permutation of two-dimensional blocks. Each transposition of two-dimensional blocks has sign \((-1)^{2\cdot 2}=+1\). Hence the resulting orientation is the ambient \(J\)-complex orientation.
+
+Therefore \(\operatorname{or}_{\mathrm{int}}(S)\) must be the \(J\)-complex orientation of \(S\).
+\end{proof}
+
+% RECORDS: 116,665
+\begin{lemma}\label{lem:two-surface-sign}
+Let \(V\) be an oriented real vector space of dimension \(4\). Let \(A,B\subset V\) be oriented real two-dimensional subspaces with \(A\cap B=0\). Orient the quotients \(N_A=V/A\) and \(N_B=V/B\) by
+\[
+\operatorname{or}(V)=\operatorname{or}(A)\wedge\operatorname{or}(N_A),
+\qquad
+\operatorname{or}(V)=\operatorname{or}(B)\wedge\operatorname{or}(N_B).
+\]
+Orient the zero-dimensional intersection \(A\cap B=0\) by
+\[
+\operatorname{or}(V)=\operatorname{or}_{\mathrm{int}}(0)\wedge \operatorname{or}(N_A)\wedge\operatorname{or}(N_B).
+\]
+Then \(\operatorname{or}_{\mathrm{int}}(0)\) is positive if and only if the concatenation of an oriented basis of \(A\) with an oriented basis of \(B\) is an oriented basis of \(V\).
+\end{lemma}
+
+\begin{proof}
+Let \(a=(a_1,a_2)\) be an oriented basis of \(A\), and let \(b=(b_1,b_2)\) be an oriented basis of \(B\). Let \(\sigma\in\{\pm1\}\) be defined by
+\[
+a\wedge b=\sigma\,\operatorname{or}(V).
+\]
+
+Since \(A\cap B=0\), the subspace \(B\) maps isomorphically to \(V/A\). Under this identification, the orientation of \(N_A\) pulled back to \(B\) is \(\sigma\) times the given orientation of \(B\), because
+\[
+a\wedge b=\sigma\,\operatorname{or}(V).
+\]
+Similarly, \(A\) maps isomorphically to \(V/B\), and the pulled-back orientation of \(N_B\) is \(\sigma\) times the given orientation of \(A\).
+
+Under the direct-sum identification
+\[
+V\cong N_A\oplus N_B,
+\]
+the ordered orientation \(N_A\wedge N_B\) is therefore represented by
+\[
+b\wedge a.
+\]
+Since both \(A\) and \(B\) have real dimension \(2\),
+\[
+b\wedge a=a\wedge b=\sigma\,\operatorname{or}(V).
+\]
+The defining relation
+\[
+\operatorname{or}(V)
+=
+\operatorname{or}_{\mathrm{int}}(0)\wedge N_A\wedge N_B
+\]
+therefore gives
+\[
+\operatorname{or}(V)
+=
+\operatorname{or}_{\mathrm{int}}(0)\cdot \sigma\,\operatorname{or}(V).
+\]
+Hence
+\[
+\operatorname{or}_{\mathrm{int}}(0)=\sigma.
+\]
+Thus the intersection orientation of the point is positive exactly when \(a\wedge b\) is positively oriented in \(V\).
+\end{proof}
+
+\section{The orientation obstruction}
+
+% RECORDS: 116,640
+\begin{proposition}\label{prop:necessity}
+Let \((M,\omega)\) be a symplectic manifold and \(D\) a bare symplectic simple normal crossing divisor. Suppose there exists an \(\omega\)-tame almost complex structure \(J\) and, near a point \(p\) of a stratum \(V_I\), smooth coordinates
+\[
+(z_1,\dots,z_n)
+\]
+such that \(z_1,\dots,z_r\) are \(J\)-holomorphic and
+\[
+D=\{z_1\cdots z_r=0\}
+\]
+near \(p\). Then at \(p\) the intersection orientation of \(V_I\) agrees with its \(\omega\)-orientation.
+\end{proposition}
+
+\begin{proof}
+Near \(p\), write
+\[
+B_i=\{z_i=0\}
+\]
+for \(1\le i\le r\). Since the \(z_i\) are part of a coordinate system, each \(B_i\) is a smooth submanifold and the \(B_i\) meet transversely. The local stratum through \(p\) is
+\[
+S=\bigcap_{i=1}^r B_i.
+\]
+
+Because \(z_i\) is \(J\)-holomorphic,
+\[
+dz_i\circ J=i\,dz_i.
+\]
+If \(v\in T B_i=\ker dz_i\), then
+\[
+dz_i(Jv)=i\,dz_i(v)=0,
+\]
+so \(Jv\in T B_i\). Thus each \(B_i\) is \(J\)-invariant. The intersection \(S\) of \(J\)-invariant transverse submanifolds is also \(J\)-invariant.
+
+By Lemma~\ref{lem:tame-orientation}, the \(\omega\)-orientation of \(M\), of each \(B_i\), and of \(S\) agrees with the corresponding \(J\)-complex orientation. Therefore the intersection orientation of \(S\), defined using the ambient \(\omega\)-orientation and the branch \(\omega\)-orientations, is the same as the intersection orientation defined using the ambient \(J\)-orientation and the branch \(J\)-orientations.
+
+Applying Lemma~\ref{lem:complex-intersection} to the complex vector space
+\[
+(T_pM,J)
+\]
+and the complex hyperplanes
+\[
+T_pB_i\subset T_pM,
+\]
+we obtain that this intersection orientation equals the \(J\)-complex orientation of \(T_pS\). Again by Lemma~\ref{lem:tame-orientation}, the \(J\)-complex orientation of \(T_pS\) equals the \(\omega\)-orientation of \(T_pS\). Hence
+\[
+\operatorname{or}_{\mathrm{int}}(T_pS)
+=
+\operatorname{or}_\omega(T_pS).
+\]
+\end{proof}
+
+% RECORDS: 116,640
+\begin{proposition}\label{prop:deformation}
+Let \((\omega_t)_{t\in[0,1]}\) be a smooth path of symplectic forms on \(M\) such that \(D\) remains a bare symplectic simple normal crossing divisor for every \(t\). For each connected stratum \(S\), the sign comparing the intersection orientation of \(S\) with its \(\omega_t\)-orientation is independent of \(t\).
+\end{proposition}
+
+\begin{proof}
+Fix a connected stratum \(S\) and a point \(p\in S\). For each \(t\), the ambient orientation of \(T_pM\) is determined by the nonvanishing form \(\omega_t^n\), and the orientation of each branch tangent space \(T_pD_i\) is determined by the nonvanishing form
+\[
+(\omega_t|_{D_i})^{n-1}.
+\]
+These orientations depend continuously on \(t\), because the forms remain nondegenerate along the path.
+
+The normal orientations \(N_i=T_pM/T_pD_i\) are obtained from the ambient and branch orientations by the quotient convention, and hence also depend continuously on \(t\). The direct-sum identification
+\[
+T_pM/T_pS\cong\bigoplus_{i\in I(p)} N_i
+\]
+is fixed by the divisor \(D\). Therefore the intersection orientation of \(T_pS\) defined by~\eqref{eq:intersection-orientation} varies continuously with \(t\).
+
+Likewise, the \(\omega_t\)-orientation of \(T_pS\) is determined by the nonvanishing form
+\[
+(\omega_t|_S)^{\dim S/2},
+\]
+and hence also varies continuously with \(t\).
+
+The comparison sign between two continuous orientations of the fixed real vector space \(T_pS\) is a continuous map
+\[
+[0,1]\longrightarrow\{\pm1\}.
+\]
+Since \([0,1]\) is connected, this map is constant. Therefore disagreement or agreement at one value of \(t\) persists for all \(t\).
+\end{proof}
+
+% RECORDS: 116,640,665
+\begin{theorem}\label{thm:obstruction}
+Let \((M,\omega_0)\) be a closed symplectic manifold and \(D\) a bare symplectic simple normal crossing divisor. Suppose that at some point of some stratum the intersection orientation and the \(\omega_0\)-orientation disagree. Let \((\omega_t)_{t\in[0,1]}\) be any path of symplectic forms starting at \(\omega_0\) along which \(D\) remains a bare symplectic simple normal crossing divisor. Then there is no \(\omega_1\)-tame almost complex structure on \(M\) for which the requested local product coordinates exist near that stratum point.
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:deformation}, the orientation disagreement present at \(t=0\) persists at \(t=1\). If an \(\omega_1\)-tame almost complex structure with the requested local product coordinates existed near that point, Proposition~\ref{prop:necessity} would force the intersection orientation and the \(\omega_1\)-orientation of the stratum to agree. This contradiction proves the theorem.
+\end{proof}
+
+\section{A counterexample on the four-torus}
+
+Let
+\[
+\T^4=\R^4/\Z^4
+\]
+with coordinates
+\[
+(x_1,y_1,x_2,y_2)
+\]
+taken modulo \(\Z\). Equip \(\T^4\) with the standard symplectic form
+\[
+\omega=dx_1\wedge dy_1+dx_2\wedge dy_2.
+\]
+The ambient \(\omega\)-orientation is
+\[
+dx_1\wedge dy_1\wedge dx_2\wedge dy_2.
+\]
+
+Define two maps \(\phi_1,\phi_2:\T^2\to\T^4\) by
+\[
+\phi_1(u,v)=(u,v,0,0),
+\]
+\[
+\phi_2(u,v)=(u,2v,u,-v).
+\]
+Let
+\[
+V_1=\phi_1(\T^2),\qquad V_2=\phi_2(\T^2),
+\]
+and set
+\[
+D=V_1\cup V_2.
+\]
+
+% RECORDS: 665,707
+\begin{lemma}\label{lem:T4-example}
+The subsets \(V_1\) and \(V_2\) are embedded \(\omega\)-symplectic tori in \(\T^4\). They meet transversely in exactly one point, and the intersection orientation of that point is opposite to its canonical \(\omega\)-orientation. Consequently, \(D=V_1\cup V_2\) is a bare symplectic simple normal crossing divisor with an orientation disagreement at its unique depth-two stratum.
+\end{lemma}
+
+\begin{proof}
+First consider \(V_1\). The map \(\phi_1\) is clearly an embedding. Its pullback of \(\omega\) is
+\[
+\phi_1^*\omega=du\wedge dv,
+\]
+so \(V_1\) is symplectic and the parameter orientation \((u,v)\) is its \(\omega\)-orientation.
+
+Next consider \(V_2\). The map \(\phi_2\) is well-defined on \(\T^2=\R^2/\Z^2\), because changing \(u\) by an integer changes the first and third coordinates by integers, and changing \(v\) by an integer changes the second coordinate by \(2\Z\) and the fourth coordinate by \(\Z\).
+
+To prove injectivity, suppose
+\[
+\phi_2(u,v)=\phi_2(u',v')
+\]
+in \(\T^4\). Then
+\[
+u-u'\in\Z,\qquad 2(v-v')\in\Z,\qquad u-u'\in\Z,\qquad -v+v'\in\Z.
+\]
+The last congruence gives \(v-v'\in\Z\), so \((u,v)=(u',v')\) in \(\T^2\). Thus \(\phi_2\) is injective. Its derivative has independent columns
+\[
+(1,0,1,0),\qquad (0,2,0,-1),
+\]
+so it is an immersion. Since \(\T^2\) is compact and \(\T^4\) is Hausdorff, \(\phi_2\) is an embedding.
+
+Compute the pullback of \(\omega\) by \(\phi_2\). We have
+\[
+dx_1=du,\qquad dy_1=2\,dv,\qquad dx_2=du,\qquad dy_2=-dv.
+\]
+Therefore
+\[
+\phi_2^*\omega
+=
+du\wedge 2\,dv+du\wedge(-dv)
+=
+(2-1)\,du\wedge dv
+=
+du\wedge dv.
+\]
+Thus \(V_2\) is symplectic, and again the parameter orientation \((u,v)\) is its \(\omega\)-orientation.
+
+We now determine the intersection \(V_1\cap V_2\). We need
+\[
+(u,v,0,0)\equiv(s,2t,s,-t)\pmod{\Z^4}.
+\]
+This gives
+\[
+u-s\in\Z,\qquad v-2t\in\Z,\qquad s\in\Z,\qquad t\in\Z.
+\]
+Hence \(s=t=0\) in \(\T^2\), and then \(u=v=0\) in \(\T^2\). Thus
+\[
+V_1\cap V_2=\{p\},
+\qquad
+p=(0,0,0,0).
+\]
+
+At \(p\), the tangent space of \(V_1\) is spanned by
+\[
+a_1=\partial_{x_1},\qquad b_1=\partial_{y_1}.
+\]
+The tangent space of \(V_2\) is spanned by
+\[
+a_2=\partial_{x_1}+\partial_{x_2},
+\qquad
+b_2=2\partial_{y_1}-\partial_{y_2}.
+\]
+Relative to the ordered ambient basis
+\[
+\partial_{x_1},\partial_{y_1},\partial_{x_2},\partial_{y_2},
+\]
+the matrix with columns \(a_1,b_1,a_2,b_2\) is
+\[
+\begin{pmatrix}
+1&0&1&0\\
+0&1&0&2\\
+0&0&1&0\\
+0&0&0&-1
+\end{pmatrix},
+\]
+whose determinant is \(-1\). Therefore the four tangent vectors form a basis of \(T_p\T^4\), so the intersection is transverse, and the oriented intersection sign is \(-1\).
+
+By Lemma~\ref{lem:two-surface-sign}, the intersection orientation of the point stratum \(V_1\cap V_2\) is negative relative to the canonical positive orientation of a point. The \(\omega\)-orientation of a zero-dimensional stratum is positive. Hence the intersection orientation and the \(\omega\)-orientation disagree.
+
+Since \(V_1\) and \(V_2\) are embedded symplectic tori, meet transversely in one point, and the point stratum is symplectic in the zero-dimensional sense, \(D=V_1\cup V_2\) is a bare symplectic simple normal crossing divisor.
+\end{proof}
+
+% RECORDS: 665,707,116,640
+\begin{theorem}\label{thm:main}
+Let \((\T^4,\omega)\) be the standard symplectic four-torus and let \(D=V_1\cup V_2\) be the divisor constructed above. For every symplectic form \(\omega'\) connected to \(\omega\) by a path of cohomologous symplectic forms along which \(D\) remains a bare symplectic simple normal crossing divisor, there is no \(\omega'\)-tame almost complex structure \(J\) on \(\T^4\) for which the requested local product coordinates exist near the intersection point \(V_1\cap V_2\). In particular, under the bare reading of the problem, the answer is negative.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:T4-example}, the divisor \(D\) has an orientation disagreement at the unique point
+\[
+p=V_1\cap V_2.
+\]
+Let \((\omega_t)_{t\in[0,1]}\) be any path of symplectic forms starting at \(\omega_0=\omega\) along which \(D\) remains a bare symplectic simple normal crossing divisor. By Proposition~\ref{prop:deformation}, the orientation disagreement at \(p\) persists for \(\omega_1\).
+
+If there existed an \(\omega_1\)-tame almost complex structure \(J\) with the requested local product coordinates near \(p\), Proposition~\ref{prop:necessity} would force the intersection orientation and the \(\omega_1\)-orientation of the point stratum to agree. This is impossible. Therefore no such \(J\) exists.
+
+The cohomology condition on the path \((\omega_t)\) is not used in the obstruction; the conclusion holds for any path of symplectic forms keeping \(D\) a bare symplectic simple normal crossing divisor.
+\end{proof}
+
+\section{Consequences and open points}
+
+The preceding argument gives a complete negative answer to the question under the bare reading of ``symplectic simple normal crossings divisor'': transverse symplectic branches and symplectic strata are not sufficient to guarantee the existence of local product coordinates after allowed deformations.
+
+The obstruction is genuinely a depth-two phenomenon. For depth-one strata, the intersection orientation agrees with the symplectic orientation by definition. In dimension four, the obstruction can be interpreted as the usual positivity of intersections of distinct \(J\)-holomorphic curves: if the requested local coordinates existed, the two branches would become distinct \(J\)-holomorphic curves, forcing their local intersection number to be nonnegative. The tori \(V_1\) and \(V_2\) intersect with local sign \(-1\), so they cannot both be made \(J\)-holomorphic for any tame \(J\).
+
+If one adopts the stronger simple-crossings convention in which orientation agreement is part of the definition, as in Definition~2.1 of~\cite{FMZ}, then the counterexample above is excluded by hypothesis. In that convention, the obstruction proved here cannot fire. The argument given in this paper does not settle the existence question for orientation-agreeing symplectic simple crossing divisors.
+
+\begin{thebibliography}{9}
+
+\bibitem{FMZ}
+M.~Farajzadeh Tehrani, M.~McLean, and E.~Zinger,
+\emph{Normal crossings divisors and configurations for symplectic topology},
+arXiv:1410.0609v3.
+
+\end{thebibliography}
+
+\end{document}

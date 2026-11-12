@@ -1,0 +1,1496 @@
+{
+  "$defs": {
+    "allocation_event": {
+      "additionalProperties": false,
+      "properties": {
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "assignment_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "committed_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "deadline_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "eligible_evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "event_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "helper_permission_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "new_owner_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "old_owner_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rule": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "event_id",
+        "rule",
+        "eligible_evidence_ids",
+        "old_owner_id",
+        "new_owner_id",
+        "committed_microusd",
+        "deadline_unix_ms",
+        "assignment_version",
+        "helper_permission_id"
+      ],
+      "type": "object"
+    },
+    "arm": {
+      "additionalProperties": false,
+      "properties": {
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "contracts_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "deadline_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fixture_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "model_keys": {
+          "items": {
+            "enum": [
+              "dsf",
+              "qwen24t",
+              "glm",
+              "dsp",
+              "k3"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "original_cap_microusd": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "private_root": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profile": {
+          "enum": [
+            "production",
+            "pilot"
+          ]
+        },
+        "release_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "report_reserve_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "role_policy_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "scheduler_seed": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "started_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "strategy": {
+          "enum": [
+            "dsf-solo",
+            "dsp-solo",
+            "qwen24t-solo",
+            "k3-solo",
+            "dsf-swarm",
+            "mixed-swarm"
+          ]
+        },
+        "test_only": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "strategy",
+        "profile",
+        "release_sha256",
+        "contracts_sha256",
+        "fixture_sha256",
+        "started_at_unix_ms",
+        "deadline_unix_ms",
+        "original_cap_microusd",
+        "report_reserve_microusd",
+        "model_keys",
+        "scheduler_seed",
+        "role_policy_sha256",
+        "private_root",
+        "test_only"
+      ],
+      "type": "object"
+    },
+    "artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "type": "object"
+    },
+    "attempt": {
+      "additionalProperties": false,
+      "properties": {
+        "active_reservation_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "admitted_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "attempt_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "deadline_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "effort": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "estimate_microusd": {
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "generation_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lookup_count": {
+          "maximum": 7,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "model_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "model_key": {
+          "enum": [
+            "dsf",
+            "qwen24t",
+            "glm",
+            "dsp",
+            "k3"
+          ]
+        },
+        "next_lookup_unix_ms": {
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "phase_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pool_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provider": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "released_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "request_class": {
+          "enum": [
+            "primary",
+            "secondary",
+            "internal-verification",
+            "peer-review",
+            "report",
+            "specialist",
+            "auxiliary",
+            "orchestration"
+          ]
+        },
+        "request_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "research",
+            "reviewer",
+            "report",
+            "verifier",
+            "specialist",
+            "orchestrator"
+          ]
+        },
+        "settled_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "state": {
+          "enum": [
+            "reserved",
+            "unresolved",
+            "settled"
+          ]
+        },
+        "ticket_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unresolved_upper_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "upper_bound_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "worker_id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "request_id",
+        "attempt_id",
+        "worker_id",
+        "role",
+        "model_key",
+        "model_id",
+        "provider",
+        "effort",
+        "phase_id",
+        "pool_id",
+        "ticket_id",
+        "admitted_at_unix_ms",
+        "deadline_unix_ms",
+        "upper_bound_microusd",
+        "state",
+        "settled_microusd",
+        "unresolved_upper_microusd",
+        "active_reservation_microusd",
+        "estimate_microusd",
+        "released_microusd",
+        "generation_id",
+        "lookup_count",
+        "next_lookup_unix_ms",
+        "request_class"
+      ],
+      "type": "object"
+    },
+    "cohort_export": {
+      "additionalProperties": false,
+      "properties": {
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "judge": {
+          "additionalProperties": false,
+          "properties": {
+            "cap_per_arm_microusd": {
+              "const": 10000000
+            },
+            "effort": {
+              "const": "high"
+            },
+            "max_concurrent_jobs": {
+              "const": 3
+            },
+            "max_jobs_per_arm": {
+              "const": 1
+            },
+            "model": {
+              "const": "gpt-6-astra"
+            },
+            "product": {
+              "const": "Codex"
+            },
+            "rubric_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "seconds_per_arm": {
+              "const": 3600
+            },
+            "stage_seconds": {
+              "const": 14400
+            }
+          },
+          "required": [
+            "product",
+            "model",
+            "effort",
+            "rubric_sha256",
+            "max_jobs_per_arm",
+            "cap_per_arm_microusd",
+            "seconds_per_arm",
+            "max_concurrent_jobs",
+            "stage_seconds"
+          ],
+          "type": "object"
+        },
+        "judging_started_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "registered_arm_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "resume_prohibited": {
+          "const": true
+        },
+        "terminal_records": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "arm_id": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "frozen",
+                  "withdrawn"
+                ]
+              },
+              "record_sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "arm_id",
+              "kind",
+              "record_sha256"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "registered_arm_ids",
+        "terminal_records",
+        "judging_started_at_unix_ms",
+        "resume_prohibited",
+        "judge"
+      ],
+      "type": "object"
+    },
+    "cohort_registration": {
+      "additionalProperties": false,
+      "properties": {
+        "arms": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "arm_id": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "latest_start_unix_ms": {
+                "minimum": 0,
+                "type": "integer"
+              },
+              "withdrawal_decision_deadline_unix_ms": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "arm_id",
+              "latest_start_unix_ms",
+              "withdrawal_decision_deadline_unix_ms"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "closed_to_new_arms": {
+          "const": true
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "operator_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "registered_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "registered_at_unix_ms",
+        "operator_id",
+        "arms",
+        "closed_to_new_arms"
+      ],
+      "type": "object"
+    },
+    "dependency": {
+      "additionalProperties": false,
+      "properties": {
+        "object_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "object_id",
+        "version",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "dispute": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_versions": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "author_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "created_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "object_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "objection": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "unticketed",
+            "admitted",
+            "resolved",
+            "unresolved",
+            "withdrawn"
+          ]
+        },
+        "suspend_or_recheck": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "ticket_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "object_id",
+        "version",
+        "author_id",
+        "created_at_unix_ms",
+        "dependencies",
+        "scope",
+        "objection",
+        "affected_versions",
+        "suspend_or_recheck",
+        "ticket_id",
+        "status"
+      ],
+      "type": "object"
+    },
+    "freeze": {
+      "additionalProperties": false,
+      "properties": {
+        "admission_closed": {
+          "const": true
+        },
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "arm_manifest_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "authorship": {
+          "enum": [
+            "model",
+            "administrative-fallback"
+          ]
+        },
+        "board_versions": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "cancellations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "compilation": {
+          "enum": [
+            "passed",
+            "failed",
+            "unavailable"
+          ]
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "contracts_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "frozen_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "internal_status": {
+          "enum": [
+            "internal-supported",
+            "internal-rejected",
+            "indeterminate",
+            "completion-unconfirmed"
+          ]
+        },
+        "ledger_export_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pending_calls_recorded": {
+          "const": true
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "release_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "scientific_artifacts": {
+          "items": {
+            "$ref": "#/$defs/artifact"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "stop_reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "structural_completeness": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "unknown"
+          ]
+        },
+        "substantive_grade": {
+          "const": "ungraded"
+        },
+        "writers_fenced": {
+          "const": true
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "release_sha256",
+        "contracts_sha256",
+        "arm_manifest_sha256",
+        "frozen_at_unix_ms",
+        "admission_closed",
+        "writers_fenced",
+        "pending_calls_recorded",
+        "scientific_artifacts",
+        "board_versions",
+        "cancellations",
+        "ledger_export_id",
+        "compilation",
+        "authorship",
+        "internal_status",
+        "structural_completeness",
+        "substantive_grade",
+        "stop_reason"
+      ],
+      "type": "object"
+    },
+    "help_request": {
+      "additionalProperties": false,
+      "properties": {
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "author_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "completion_condition": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "created_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "distinct_contribution": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "milestone_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "object_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "obligation_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "object_id",
+        "version",
+        "author_id",
+        "created_at_unix_ms",
+        "dependencies",
+        "obligation_id",
+        "distinct_contribution",
+        "completion_condition",
+        "milestone_sha256"
+      ],
+      "type": "object"
+    },
+    "ledger_snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "active_reservation_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "attempt_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "available_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "conservation_residual_microusd": {
+          "type": "integer"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "original_cap_microusd": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recovery_grant_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sequence": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "settled_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "unresolved_upper_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "sequence",
+        "original_cap_microusd",
+        "recovery_grant_microusd",
+        "settled_microusd",
+        "unresolved_upper_microusd",
+        "active_reservation_microusd",
+        "available_microusd",
+        "conservation_residual_microusd",
+        "attempt_ids"
+      ],
+      "type": "object"
+    },
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "artifact": {
+          "$ref": "#/$defs/artifact"
+        },
+        "assignment_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "author_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "claim": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "computation_pointers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "created_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "limitations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "lineage_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "object_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "parent_claims": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source_pointers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "object_id",
+        "version",
+        "author_id",
+        "created_at_unix_ms",
+        "dependencies",
+        "claim",
+        "scope",
+        "artifact",
+        "parent_claims",
+        "computation_pointers",
+        "source_pointers",
+        "limitations",
+        "assignment_version",
+        "lineage_id"
+      ],
+      "type": "object"
+    },
+    "review": {
+      "additionalProperties": false,
+      "properties": {
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "candidate_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "checked_scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "committed_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "dependency_author": {
+          "type": "boolean"
+        },
+        "evidence_pointers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "lineage_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pair_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "prior_exposure": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "relevance_supported": {
+          "type": "boolean"
+        },
+        "revealed_at_unix_ms": {
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "review_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reviewer_family": {
+          "enum": [
+            "DeepSeek",
+            "Qwen",
+            "Kimi",
+            "GLM"
+          ]
+        },
+        "reviewer_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ticket_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "support",
+            "challenge",
+            "indeterminate"
+          ]
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "review_id",
+        "pair_id",
+        "ticket_id",
+        "lineage_id",
+        "reviewer_id",
+        "reviewer_family",
+        "candidate_sha256",
+        "checked_scope",
+        "verdict",
+        "relevance_supported",
+        "evidence_pointers",
+        "prior_exposure",
+        "dependency_author",
+        "committed_at_unix_ms",
+        "revealed_at_unix_ms"
+      ],
+      "type": "object"
+    },
+    "strategy": {
+      "additionalProperties": false,
+      "properties": {
+        "approach": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "assumptions": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "author_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "created_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "object_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "original_proposer_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "target_obligation_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "object_id",
+        "version",
+        "author_id",
+        "created_at_unix_ms",
+        "dependencies",
+        "approach",
+        "assumptions",
+        "target_obligation_id",
+        "original_proposer_id"
+      ],
+      "type": "object"
+    },
+    "withdrawal": {
+      "additionalProperties": false,
+      "properties": {
+        "admission_closed": {
+          "const": true
+        },
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "freeze_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "operator_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "resume_prohibited": {
+          "const": true
+        },
+        "withdrawn_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "writers_fenced": {
+          "const": true
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "withdrawn_at_unix_ms",
+        "operator_id",
+        "reason",
+        "admission_closed",
+        "writers_fenced",
+        "resume_prohibited",
+        "freeze_sha256"
+      ],
+      "type": "object"
+    },
+    "work_claim": {
+      "additionalProperties": false,
+      "properties": {
+        "arm_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "assignment_version": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "author_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cohort_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "cost_envelope_microusd": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "created_at_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "deadline_unix_ms": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "independent_check": {
+          "type": "boolean"
+        },
+        "lineage_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "method_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "object_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "obligation_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "owner_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "problem_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "cohort_id",
+        "problem_id",
+        "arm_id",
+        "object_id",
+        "version",
+        "author_id",
+        "created_at_unix_ms",
+        "dependencies",
+        "obligation_id",
+        "method_id",
+        "owner_id",
+        "assignment_version",
+        "lineage_id",
+        "cost_envelope_microusd",
+        "deadline_unix_ms",
+        "independent_check"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/arm"
+    },
+    {
+      "$ref": "#/$defs/attempt"
+    },
+    {
+      "$ref": "#/$defs/ledger_snapshot"
+    },
+    {
+      "$ref": "#/$defs/strategy"
+    },
+    {
+      "$ref": "#/$defs/work_claim"
+    },
+    {
+      "$ref": "#/$defs/result"
+    },
+    {
+      "$ref": "#/$defs/review"
+    },
+    {
+      "$ref": "#/$defs/help_request"
+    },
+    {
+      "$ref": "#/$defs/allocation_event"
+    },
+    {
+      "$ref": "#/$defs/dispute"
+    },
+    {
+      "$ref": "#/$defs/freeze"
+    },
+    {
+      "$ref": "#/$defs/withdrawal"
+    },
+    {
+      "$ref": "#/$defs/cohort_export"
+    },
+    {
+      "$ref": "#/$defs/cohort_registration"
+    }
+  ],
+  "title": "Harness v3 wire contracts version 1"
+}

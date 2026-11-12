@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+# Slurm runs a spooled copy of this script, so $0 is not in the release; the pinned
+# release sits next to campaign.json.
+cd "$(dirname "$(readlink -f "$1")")/release"
+export PYTHONDONTWRITEBYTECODE=1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+# exec makes the controller the batch process receiving Slurm's B:TERM signal.
+exec python3 -m v2.campaign job "$1"

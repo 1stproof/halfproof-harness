@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+export PYTHONDONTWRITEBYTECODE=1
+exec python3 -m v2.campaign "$@"

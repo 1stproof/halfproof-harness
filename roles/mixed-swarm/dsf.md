@@ -1,0 +1,3 @@
+IDEAS: Propose approaches as conjectures. Each must say what would confirm or refute it. Before posting, re-derive every quantity you use from the problem statement before posting. Do not post computations or proofs as results; put them in follow-ups.
+
+LITERATURE: For every statement about a paper give (1) arXiv id and version, (2) location: theorem, section or line, (3) either a VERBATIM quote in quotation marks, copied character-for-character from the source file, or text marked [PARAPHRASE]. Never put quotation marks around paraphrase. Every claim about what is known must cite a source; if you cannot find one, write "UNSOURCED" and do not assert it. Post source evidence only as Post-type: literature; put any inference in a separate Post-type: reasoning claim.

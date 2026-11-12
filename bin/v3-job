@@ -1,0 +1,35 @@
+#!/bin/bash
+set -euo pipefail
+export PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+# The spooled wrapper validates bytes BEFORE importing any release module.
+exec python3 -I - "$1" <<'PY'
+import hashlib, json, os, pathlib, re, sys
+manifest_path=pathlib.Path(sys.argv[1]).resolve(strict=True)
+manifest=json.loads(manifest_path.read_bytes())
+root=pathlib.Path(manifest['release_root']).resolve(strict=True)
+files=manifest['release_files']
+if not files or len(files)>10000 or not re.fullmatch('[0-9a-f]{64}',manifest['release_sha256']):
+    raise ValueError('invalid pinned release inventory')
+actual=set()
+for path in root.rglob('*'):
+    if path.is_symlink(): raise ValueError('release symlink refused')
+    if path.is_file():actual.add(str(path.relative_to(root)))
+    if len(actual)>10000:raise ValueError('release inventory bound')
+if actual!=set(files):raise ValueError('release inventory differs from actual files')
+digest=hashlib.sha256()
+for name,sha in sorted(files.items()):
+    relative=pathlib.PurePosixPath(name)
+    if relative.is_absolute() or '..' in relative.parts:raise ValueError('unsafe release member')
+    path=root/name
+    if not path.resolve(strict=True).is_relative_to(root):raise ValueError('unsafe release path')
+    h=hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda:stream.read(1048576),b''):h.update(block)
+    if h.hexdigest()!=sha:raise ValueError('release checksum mismatch')
+    digest.update(name.encode()+b'\0'+sha.encode()+b'\n')
+if digest.hexdigest()!=manifest['release_sha256']:raise ValueError('release manifest digest mismatch')
+for name in ('PYTHONPATH','PYTHONHOME','PYTHONSTARTUP'):os.environ.pop(name,None)
+os.chdir(root)
+os.execv(sys.executable,[sys.executable,'-s','-m','v2.deployment_job',str(manifest_path)])
+PY

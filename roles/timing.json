@@ -1,0 +1,33 @@
+{
+ "deepseek/deepseek-v4.1-flash": {
+  "request_deadline_seconds": 5400,
+  "backstop_seconds": 1800,
+  "first_token_seconds": 600,
+  "inter_chunk_seconds": 60
+ },
+ "deepseek/deepseek-v4-pro": {
+  "request_deadline_seconds": 5400,
+  "backstop_seconds": 1800,
+  "first_token_seconds": 900,
+  "inter_chunk_seconds": 120
+ },
+ "moonshotai/kimi-k3": {
+  "request_deadline_seconds": 5400,
+  "runaway_output_bytes": 2000000,
+  "backstop_seconds": 2700,
+  "first_token_seconds": 900,
+  "inter_chunk_seconds": 120
+ },
+ "z-ai/glm-5.3": {
+  "request_deadline_seconds": 5400,
+  "backstop_seconds": 2700,
+  "first_token_seconds": 900,
+  "inter_chunk_seconds": 90
+ },
+ "qwen/qwen3.8-2.4t-a95b": {
+  "request_deadline_seconds": 8400,
+  "backstop_seconds": 3600,
+  "first_token_seconds": 1200,
+  "inter_chunk_seconds": 120
+ }
+}

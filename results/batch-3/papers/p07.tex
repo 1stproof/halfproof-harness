@@ -1,0 +1,1012 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{url}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\Sph}{\mathbb S}
+\newcommand{\Teich}{\operatorname{Teich}}
+\newcommand{\Mod}{\operatorname{Mod}}
+\newcommand{\Df}{\mathcal D_f}
+\newcommand{\Lf}{L_f}
+\newcommand{\Sf}{S_f}
+\newcommand{\Ef}{E_f}
+\newcommand{\Per}{\operatorname{Per}}
+\newcommand{\HF}{\Phi_f}
+\newcommand{\FAB}{\Phi_A^B}
+\newcommand{\id}{\operatorname{id}}
+
+\title{A Vanishing-Cycle Dehn Twist for the Hironaka--Koch
+$\Per_4(0)$ Deformation Space: Preservation, Base-Component
+Triviality, and the Open Infinite-Orbit Problem}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give a partial answer to the problem of exhibiting an explicit simple
+closed curve whose Dehn-twist power preserves the Hironaka--Koch
+deformation space attached to a quadratic rational map with a
+superattracting $4$-cycle and one free critical value, and whose action
+on the connected components has an infinite orbit.  For the concrete
+Hironaka--Koch map
+\[
+f(z)=\frac{(4z-3)(z+2)}{4z^{2}},
+\]
+with superattracting cycle
+$0\mapsto\infty\mapsto1\mapsto\tfrac34\mapsto0$ and free critical value
+$v=121/96$, let $\gamma_{0,v}$ be any essential simple closed curve
+separating $\{0,v\}$ from $\{\infty,1,\tfrac34\}$.  We prove that the
+square $T_{\gamma_{0,v}}^{2}$ of the Dehn twist about this curve
+preserves the deformation space $\Df$.  We also prove, using the
+base-point-component form of the Hironaka--Koch monodromy subgroup
+$\Ef$, that $T_{\gamma_{0,v}}^{2}\in\Ef$, so it fixes the base
+connected component of $\Df$.  Thus the explicit curve
+$\gamma_{0,v}$ and the power $2$ solve the preservation half of the
+problem, but they do not supply the requested infinite orbit.  The known
+Hironaka--Koch infinite-component mechanism is produced by a braid
+element that is not identified here with a Dehn twist about a single
+simple closed curve.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Let $f:\Sph^{2}\to\Sph^{2}$ be a branched cover, let $V(f)$ denote its
+set of critical values, and let $A,B\subset\Sph^{2}$ be finite sets.
+Whenever $f(A)\cup V(f)\subset B$, pulling back complex structures on
+$(\Sph^{2},B)$ yields a holomorphic map
+\[
+f^{*}:\Teich(B)\longrightarrow\Teich(A),
+\]
+and whenever $A\subset B$, forgetting the points $B\setminus A$ yields
+\[
+i_{*}:\Teich(B)\longrightarrow\Teich(A).
+\]
+When $f(A)\cup V(f)\cup A\subset B$, the deformation space is the
+equalizer
+\[
+\Df=\{\tau\in\Teich(B): f^{*}(\tau)=i_{*}(\tau)\}.
+\]
+
+The original problem asks for an explicit simple closed curve
+$\gamma\subset(\Sph^{2},B)$ such that some power of the Dehn twist
+$T_{\gamma}$ preserves $\Df$ and acts on the set of connected components
+$\pi_{0}(\Df)$ with an infinite orbit.  We work with the specific
+quadratic rational map used by Hironaka and Koch in \cite[\S4]{HK}:
+\begin{equation}
+\label{eq:HKmap}
+f(z)=\frac{(4z-3)(z+2)}{4z^{2}}.
+\end{equation}
+Its critical points are $0$ and $12/5$.  The point $0$ lies in the
+superattracting $4$-cycle
+\[
+A=\left\{0,\infty,1,\tfrac34\right\},\qquad
+0\longmapsto\infty\longmapsto1\longmapsto\tfrac34\longmapsto0,
+\]
+while the second critical value is the free critical value
+\[
+v=f\!\left(\tfrac{12}{5}\right)=\frac{121}{96}.
+\]
+We set
+\[
+B=A\cup\{v\}.
+\]
+
+Let $\gamma_{0,v}$ be any essential simple closed curve in
+$\Sph^{2}\setminus B$ bounding a disk whose intersection with $B$ is
+exactly $\{0,v\}$: it separates $\{0,v\}$ from
+$\{\infty,1,\tfrac34\}$.  Geometrically, $\gamma_{0,v}$ is the
+vanishing cycle of the collision of the free critical value $v$ with the
+periodic critical point $0$.
+
+\medskip
+The present paper proves the following two results, and records honestly
+what is not proved.
+
+\smallskip
+\noindent\textbf{Theorem A (preservation).}
+For each $a\in\{0,1,\tfrac34\}$, if $\gamma_{a,v}$ is any essential
+simple closed curve separating $\{a,v\}$ from the other three points of
+$B$, then $T_{\gamma_{a,v}}^{2}\in\Sf$, and consequently
+\[
+T_{\gamma_{a,v}}^{2}\cdot\Df=\Df.
+\]
+In particular, $\gamma=\gamma_{0,v}$ satisfies the preservation
+requirement of the problem with power $2$.
+
+\smallskip
+\noindent\textbf{Theorem B (base-component triviality).}
+With the Hironaka--Koch base point and marking conventions, the
+vanishing-cycle twist satisfies
+\[
+T_{\gamma_{0,v}}^{2}\in\Ef,
+\]
+where $\Ef$ is the image of the monodromy of the Hironaka--Koch
+parameter space $V=\Per_{4}(0)^{*}$.  Consequently, if $D_{0}$ is the
+connected component of $\Df$ containing the base point $\tau_{*}$, then
+$T_{\gamma_{0,v}}^{2}(D_{0})=D_{0}$.
+
+Thus the same explicit curve $\gamma=\gamma_{0,v}$ that supplies the
+preservation half of the problem does not supply an infinite orbit: its
+square lies in $\Ef$ and fixes the base component.  The infinite-orbit
+requirement for a Dehn twist about a single simple closed curve remains
+open.  The known Hironaka--Koch infinite-component phenomenon is
+produced by the braid element $g=s_{2}cr_{1}s_{1}cr_{2}$ of
+\cite[Theorem~1.3 and Remark~4.7]{HK}, which we cite but do not identify
+with a Dehn twist.
+The paper is organised as follows.  Section~\ref{sec:prelim} recalls the
+Hironaka--Koch framework, states their stabiliser criterion, and derives
+the base-component lemma we use.  Section~\ref{sec:normal-form} proves
+the normal-form algebra for quadratic rational maps with a
+superattracting $4$-cycle and computes the multiplicity-two collision
+between $v$ and the periodic critical point.
+Section~\ref{sec:preservation} verifies the concrete data
+of~\eqref{eq:HKmap}, establishes the structure of the preimage of the
+vanishing cycle, and proves Theorem~A.  Section~\ref{sec:Ef} proves
+Theorem~B.  Section~\ref{sec:open} summarises the consequences and
+records the precise open points.
+
+\section{Preliminaries and Hironaka--Koch input}
+\label{sec:prelim}
+
+Throughout, $\Sph^{2}$ is the Riemann sphere.  For a finite set
+$P\subset\Sph^{2}$ with $|P|\ge3$, let $\Teich(P)$ denote the
+Teichm\"uller space of the marked sphere $(\Sph^{2},P)$, and let
+\[
+\Mod_{P}=\pi_{0}\operatorname{Homeo}^{+}(\Sph^{2},P)
+\]
+denote the pure mapping class group: orientation-preserving
+homeomorphisms fixing $P$ pointwise, modulo isotopy through such
+homeomorphisms.  For an essential simple closed curve
+$\gamma\subset\Sph^{2}\setminus P$, we write $T_{\gamma}$ for the right
+Dehn twist about $\gamma$.
+
+If $Q\subset P$ has cardinality $2$, we let $\gamma_{Q}$ denote any
+essential simple closed curve in $\Sph^{2}\setminus P$ bounding a disk
+$D$ with $D\cap P=Q$.  Such a curve separates $\Sph^{2}$ into a disk
+containing $Q$ and a disk containing $P\setminus Q$.  For the concrete
+map of Section~\ref{sec:preservation}, we use the notation
+\[
+A=\{0,\infty,1,\tfrac34\},\qquad
+B=A\cup\{v\},\qquad
+v=\tfrac{121}{96},
+\]
+and for $a\in A$ we write $\gamma_{a,v}$ for $\gamma_{\{a,v\}}$.
+
+\subsection{The Hironaka--Koch deformation setup}
+
+We work inside the framework of Hironaka--Koch \cite[§2.5--§2.6]{HK}.
+A mapping class $g\in\Mod_{B}$ is called \emph{$f$-liftable} if there
+exists a class $\HF(g)\in\Mod_{A}$ such that
+\[
+f^{*}(g\cdot\tau)=\HF(g)\cdot f^{*}(\tau)\qquad\text{for all }\tau\in\Teich(B).
+\]
+Equivalently, $g$ admits a lift to a homeomorphism of
+$(\Sph^{2},f^{-1}(B))$ fixing $A$ pointwise after forgetting
+$f^{-1}(B)\setminus A$.  The liftable classes form a subgroup
+$\Lf\subset\Mod_{B}$, and the lifting homomorphism is
+\[
+\HF:\Lf\longrightarrow\Mod_{A}.
+\]
+Because $A\subset B$, forgetting $B\setminus A$ gives a homomorphism
+\[
+\FAB:\Mod_{B}\longrightarrow\Mod_{A}.
+\]
+The \emph{special liftable} subgroup is the equalizer
+\[
+\Sf=\{g\in\Lf:\HF(g)=\FAB(g)\}.
+\]
+
+We use the following standard Hironaka--Koch criterion.  We cite it
+rather than reprove it, and we check its hypotheses for our concrete
+data in Section~\ref{sec:preservation}.
+
+% RECORDS: 564,262
+\begin{proposition}[Hironaka--Koch {\cite[Proposition~2.1]{HK}}]
+\label{prop:HK21}
+Let $f:\Sph^{2}\to\Sph^{2}$ be a branched cover and let
+$A,B\subset\Sph^{2}$ be finite sets with $A\subset B$, $|A|\ge3$,
+$|B|\ge3$, and
+\[
+f(A)\cup V(f)\cup A\subset B.
+\]
+With $\Lf,\HF,\FAB,\Sf$ as above, if $g\in\Lf$ then the following are
+equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item\label{it:stab-nonempty} $g\cdot\Df\cap\Df\neq\varnothing$;
+\item\label{it:stab-eq} $g\cdot\Df=\Df$;
+\item\label{it:stab-Sf} $g\in\Sf$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+This is \cite[Proposition~2.1]{HK}.  The hypotheses used there are
+exactly that both Teichm\"uller spaces are non-exceptional
+($|A|,|B|\ge3$) so that $f^{*}$ and $i_{*}$ are well defined, and that
+$f(A)\cup V(f)\cup A\subset B$ so that the deformation space
+$\Df=\{\tau\in\Teich(B):f^{*}(\tau)=i_{*}(\tau)\}$ is meaningful.
+
+For the map $f$ of~\eqref{eq:HKmap}, Lemma~\ref{lem:HK-map} below
+computes $f(A)=A$ and $V(f)=\{\infty,v\}$, so
+\[
+f(A)\cup V(f)\cup A=A\cup\{v\}=B,
+\]
+and $|A|=4$, $|B|=5$.  Hence the hypotheses of the cited proposition
+are satisfied.
+\end{proof}
+
+\subsection{The Hironaka--Koch parameter space and the subgroup $\Ef$}
+
+Let
+\[
+V=\Per_{4}(0)^{*}
+\]
+be the Hironaka--Koch parameter space of quadratic rational maps with a
+marked superattracting $4$-cycle and one free critical value, in the
+normalization of \cite[\S4]{HK}.  Let $*_{V}\in V$ be the base point
+corresponding to the concrete map~\eqref{eq:HKmap}, and let
+$\tau_{*}\in\Teich(B)$ be the associated marked point.  Hironaka--Koch
+construct a monodromy homomorphism
+\[
+\rho:\pi_{1}(V,*_{V})\longrightarrow\Sf
+\]
+and define
+\[
+\Ef=\rho(\pi_{1}(V,*_{V})).
+\]
+In \cite{HK} this subgroup is written $i_{*}(\pi_{1}(V,*_{V}))$; to
+avoid a clash of notation with the forgetful map
+$i_{*}:\Teich(B)\to\Teich(A)$, we write $\rho$ for the monodromy
+homomorphism.
+
+We shall not use the full coset description of the connected components
+of $\Df$ from \cite[Proposition~3.4]{HK}.  All we need is the following
+base-point-component consequence.
+
+% RECORDS: 643
+\begin{lemma}
+\label{lem:base-component}
+Let $D_{0}$ be the connected component of $\Df$ containing the base
+point $\tau_{*}$.  If $g\in\Ef$, then $g(D_{0})=D_{0}$.
+\end{lemma}
+\begin{proof}
+Choose a loop $\ell$ in $V$ based at $*_{V}$ with $\rho([\ell])=g$.
+By the Hironaka--Koch construction of the monodromy action, the
+basepoint marking transported along the loop gives a path of marked
+structures on which the deformation equation holds at every parameter;
+thereore the lifted path lies in $\Df$.  Starting at $\tau_{*}$ the
+endpoint of this path is $g\cdot\tau_{*}$ (in the action convention
+of~\cite{HK}), so $g\cdot\tau_{*}\in D_{0}$.
+
+Since $\Ef\subset\Sf$, Proposition~\ref{prop:HK21} gives
+$g\cdot\Df=\Df$.  Hence $g(D_{0})$ is a connected component of $\Df$.
+This component contains $g\cdot\tau_{*}$, and $D_{0}$ also contains
+$g\cdot\tau_{*}$.  Since distinct components are disjoint,
+$g(D_{0})=D_{0}$.
+\end{proof}
+
+\begin{remark}
+The conclusion of Lemma~\ref{lem:base-component} is deliberately
+limited to the base component.  If $\Ef$ were known to be normal in
+$\Sf$, one could draw further conclusions about the action on all
+components; the arguments of this paper do not establish normality, and
+we do not rely on it.
+\end{remark}
+
+\section{Normal form and the double collision}
+\label{sec:normal-form}
+
+The next theorem records the one-parameter normal form for quadratic
+rational maps with a superattracting $4$-cycle, computes the second
+critical point and its value, and identifies the collision between the
+free critical value and the periodic critical point together with its
+local multiplicity.
+
+% RECORDS: 262
+\begin{theorem}
+\label{thm:normal-form}
+For $\alpha$ away from the exceptional loci on which the formulas below
+degenerate, define
+\[
+f_{\alpha}(z)=\frac{\alpha(z-\alpha)^{2}}{(z-1)(z-\alpha^{3})}.
+\]
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item\label{it:nf-cycle} $\alpha$ is a critical point, and
+\[
+\alpha\longmapsto0\longmapsto1\longmapsto\infty\longmapsto\alpha
+\]
+is a superattracting $4$-cycle.
+\item\label{it:nf-c2} The second critical point is
+\[
+c_{2}(\alpha)=-\frac{\alpha(\alpha^{2}-\alpha-1)}{\alpha^{2}+\alpha-1}.
+\]
+\item\label{it:nf-v} Its critical value is
+\[
+v(\alpha)=f_{\alpha}(c_{2}(\alpha))
+=\frac{4\alpha^{2}(\alpha+1)}{(\alpha^{2}+\alpha+1)^{2}}.
+\]
+\item\label{it:nf-collision} The difference of the free critical value
+from the periodic critical point factors as
+\[
+v(\alpha)-\alpha
+=-\frac{\alpha(\alpha^{2}+\alpha-1)^{2}}{(\alpha^{2}+\alpha+1)^{2}}.
+\]
+Hence $v(\alpha)=\alpha$ exactly when $\alpha^{2}+\alpha-1=0$, and at
+such parameters the collision has multiplicity $2$; additionally
+$c_{2}(\alpha)\to\infty=f_{\alpha}^{3}(\alpha)$.
+\item\label{it:nf-mono} If $\gamma_{\alpha}$ is any simple closed
+curve separating $\{\alpha,v(\alpha)\}$ from $\{0,1,\infty\}$, then the
+local monodromy of the family $f_{\alpha}$ around the collision
+parameter is $T_{\gamma_{\alpha}}^{2}$, up to the usual orientation
+convention for Dehn twists.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Set
+\[
+N(z)=\alpha(z-\alpha)^{2},\qquad
+D(z)=(z-1)(z-\alpha^{3}),
+\]
+so that $f_{\alpha}=N/D$.
+
+\emph{(i).}  The numerator has a double zero at $z=\alpha$, so $f$
+attains the value $0$ there to local degree $2$, and $\alpha$ is a
+critical point.  Direct evaluation gives
+\[
+f_{\alpha}(0)=\frac{\alpha(-\alpha)^{2}}{(-1)(-\alpha^{3})}=1,\qquad
+f_{\alpha}(\infty)=\alpha,
+\]
+while $D(1)=0$ and $N(1)\neq0$ away from exceptional $\alpha$, so
+$f_{\alpha}(1)=\infty$.  Hence
+\[
+\alpha\longmapsto0\longmapsto1\longmapsto\infty\longmapsto\alpha
+\]
+is a $4$-cycle, and it is superattracting because $\alpha$ is critical.
+
+\emph{(ii).}  Differentiating,
+\[
+f_{\alpha}'(z)=\frac{N'(z)D(z)-N(z)D'(z)}{D(z)^{2}},
+\qquad N'(z)=2\alpha(z-\alpha),
+\]
+so
+\[
+f_{\alpha}'(z)
+=\frac{\alpha(z-\alpha)\bigl(2D(z)-(z-\alpha)D'(z)\bigr)}{D(z)^{2}}.
+\]
+One critical point is $z=\alpha$.  Writing
+$D(z)=z^{2}-(1+\alpha^{3})z+\alpha^{3}$ and
+$D'(z)=2z-(1+\alpha^{3})$, we compute
+\[
+\begin{aligned}
+2D(z)-(z-\alpha)D'(z)
+&=2\bigl(z^{2}-(1+\alpha^{3})z+\alpha^{3}\bigr)
+ -(z-\alpha)\bigl(2z-(1+\alpha^{3})\bigr)\\
+&=-(\alpha-1)\Bigl((\alpha^{2}+\alpha-1)z
+   +\alpha(\alpha^{2}-\alpha-1)\Bigr).
+\end{aligned}
+\]
+The remaining zero of this factor yields the second critical point
+\[
+c_{2}(\alpha)
+=-\frac{\alpha(\alpha^{2}-\alpha-1)}{\alpha^{2}+\alpha-1}.
+\]
+
+\emph{(iii).}  Set $\beta=c_{2}(\alpha)$.  At the critical point, the
+equation $2D(\beta)=(\beta-\alpha)D'(\beta)$ holds, hence
+\[
+v(\alpha)=f_{\alpha}(\beta)
+=\frac{\alpha(\beta-\alpha)^{2}}{D(\beta)}
+=\frac{2\alpha(\beta-\alpha)}{D'(\beta)}.
+\]
+Now
+\[
+\beta-\alpha
+=-\frac{\alpha(\alpha^{2}-\alpha-1)}{\alpha^{2}+\alpha-1}-\alpha
+=-\frac{2\alpha(\alpha^{2}-1)}{\alpha^{2}+\alpha-1},
+\]
+and
+\[
+D'(\beta)
+=2\beta-(1+\alpha^{3})
+=-\frac{(\alpha-1)(\alpha^{2}+\alpha+1)^{2}}{\alpha^{2}+\alpha-1}.
+\]
+Substituting,
+\[
+v(\alpha)
+=\frac{2\alpha\cdot\left(-\dfrac{2\alpha(\alpha^{2}-1)}{\alpha^{2}+\alpha-1}\right)}
+        {-\dfrac{(\alpha-1)(\alpha^{2}+\alpha+1)^{2}}{\alpha^{2}+\alpha-1}}
+=\frac{4\alpha^{2}(\alpha+1)}{(\alpha^{2}+\alpha+1)^{2}}.
+\]
+
+\emph{(iv).}  Combining (iii) with the common denominator,
+\[
+\begin{aligned}
+v(\alpha)-\alpha
+&=\frac{4\alpha^{2}(\alpha+1)-\alpha(\alpha^{2}+\alpha+1)^{2}}
+        {(\alpha^{2}+\alpha+1)^{2}}\\
+&=\frac{-\alpha\bigl(\alpha^{4}+2\alpha^{3}-\alpha^{2}-2\alpha+1\bigr)}
+        {(\alpha^{2}+\alpha+1)^{2}}\\
+&=-\frac{\alpha(\alpha^{2}+\alpha-1)^{2}}
+        {(\alpha^{2}+\alpha+1)^{2}}.
+\end{aligned}
+\]
+Thus $v(\alpha)=\alpha$ if and only if $\alpha^{2}+\alpha-1=0$.  At
+such $\alpha$, $\alpha^{2}+\alpha+1=2$, so the prefactor is nonzero,
+and since $\alpha^{2}+\alpha-1$ has simple zeros, the collision has
+multiplicity $2$.
+
+At a root of $\alpha^{2}+\alpha-1$, the denominator
+$\alpha^{2}+\alpha-1$ of $c_{2}(\alpha)$ vanishes.  Using
+$\alpha^{2}=1-\alpha$,
+\[
+\alpha^{2}-\alpha-1=(1-\alpha)-\alpha-1=-2\alpha,
+\]
+so the numerator of $c_{2}$ tends to $2\alpha^{2}\neq0$ because
+$\alpha\neq0$ on the collision locus; hence
+$c_{2}(\alpha)\to\infty$.  Since $f_{\alpha}^{3}(\alpha)=\infty$ by
+(i), the limiting second critical point coincides with the cycle point
+$f_{\alpha}^{3}(\alpha)$.
+
+\emph{(v).}  Let $\alpha_{0}$ be a root of $\alpha^{2}+\alpha-1$ and
+write $\alpha-\alpha_{0}=t$.  By (iv),
+\[
+v(\alpha)-\alpha =u(t)\,t^{2},\qquad u(0)\neq0.
+\]
+Along the loop $t=\varepsilon e^{i\theta}$, $0\le\theta\le2\pi$, the
+relative coordinate $v(\alpha)-\alpha$ winds twice around $0$.  Choose a
+closed disk $U$ containing $\alpha$ and $v(\alpha)$ and disjoint from
+$\{0,1,\infty\}$.  Inside $U$, the two marked points move as the pure
+braid with relative winding number two.  Under the standard
+braid-to-mapping-class dictionary, in the twice-punctured disk a pure
+braid with relative winding number one represents the Dehn twist about
+the simple closed curve that surrounds both punctures, and relative
+winding number two represents its square.  See Farb--Margalit
+\cite[Chapter~9, Theorem~9.1 and \S9.1]{FM} for the identification of
+the pure braid group on a punctured disk with a subgroup of the mapping
+class group.  Extending by the identity outside $U$ gives the local
+monodromy $T_{\gamma_{\alpha}}^{2}$, up to orientation.
+\end{proof}
+
+\begin{remark}
+\label{rem:coord-change}
+The normalization of Hironaka--Koch \cite[\S4]{HK} places the periodic
+critical point at the value $0$ by a M\"obius change of coordinates.  In
+that coordinate, the curve $\gamma_{\alpha}$ of
+Theorem~\ref{thm:normal-form} becomes the curve $\gamma_{0,v}$ that
+separates $\{0,v\}$ from the other three points of $B$.
+\end{remark}
+
+\section{The concrete map and liftable squared twists}
+\label{sec:preservation}
+
+We now specialize to the map~\eqref{eq:HKmap},
+\[
+f(z)=\frac{(4z-3)(z+2)}{4z^{2}}
+=\frac{4z^{2}+5z-6}{4z^{2}}.
+\]
+Its superattracting $4$-cycle is
+\[
+A=\left\{0,\infty,1,\tfrac34\right\},
+\]
+and its free critical value is
+\[
+v=\tfrac{121}{96},\qquad
+B=A\cup\{v\}.
+\]
+
+% RECORDS: 564
+\begin{lemma}
+\label{lem:HK-map}
+For the map $f$ of~\eqref{eq:HKmap}, the following hold.
+\begin{enumerate}[label=(\roman*)]
+\item\label{it:hk-cycle} The cycle is
+\[
+0\longmapsto\infty\longmapsto1\longmapsto\tfrac34\longmapsto0.
+\]
+\item\label{it:hk-crit} The critical points are $0$ and $12/5$, and the
+branch values are $\infty$ and $v=121/96$.
+\item\label{it:hk-deck} The nontrivial deck transformation of the
+degree-two map is
+\[
+\tau(z)=\frac{6z}{5z-6},
+\]
+and $\tau^{2}=\id$ and $f\circ\tau=f$.
+\item\label{it:hk-fibers} The fibers over $B$ are
+\[
+\begin{aligned}
+f^{-1}(0)&=\left\{\tfrac34,\,-2\right\},\\
+f^{-1}(\infty)&=\{0\}\quad\text{with branching},\\
+f^{-1}(1)&=\left\{\tfrac65,\,\infty\right\},\\
+f^{-1}\!\left(\tfrac34\right)&=\{1,\,-6\},\\
+f^{-1}(v)&=\left\{\tfrac{12}{5}\right\}\quad\text{with branching}.
+\end{aligned}
+\]
+\item\label{it:hk-factor} The map factors as
+\[
+f=\phi\circ q\circ m,\qquad
+m(z)=\frac{5z}{5z-12},\quad q(w)=w^{2},\quad
+\phi(s)=\frac{121s-25}{96s}.
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\emph{(i).}  Evaluation gives
+\[
+f(0)=\infty,\qquad f(\infty)=1,\qquad
+f(1)=\frac{4+5-6}{4}=\frac34,
+\]
+and
+\[
+f\!\left(\tfrac34\right)
+=\frac{\tfrac94+\tfrac{15}{4}-6}{\tfrac94}=0,
+\]
+so the claimed $4$-cycle holds.
+
+\emph{(ii).}  In the local coordinate $w=1/f$ at $f(0)=\infty$,
+\[
+w(z)=\frac{4z^{2}}{4z^{2}+5z-6},
+\]
+which has a zero of order $2$ at $z=0$.  Therefore $0$ has local degree
+$2$: it is a critical point with critical value $\infty$.  Away from
+$0$ we differentiate:
+\[
+f'(z)=\frac{(8z+5)4z^{2}-(4z^{2}+5z-6)8z}{16z^{4}}
+=\frac{12-5z}{4z^{3}}.
+\]
+Hence the only finite critical point other than $0$ is $z=12/5$.  Its
+value is
+\[
+f\!\left(\tfrac{12}{5}\right)
+=\frac{\left(\tfrac{48-15}{5}\right)\left(\tfrac{12+10}{5}\right)}
+       {4\cdot\tfrac{144}{25}}
+=\frac{\tfrac{33}{5}\cdot\tfrac{22}{5}}{\tfrac{576}{25}}
+=\frac{726}{576}=\frac{121}{96}=v.
+\]
+Finally, $\infty$ is not critical: with $u=1/z$ near $\infty$ and target
+coordinate $W=f(1/u)-1$ near $f(\infty)=1$,
+\[
+W(u)=\frac{4/u^{2}+5/u-6}{4/u^{2}}-1
+=\frac{5}{4}u-\frac{3}{2}u^{2},
+\]
+whose derivative at $u=0$ is $5/4\neq0$.  Therefore
+$V(f)=\{\infty,v\}$.
+
+\emph{(iii) and (v).}  First verify $\tau^{2}=\id$:
+\[
+\tau(\tau(z))=\frac{6\cdot\tfrac{6z}{5z-6}}{\tfrac{5\cdot6z}{5z-6}-6}
+=\frac{\tfrac{36z}{5z-6}}{\tfrac{30z-6(5z-6)}{5z-6}}
+=\frac{36z}{36}=z.
+\]
+Next, since
+\[
+4\tau^{2}+5\tau-6
+=\frac{144z^{2}+180z-216}{(5z-6)^{2}},
+\qquad
+4\tau^{2}=\frac{144z^{2}}{(5z-6)^{2}},
+\]
+we have
+\[
+f(\tau(z))=\frac{144z^{2}+180z-216}{144z^{2}}
+=1+\frac{5}{4z}-\frac{3}{2z^{2}}=f(z),
+\]
+which proves $f\circ\tau=f$.  For the factorization, if
+$w=m(z)=5z/(5z-12)$, then $q(w)=w^{2}=25z^{2}/(5z-12)^{2}$ and
+\[
+\phi(q(m(z)))
+=\frac{121\cdot\tfrac{25z^{2}}{(5z-12)^{2}}-25}
+       {96\cdot\tfrac{25z^{2}}{(5z-12)^{2}}}
+=\frac{25\bigl(121z^{2}-(5z-12)^{2}\bigr)}{2400z^{2}}.
+\]
+Since $(5z-12)^{2}=25z^{2}-120z+144$, the numerator is
+$25(96z^{2}+120z-144)$, so
+\[
+\phi(q(m(z)))=\frac{2400z^{2}+3000z-3600}{2400z^{2}}
+=1+\frac{5}{4z}-\frac{3}{2z^{2}}=f(z).
+\]
+
+\emph{(iv).}  We compute the fibers directly.
+\[
+f(z)=0\iff (4z-3)(z+2)=0\iff z\in\left\{\tfrac34,-2\right\},
+\]
+\[
+f(z)=1\iff 4z^{2}+5z-6=4z^{2}\iff z=\tfrac65,
+\]
+and additionally $z=\infty$ satisfies $f(\infty)=1$, so
+$f^{-1}(1)=\{\tfrac65,\infty\}$.  Next,
+\[
+f(z)=\tfrac34\iff 4(4z-3)(z+2)=12z^{2}
+\iff z^{2}+5z-6=0\iff z\in\{1,-6\},
+\]
+so $f^{-1}(\tfrac34)=\{1,-6\}$.  For the value $v$, we have
+\[
+f(z)=v=\tfrac{121}{96}
+\iff 384z^{2}+480z-576=484z^{2},
+\]
+hence
+\[
+100z^{2}-480z+576=0
+\iff (5z-12)^{2}=0,
+\]
+so $f^{-1}(v)=\{12/5\}$ with multiplicity $2$.  Finally,
+$f^{-1}(\infty)=\{0\}$ because $4z^{2}=0$ is the only solution of the
+vanishing denominator, with multiplicity $2$.
+\end{proof}
+
+\begin{remark}
+\label{rem:fminus-one-B}
+From Lemma~\ref{lem:HK-map},
+\[
+f^{-1}(B)=\left\{\tfrac34,-2,\,0,\,\tfrac65,\,\infty,\,1,\,-6,\,\tfrac{12}{5}\right\},
+\]
+so that
+\[
+A\subset f^{-1}(B),\qquad
+f^{-1}(B)\setminus A=\left\{-2,\,\tfrac65,\,-6,\,\tfrac{12}{5}\right\}.
+\]
+In particular, $f$ restricts to an unramified double cover
+$f:\Sph^{2}\setminus f^{-1}(B)\to\Sph^{2}\setminus B$ with deck group
+$\langle\tau\rangle$.
+\end{remark}
+
+\subsection{The preimage of a $v$-pair disk}
+
+% RECORDS: 564
+\begin{lemma}
+\label{lem:disk-preimage}
+Let $a\in\{0,1,\tfrac34\}$ and let $\gamma=\gamma_{a,v}$ be a simple
+closed curve bounding a disk $D$ with $D\cap B=\{a,v\}$.  Then
+$\delta=f^{-1}(\gamma)$ is a single essential simple closed curve, the
+restriction $f:\delta\to\gamma$ has degree $2$, and the disk
+$f^{-1}(D)$ bounded by $\delta$ contains the branch point $12/5$ and
+exactly one point of $A$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:HK-map}, the branch values of $f$ are exactly
+$\infty$ and $v$.  The disk $D$ contains exactly one branch value,
+namely $v$, and exactly one non-branch value $a$.  Therefore the total
+ramification of $f$ over $D$ is $1$: the unique simple branch point
+$12/5$ maps to $v$.
+
+The monodromy of the degree-two cover $f$ around the boundary
+$\partial D=\gamma$ is the product of the local monodromies about the
+marked points lying in $D$.  Since $v$ is a branch value of $f$, the
+local monodromy about $v$ is the nontrivial transposition of the two
+sheets, whereas the local monodromy about $a$ is trivial.  Hence the
+total monodromy is nontrivial, and $f^{-1}(\gamma)$ is connected: it is
+a single simple closed curve $\delta$, and $f:\delta\to\gamma$ is a
+degree-$2$ covering.
+
+Applying the Riemann--Hurwitz formula to the proper degree-two map
+$f:f^{-1}(D)\to D$ over the disk $D$, with one branch point of
+multiplicity $2$ over $v$, gives
+\[
+\chi\!\left(f^{-1}(D)\right)=2\,\chi(D)-1=2\cdot1-1=1.
+\]
+Since $f^{-1}(D)$ is connected and has a single boundary component
+$\delta$, it is a disk.
+
+Finally, we determine the $A$-points lying in $f^{-1}(D)$.  Since
+$D\cap B=\{a,v\}$ and $A\subset B$, any point of $A$ lying in
+$f^{-1}(D)$ must map into $D\cap A=\{a\}$, so
+\[
+f^{-1}(D)\cap A\subset f^{-1}(a).
+\]
+By Lemma~\ref{lem:HK-map}, each fiber over $a\in\{0,1,\tfrac34\}$ has
+exactly two points, one in $A$ and one not in $A$:
+\[
+f^{-1}(0)=\{\tfrac34,-2\},\qquad
+f^{-1}(1)=\{\tfrac65,\infty\},\qquad
+f^{-1}(\tfrac34)=\{1,-6\}.
+\]
+The point $12/5\in f^{-1}(D)$ is a branch point and lies over
+$v\notin A$, so it is not an $A$-point.  Therefore
+$f^{-1}(D)\cap A$ consists of the unique $A$-point inside the fiber
+$f^{-1}(a)$; explicitly it is $\tfrac34$ for $a=0$, $\infty$ for
+$a=1$, and $1$ for $a=\tfrac34$.
+\end{proof}
+
+\subsection{The squared twist is special liftable}
+
+% RECORDS: 564
+\begin{lemma}
+\label{lem:lift-square}
+Let $a\in\{0,1,\tfrac34\}$ and $\gamma=\gamma_{a,v}$.  Then
+$T_{\gamma}^{2}$ is $f$-liftable, with a lift equal to the full twist
+$T_{\delta}$ about $\delta=f^{-1}(\gamma)$.  Moreover
+$\HF(T_{\gamma}^{2})=1\in\Mod_{A}$ and
+$\FAB(T_{\gamma}^{2})=1\in\Mod_{A}$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:disk-preimage}, $f^{-1}(\gamma)=\delta$ is a single
+curve mapping to $\gamma$ with degree $2$.  Choose annular coordinates
+$(r,\theta)$ near $\gamma$ and $(r,\theta')$ near $\delta$ in which the
+covering is $(r,\theta')\mapsto(r,2\theta')$.  A representative of
+$T_{\gamma}^{2}$ has the form
+\[
+(r,\theta)\longmapsto(r,\theta+4\pi\,\rho(r))
+\]
+for a cut-off function $\rho$ supported in the annulus and changing by
+one full twist across it.  Its lift is
+\[
+(r,\theta')\longmapsto(r,\theta'+2\pi\,\rho(r)),
+\]
+which is precisely the full Dehn twist $T_{\delta}$ along $\delta$.
+Hence $T_{\gamma}^{2}\in\Lf$, with $\HF$-image realised by $T_{\delta}$.
+
+We now determine $\HF(T_{\gamma}^{2})=1$.  The lift
+$T_{\delta}\in\Mod_{f^{-1}(B)}$ acts by twisting about $\delta$.  By
+Lemma~\ref{lem:disk-preimage}, after forgetting the points of
+$f^{-1}(B)\setminus A$, the curve $\delta$ bounds a disk containing
+exactly one point of $A$.  Any homeomorphism of a disk fixing a single
+interior marked point and equal to the identity on the boundary is
+isotopic relative to the boundary and the marked point to the identity
+(the pure mapping class group of a disk with one marked point is
+trivial; this is the Alexander trick).  Hence the class of $T_{\delta}$
+in $\Mod_{A}$ is trivial, and
+\[
+\HF(T_{\gamma}^{2})=1\in\Mod_{A}.
+\]
+
+For the forgetful image $\FAB(T_{\gamma}^{2})$, note that after
+forgetting the point $v$ from the marked set, the curve $\gamma$
+bounds a disk whose intersection with $A$ is exactly $\{a\}$.  By the
+same Alexander-trick argument, $T_{\gamma}$ and hence $T_{\gamma}^{2}$
+is trivial in $\Mod_{A}$:
+\[
+\FAB(T_{\gamma}^{2})=1\in\Mod_{A}.
+\]
+\end{proof}
+
+% RECORDS: 564
+\begin{theorem}
+\label{thm:preservation}
+For each $a\in\{0,1,\tfrac34\}$, let $\gamma_{a,v}$ be a simple closed
+curve separating $\{a,v\}$ from the other three points of $B$.  Then
+\[
+T_{\gamma_{a,v}}^{2}\in\Sf,
+\]
+and consequently
+\[
+T_{\gamma_{a,v}}^{2}\cdot\Df=\Df.
+\]
+In particular, $\gamma=\gamma_{0,v}$ satisfies the preservation
+requirement of the original problem with power $2$.
+\end{theorem}
+\begin{proof}
+Let $\gamma=\gamma_{a,v}$.  By Lemma~\ref{lem:lift-square},
+$T_{\gamma}^{2}\in\Lf$ and both $\HF(T_{\gamma}^{2})$ and
+$\FAB(T_{\gamma}^{2})$ equal the identity in $\Mod_{A}$.  Hence
+$T_{\gamma}^{2}\in\Sf=\{g\in\Lf:\HF(g)=\FAB(g)\}$.  Applying
+Proposition~\ref{prop:HK21} with $g=T_{\gamma}^{2}\in\Sf$ gives
+\[
+T_{\gamma}^{2}\cdot\Df=\Df.
+\]
+Taking $a=0$ gives the explicit curve $\gamma_{0,v}$.
+\end{proof}
+
+\section{The vanishing-cycle twist lies in $\Ef$}
+\label{sec:Ef}
+
+We now turn to the action on components.  We will show that the
+squared twist $T_{\gamma_{0,v}}^{2}$ lies in the subgroup $\Ef$ coming
+from loops in the Hironaka--Koch parameter space $V$, and hence fixes
+the base component of $\Df$.
+
+% RECORDS: 643
+\begin{lemma}
+\label{lem:collision-in-V}
+In the Hironaka--Koch parameter space $V=\Per_{4}(0)^{*}$, the collision
+$v=c_{1}$ occurs as a removed puncture.  In the coordinates of
+\cite[\S4.1]{HK}, with the periodic critical point normalized to
+$c_{1}=0$, the collision condition is equivalent to the conic
+\[
+G:\;-x^{2}+y+2x-1=0.
+\]
+In those coordinates the one-parameter family $V$ is represented by the
+diagonal $x=y$ with the collision and degeneracy loci removed, so
+\[
+G\cap V:\quad x^{2}-3x+1=0,
+\]
+and the collision punctures are
+\[
+x=\frac{3\pm\sqrt5}{2}.
+\]
+The associated vanishing cycle transported to the base fibre is
+$\gamma_{0,v}$ under the Hironaka--Koch marking convention.
+\end{lemma}
+\begin{proof}
+This is the coordinate computation of \cite[\S4.1]{HK}.  In those
+coordinates the periodic critical point is normalized to $c_{1}=0$, and
+the free critical value is a rational function $z(x,y)$.  Hironaka--Koch
+write the collision condition as
+\[
+z(x,y)=0\quad\Longleftrightarrow\quad -x^{2}+y+2x-1=0,
+\]
+i.e.\ the collision conic is $y=(x-1)^{2}$.  The one-parameter family
+$V$ is given in this chart by the diagonal $x=y$, after removing the
+finite set on which the five marked points fail to be distinct or the
+rational map degenerates.  Substituting $y=x$ into $G$ gives
+\[
+-x^{2}+x+2x-1=0\quad\Longleftrightarrow\quad x^{2}-3x+1=0,
+\]
+with roots $x=(3\pm\sqrt5)/2$.  At these parameters the two marked
+points $0$ and $v$ coincide, so the marked sphere is not in
+$\Teich(B)$; such parameters are punctures of $V$.  A small loop
+around either puncture lies in $V$, and the colliding pair is
+$\{0,v\}$; therefore the vanishing cycle transported to the base fibre
+is, by definition of $\gamma_{0,v}$, the curve separating $\{0,v\}$
+from the remaining three points of $B$.
+\end{proof}
+
+% RECORDS: 262,643
+\begin{theorem}
+\label{thm:Ef}
+With the Hironaka--Koch base point $*_{V}$ and marking conventions, the
+squared vanishing-cycle twist satisfies
+\[
+T_{\gamma_{0,v}}^{2}\in\Ef.
+\]
+\end{theorem}
+\begin{proof}
+Let $p$ denote one of the collision punctures
+\[
+x=\frac{3\pm\sqrt5}{2}
+\]
+from Lemma~\ref{lem:collision-in-V}, and let $U$ be a small coordinate
+disk about $p$ inside the diagonal with local holomorphic coordinate
+$t$ centred at $p$, so that $U\setminus\{p\}\subset V$.  The local
+meridian $t=\varepsilon e^{2\pi i\theta}$, $0\le\theta\le1$, together
+with the Hironaka--Koch transport path in $V$ from $U$ to the base
+point $*_{V}$, defines a based loop $\ell$ in $V$.
+
+The collision has multiplicity two.  This is the coordinate-invariant
+content of Theorem~\ref{thm:normal-form}: in a one-parameter model of
+the collision, the relative coordinate between the periodic critical
+point and the free critical value is a nonzero holomorphic function
+times $t^{2}$.  The normal-form family of Theorem~\ref{thm:normal-form}
+and the diagonal in the Hironaka--Koch chart are two holomorphic
+parametrizations of the same one-parameter locus $\Per_{4}(0)$ near the
+collision.  The vanishing order of the relative coordinate of two marked
+points at a puncture is invariant under holomorphic reparametrization of
+the parameter and under M\"obius changes of coordinate on the sphere.
+Hence the order-two vanishing proved in Theorem~\ref{thm:normal-form}
+also holds for the local parameter $t$ on the Hironaka--Koch diagonal.
+After possibly shrinking $U$, we may therefore write
+\[
+w(t)=u(t)\,t^{2},\qquad u(0)\neq0,
+\]
+for the relative coordinate of the colliding marked points $0$ and $v$.
+As $t$ goes once around $0$, $w(t)$ winds twice around $0$.
+
+Inside a small disk containing only the two colliding marked points, the
+resulting motion is a pure braid with relative winding number two; by
+the standard braid-to-mapping-class identification in a twice-punctured
+disk (Farb--Margalit \cite[Chapter~9, Theorem~9.1 and \S9.1]{FM}), this
+is the square of the Dehn twist about the curve surrounding the two
+punctures, up to orientation.  The local vanishing cycle transported to
+the base fibre is $\gamma_{0,v}$ by
+Lemma~\ref{lem:collision-in-V}.
+
+The exact identification of the based meridian's monodromy uses the
+Hironaka--Koch base point and marking conventions: the base fibre over
+$*_{V}$ is identified with $(\Sph^{2},B)$, the colliding pair is
+$\{0,v\}$, and the transport path from $*_{V}$ to the puncture is the
+one used in that marking.  Under this convention the vanishing cycle
+transported to the base fibre is the specific curve $\gamma_{0,v}$.
+Thus the based monodromy of $\ell$ is $T_{\gamma_{0,v}}^{\pm2}$; since
+$\Ef$ is a subgroup, this implies $T_{\gamma_{0,v}}^{2}\in\Ef$.
+\end{proof}
+
+% RECORDS: 643
+\begin{corollary}
+\label{cor:base-fixed}
+Let $D_{0}$ be the connected component of $\Df$ containing the base
+point $\tau_{*}$.  Then
+\[
+T_{\gamma_{0,v}}^{2}(D_{0})=D_{0}.
+\]
+\end{corollary}
+\begin{proof}
+Combine Theorem~\ref{thm:Ef} with Lemma~\ref{lem:base-component}.
+\end{proof}
+
+\begin{remark}
+\label{rem:caveat}
+The arguments above do not show that $\Ef$ is normal in $\Sf$.
+Therefore Corollary~\ref{cor:base-fixed} rigorously fixes only the
+base component.  It does not by itself determine the action of
+$T_{\gamma_{0,v}}^{2}$ on all components of $\Df$, and it does not rule
+out nontrivial behaviour on other components.  However, no argument in
+this paper establishes an infinite orbit for this Dehn twist.
+\end{remark}
+
+\section{Consequences and open points}
+\label{sec:open}
+
+The original problem asks for an explicit simple closed curve $\gamma$
+such that a power of $T_{\gamma}$ preserves $\Df$ and acts on
+$\pi_{0}(\Df)$ with an infinite orbit.  The results above give the
+following partial answer.
+The preservation requirement is solved by the explicit curve
+\[
+\gamma=\gamma_{0,v}
+\]
+with power $2$: Theorem~\ref{thm:preservation} proves
+$T_{\gamma_{0,v}}^{2}\in\Sf$, and Proposition~\ref{prop:HK21} then gives
+\[
+T_{\gamma_{0,v}}^{2}\cdot\Df=\Df.
+\]
+More generally, for each $a\in\{0,1,\tfrac34\}$, the squared twist about
+$\gamma_{a,v}$ lies in $\Sf$ and preserves $\Df$.
+
+The infinite-orbit requirement is not proved for this Dehn twist.
+Theorem~\ref{thm:Ef} shows
+\[
+T_{\gamma_{0,v}}^{2}\in\Ef,
+\]
+so the base component $D_{0}$ of $\Df$ is fixed by
+Corollary~\ref{cor:base-fixed}.  The known Hironaka--Koch proof that
+$\Df$ has infinitely many components uses the braid element
+\[
+g=s_{2}\,c\,r_{1}\,s_{1}\,c\,r_{2},
+\]
+whose image under the Hironaka--Koch quotient map has infinite order;
+see \cite[Theorem~1.3 and Remark~4.7]{HK}.  The arguments of this paper
+do not identify this element, or any power of it, with a Dehn twist
+about a single simple closed curve on $(\Sph^{2},B)$.  The infinite
+orbit produced by $g$ is therefore not realised here by a Dehn twist.
+
+The precise open points are the following.
+\begin{enumerate}[label=(\arabic*)]
+\item No argument in this paper shows that a power of $T_{\gamma}$ for
+some single essential simple closed curve
+$\gamma\subset(\Sph^{2},B)$ lies in $\Sf\setminus\Ef$, which is the
+standard route in the Hironaka--Koch framework to obtaining nontrivial
+component orbits.
+\item The canonical curve $\gamma_{0,v}$ does not supply the infinite
+orbit: its square lies in $\Ef$ and fixes the base component $D_{0}$.
+\item Since $\Ef$ is not known here to be normal in $\Sf$, membership of
+$T_{\gamma_{0,v}}^{2}$ in $\Ef$ controls the base component only.
+Ruling out nontrivial orbits on all components would require additional
+information, such as normality of $\Ef$ or a full coset calculation.
+\item For the other squared $v$-pair twists
+$T_{\gamma_{1,v}}^{2}$ and $T_{\gamma_{3/4,v}}^{2}$, preservation is
+proved by Theorem~\ref{thm:preservation}, but their membership or
+non-membership in $\Ef$ is not settled here.
+\item The Hironaka--Koch infinite-component witness
+$g=s_{2}cr_{1}s_{1}cr_{2}$ is a braid element; identifying it, or a
+power of it, with a Dehn twist about an explicit simple closed curve
+remains open.
+\item A complete classification of essential simple closed curves whose
+Dehn-twist powers lie in $\Sf\setminus\Ef$ is not given here.
+\end{enumerate}
+
+\begin{thebibliography}{9}
+
+\bibitem{HK}
+E.~Hironaka and S.~Koch,
+\emph{A disconnected deformation space of rational maps},
+arXiv:1602.07378, 2016.
+
+\bibitem{FM}
+B.~Farb and D.~Margalit,
+\emph{A Primer on Mapping Class Groups},
+Princeton Mathematical Series, Princeton University Press, 2012.
+
+\end{thebibliography}
+
+\end{document}

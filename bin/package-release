@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+"""Package this checkout as a release that bin/v3-production can launch.
+
+Exports the committed source, pins the Node/Qwen Code installation found on
+this machine (~/.local/ds41-node and ~/.local/qwen-npm), and writes
+DIR/production-release.json. Pass that file to bin/v3-production --release.
+"""
+import argparse, hashlib, json, os, shutil, subprocess, sys, tarfile, tempfile
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('--output', required=True, help='new directory for the release')
+    parser.add_argument('--partition', default='normal', help='SLURM partition the run will use')
+    parser.add_argument('--node', action='append', default=None, help="permitted node name (repeatable; default '*')")
+    args = parser.parse_args()
+    from v2.runtime_bundle import pin_runtime
+    from v2.scientific_bundle import canonical
+
+    git = lambda *a: subprocess.check_output(['git', *a], cwd=ROOT, text=True).strip()
+    if git('status', '--porcelain'):
+        raise SystemExit('commit or stash local changes before packaging')
+    commit = git('rev-parse', 'HEAD')
+    dest = Path(args.output).resolve()
+    dest.mkdir(parents=True, exist_ok=False)
+    source = dest/'source'
+    source.mkdir()
+    archive = dest/'source.tar'
+    subprocess.run(['git', 'archive', '--format=tar', '--output='+str(archive), commit], cwd=ROOT, check=True)
+    with tarfile.open(archive) as stream:
+        stream.extractall(source, filter='data')
+    archive.unlink()
+
+    # Pin the Node/Qwen bytes installed on this machine.
+    work = Path(tempfile.mkdtemp(prefix='package-release-'))
+    try:
+        runtime = pin_runtime(work)
+    finally:
+        for path in [work, *work.rglob('*')]:
+            if not path.is_symlink(): path.chmod(0o755)
+        shutil.rmtree(work)
+    (source/'release').mkdir(exist_ok=True)
+    (source/'release/node-qwen-pin.json').write_text(json.dumps(runtime, indent=2, sort_keys=True)+'\n')
+    actual = dict(node_qwen_sha256=runtime['sha256'])
+    runtime_pin = dict(actual, dependency_manifest_sha256=hashlib.sha256(canonical(actual)).hexdigest())
+
+    nodes = sorted(set(args.node or ['*']))
+    (dest/'local-release.json').write_text(json.dumps(dict(schema='local-release-v1', commit=commit,
+        runtime_pin=runtime_pin, target_nodes=nodes, target_partition=args.partition), indent=2, sort_keys=True)+'\n')
+
+    files = {str(p.relative_to(source)): hashlib.sha256(p.read_bytes()).hexdigest() for p in source.rglob('*') if p.is_file()}
+    digest = hashlib.sha256()
+    for name, sha in sorted(files.items()):
+        digest.update(name.encode()+b'\0'+sha.encode()+b'\n')
+    pin = dict(schema='v3-production-release-v1', accepted_root=str(dest), accepted_commit=commit,
+               candidate_commit=commit, release_root=str(source), release_files=files,
+               release_sha256=digest.hexdigest(), runtime_pin=runtime_pin, target_nodes=nodes,
+               target_partition=args.partition, disposition='packaged locally by bin/package-release')
+    (dest/'production-release.json').write_text(json.dumps(pin, indent=2, sort_keys=True)+'\n')
+    for p in source.rglob('*'):
+        if p.is_file(): p.chmod(0o555 if p.stat().st_mode & 0o111 else 0o444)
+    for p in sorted((p for p in source.rglob('*') if p.is_dir()), reverse=True): p.chmod(0o555)
+    source.chmod(0o555)
+    print(dest/'production-release.json')
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,818 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\vol}{\mathrm{vol}}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Id}{Id}
+
+\title{Distributional Lie derivatives, smooth invariant densities, and zero entropy in dimensions at most three}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Let \(M\) be a compact connected smooth manifold and \(X\) a smooth vector field with flow \(g_t\).  We work with the canonical density convention for scalar distributions: distributions are continuous linear functionals on smooth densities, and the distributional Lie derivative is defined by duality.  We study the hypothesis
+\[
+\tag{H}
+\text{if }u\in \D'(M)\text{ and }\mathcal L_X u=f\in C^\infty(M),\text{ then }u\in C^\infty(M).
+\]
+We prove the local flow-box structure of distributional solutions, the functional-analytic consequences of (H) concerning the distributional kernel and the closed range of \(X\) on smooth functions, and the precise dynamical exclusions obtained from singular distributional witnesses: trace-zero equilibria and periodic orbits with unit Poincar\'e determinant are excluded in dimension at least two.  We also prove that if \(Xh=\Div X\), equivalently if \(X\) admits a smooth positive invariant density, then under (H) every invariant Borel probability measure is represented by a smooth density.  The main dynamical consequence is that, in dimensions at most three, (H) together with this smooth-density reduction forces zero topological entropy.  In particular, zero entropy follows under (H), \(Xh=\Div X\), and \(\dim M\le 3\); this includes the divergence-free case.  The unconditional assertion for arbitrary divergence and arbitrary dimension is not established here, and the remaining gaps are described in the final section.
+\end{abstract}
+
+\section{Introduction and relation to the original problem}
+
+The original problem asks whether hypothesis (H) alone forces the flow \(g_t\) of \(X\) to have zero topological entropy.  The results below are the consequences proved by the certified arguments.  They show that (H) is a strong global regularity condition, but they also identify exactly where an unconditional proof would require additional input.
+
+Throughout, \(M\) is a compact connected smooth manifold without boundary, \(n=\dim M\), \(X\) is a smooth vector field, and \(g_t\) is its flow.  We fix once and for all a smooth positive density \(\vol\) on \(M\).  The divergence \(\Div X\) is defined by
+\[
+\mathcal L_X \vol=(\Div X)\vol .
+\]
+Distributions are continuous linear functionals on smooth densities.  For \(u\in \D'(M)\), the distributional Lie derivative is
+\[
+\langle \mathcal L_X u,\alpha\rangle :=-\langle u,\mathcal L_X\alpha\rangle,
+\qquad \alpha\in C^\infty(M,|\Lambda|).
+\]
+A smooth function \(f\) is identified with the distribution \(\alpha\mapsto \int_M f\alpha\).  Under the identification of test densities with test functions by \(\vol\), one has
+\[
+\langle \mathcal L_X u,\varphi\rangle
+=
+-\langle u,X\varphi+\varphi\Div X\rangle,
+\qquad \varphi\in C^\infty(M),
+\]
+where \(\langle u,\varphi\rangle:=\langle u,\varphi\vol\rangle\).  For a Borel measure \(\mu\),
+\[
+\langle \mathcal L_X\mu,\varphi\rangle
+=
+-\int_M (X\varphi+\varphi\Div X)\,d\mu .
+\]
+
+Hypothesis (H) is the assertion that every distributional solution of
+\[
+\mathcal L_X u=f,\qquad f\in C^\infty(M),
+\]
+is represented by a smooth function.
+
+The main results are as follows.
+
+\begin{itemize}
+\item In Section~\ref{sec:flowbox}, we prove the local flow-box normal form.  Away from zeros, distributional solutions are obtained by integration along flow lines, with arbitrary transverse distributional data.  Hence for \(n\ge 2\) the operator is nowhere locally hypoelliptic at regular points; (H) is a global condition.  For \(n=1\), the operator is elliptic away from zeros.
+\item In Section~\ref{sec:functional}, we prove that under (H) the distributional kernel of \(\mathcal L_X\) is exactly the finite-dimensional space of smooth first integrals, the range of \(X:C^\infty(M)\to C^\infty(M)\) is closed, and smooth solvability is characterized by annihilation by the transpose kernel.  The sharp converse under the canonical density convention is not asserted here; see Section~\ref{sec:open}.
+\item In Section~\ref{sec:zeros}, we prove the singular-witness exclusions.  In dimension at least two, (H) excludes trace-zero equilibria and periodic orbits with unit Poincar\'e determinant.  If \(X\) preserves a smooth positive density, then in dimension at least two there are no equilibria, no nontrivial periodic orbits, and no nonempty compact invariant null sets.  In dimension one, (H) forces \(X\) to be nowhere zero, \(M\cong S^1\), and the entropy is zero.
+\item In Section~\ref{sec:integrating}, we prove the integrating-factor theorem: if \(Xh=\Div X\), equivalently if there is a smooth positive invariant density, then under (H) every invariant Borel probability measure is represented by a smooth density.
+\item In Section~\ref{sec:entropy}, we prove the conditional entropy theorem: if (H) holds and every invariant Borel probability measure is a smooth density, then \(h_{\mathrm{top}}(g_1)=0\) for \(\dim M\le 3\).  Combining this with the integrating-factor theorem gives zero entropy under (H), \(Xh=\Div X\), and \(\dim M\le 3\), in particular when \(\Div X=0\).
+\end{itemize}
+
+Section~\ref{sec:open} records the precise limitations.  The full original assertion, without an integrating-factor or other smooth-density reduction and in arbitrary dimension, is not proved by the certified arguments.
+
+\section{Notation and standard facts}
+\label{sec:prelim}
+
+We use the convention established above.  For a smooth function \(u\), one has \(\mathcal L_X u=Xu\).  Indeed,
+\[
+\langle \mathcal L_X u,\varphi\rangle
+=
+-\int_M u(X\varphi+\varphi\Div X)\,\vol
+=
+\int_M (Xu)\varphi\,\vol,
+\]
+because \(\int_M \mathcal L_X(u\varphi\vol)=0\) on a compact manifold.
+
+For a periodic orbit \(\gamma\) of least period \(T>0\) through \(p\), the Poincar\'e determinant is
+\[
+\det d(g_T)_p .
+\]
+It is independent of the choice of \(p\in\gamma\).  We shall use Liouville's formula in the form proved in Lemma~\ref{lem:liouville}.
+
+In this paper, the topological entropy of the flow is the topological entropy \(h_{\mathrm{top}}(g_1)\) of its time-one map.  This is the standard convention in smooth dynamics; proving \(h_{\mathrm{top}}(g_1)=0\) is therefore proving that the flow has zero topological entropy.
+
+% RECORDS: 605,729
+\begin{lemma}\label{lem:liouville}
+Let \(\gamma\) be a periodic orbit of least period \(T\) through \(p\).  Then
+\[
+\det d(g_T)_p
+=
+\exp\left(\int_0^T \Div X(g_s p)\,ds\right).
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(J_t(x)\) be the Jacobian cocycle defined by
+\[
+(g_t)^*\vol=J_t\,\vol .
+\]
+Differentiating,
+\[
+\frac{d}{dt}(g_t)^*\vol
+=
+(g_t)^*(\mathcal L_X\vol)
+=
+(g_t)^*((\Div X)\vol)
+=
+(\Div X\circ g_t)(g_t)^*\vol .
+\]
+Thus, along the orbit \(g_t p\),
+\[
+\frac{d}{dt}J_t(p)=(\Div X)(g_t p)J_t(p),
+\qquad J_0(p)=1,
+\]
+so
+\[
+J_T(p)=\exp\left(\int_0^T \Div X(g_s p)\,ds\right).
+\]
+At the period \(T\), \(g_Tp=p\), and \(J_T(p)\) is exactly the determinant of \(d(g_T)_p\) with respect to the density \(\vol\).
+\end{proof}
+
+\section{Flow-box normal form and local non-hypoellipticity}
+\label{sec:flowbox}
+
+% RECORDS: 294
+\begin{proposition}\label{prop:flowbox}
+Let \(p\in M\) with \(X(p)\neq 0\).  There are local coordinates \((t,y)\in I\times D\) near \(p\), with \(I\subset\R\) an interval and \(D\subset\R^{n-1}\) a ball (a point if \(n=1\)), such that \(X=\partial_t\).  For \(f\in C^\infty(I\times D)\) and \(u\in \D'(I\times D)\),
+\[
+\mathcal L_X u=f
+\]
+if and only if
+\[
+u(t,y)=\int_0^t f(s,y)\,ds+c(y)
+\]
+for a unique \(c\in \D'(D)\) (for \(n=1\), \(c\) is a constant).  Consequently:
+\begin{enumerate}
+\item \(u\in C^\infty\) if and only if \(c\in C^\infty\).
+\item If \(n\ge 2\), then \(\mathcal L_X\) is not hypoelliptic at any regular point: the distribution \(u_0(t,y)=\delta_0(y)\) satisfies \(\mathcal L_X u_0=0\) but is not smooth.
+\item If \(n=1\), then at every point with \(X\neq 0\) the operator is elliptic, hence hypoelliptic.
+\end{enumerate}
+Thus for \(n\ge 2\), hypothesis (H) is not a local condition at regular points; it is a global recurrence/gluing condition.  For \(n=1\), the content of (H) is concentrated at the zeros of \(X\).
+\end{proposition}
+
+\begin{proof}
+By the flow-box theorem (straightening theorem for vector fields; see Lee \cite[Chapter 9]{Lee}), there are coordinates near \(p\) in which \(X=\partial_t\).  Using the coordinate density, for which \(\mathcal L_{\partial_t}\) annihilates the density, the distributional Lie derivative is simply \(\partial_t\).
+
+First solve the homogeneous equation \(\partial_t u=0\).  Choose \(\rho\in C_c^\infty(I)\) with
+\[
+\int_I \rho(t)\,dt=1.
+\]
+Define \(c\in \D'(D)\) by
+\[
+\langle c,\eta\rangle:=\langle u,\rho\otimes\eta\rangle,
+\qquad \eta\in C_c^\infty(D).
+\]
+Let \(\varphi\in C_c^\infty(I\times D)\), and put
+\[
+\psi(y):=\int_I \varphi(s,y)\,ds.
+\]
+Define
+\[
+\Phi(t,y):=\int_{-\infty}^t\bigl(\varphi(s,y)-\rho(s)\psi(y)\bigr)\,ds.
+\]
+Because
+\[
+\int_I\bigl(\varphi(s,y)-\rho(s)\psi(y)\bigr)\,ds
+=
+\psi(y)-\psi(y)=0,
+\]
+the function \(\Phi\) has compact support in \(I\times D\), and
+\[
+\varphi=\partial_t\Phi+\rho\otimes\psi.
+\]
+Since \(\partial_t u=0\),
+\[
+\langle u,\varphi\rangle
+=
+\langle u,\partial_t\Phi\rangle+\langle u,\rho\otimes\psi\rangle
+=
+\langle c,\psi\rangle.
+\]
+Thus \(u=c(y)\).  Uniqueness follows by testing with \(\rho\otimes\eta\).
+
+For the inhomogeneous equation, define
+\[
+F(t,y):=\int_0^t f(s,y)\,ds.
+\]
+Then \(F\in C^\infty\) and \(\partial_t F=f\).  Hence \(\partial_t u=f\) if and only if \(\partial_t(u-F)=0\), so
+\[
+u=F+c(y)
+\]
+with unique \(c\in \D'(D)\).  Since \(F\) is smooth, \(u\) is smooth if and only if \(c\) is smooth.
+
+If \(n\ge 2\), choose coordinates so that \(0\in D\).  Define
+\[
+\langle u_0,\varphi\rangle:=\int_I \varphi(t,0)\,dt.
+\]
+Then \(u_0=\delta_0(y)\), and
+\[
+\langle \partial_t u_0,\varphi\rangle
+=
+-\int_I \partial_t\varphi(t,0)\,dt=0
+\]
+because \(\varphi\) has compact support in \(I\).  Thus \(\mathcal L_X u_0=0\in C^\infty\), but \(u_0\) is singular along \(\{y=0\}\).  Therefore \(\mathcal L_X\) is not hypoelliptic at \(p\).  Since \(p\) was an arbitrary regular point, it is nowhere locally hypoelliptic on \(M\setminus\{X=0\}\) when \(n\ge 2\).
+
+If \(n=1\), locally \(X=a(x)\partial_x\) with \(a\neq 0\).  If \(\mathcal L_X u=f\in C^\infty\), then
+\[
+a\,\partial_x u=f,
+\]
+so \(\partial_x u=f/a\in C^\infty\).  A distribution with smooth derivative is locally a smooth function plus a constant, hence \(u\) is smooth.  Thus \(\mathcal L_X\) is elliptic, hence hypoelliptic, at regular points in dimension one.
+\end{proof}
+
+\section{Functional-analytic structure of hypothesis (H)}
+\label{sec:functional}
+
+We say that \(X\) is \(C^\infty\)-stable if the range
+\[
+X(C^\infty(M))\subset C^\infty(M)
+\]
+is closed in the Fr\'echet topology of \(C^\infty(M)\).
+
+% RECORDS: 810
+\begin{theorem}\label{thm:functional}
+Assume (H).  Then:
+\begin{enumerate}
+\item \(\ker(\mathcal L_X:\D'(M)\to \D'(M))=\{u\in C^\infty(M):Xu=0\}\), and this space is finite-dimensional.
+\item \(X:C^\infty(M)\to C^\infty(M)\) has closed range; equivalently, \(X\) is \(C^\infty\)-stable.
+\item For \(f\in C^\infty(M)\), the equation \(Xh=f\) has a smooth solution \(h\in C^\infty(M)\) if and only if
+\[
+\ell(f)=0
+\]
+for every \(\ell\) in the kernel of the transpose of \(X:C^\infty(M)\to C^\infty(M)\) on the continuous dual of \(C^\infty(M)\).  Under the identification of distributions with linear functionals on smooth functions via \(\vol\), this says that \(f\) must be annihilated by every distribution \(T\) satisfying
+\[
+\langle T,(X\varphi)\vol\rangle=0
+\qquad\text{for all }\varphi\in C^\infty(M).
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write \(S=\mathcal L_X\).  Fix a Riemannian metric and let \(H^s(M)\) denote the usual Sobolev spaces of distributions, defined using the fixed density \(\vol\).  We use the Rellich--Kondrachov compactness theorem on compact manifolds: if \(s>t\), then the inclusion \(H^s(M)\hookrightarrow H^t(M)\) is compact; see Evans \cite[Theorem 5.7.1]{Evans}.  The distributional operator \(S\) is first order, hence maps \(H^{-m}\) continuously into \(H^{-m-1}\).
+
+For each integer \(m\ge 0\), define
+\[
+F_m:=\{u\in H^{-m}(M):S u\in C^\infty(M)\},
+\]
+with the Fr\'echet topology given by the seminorms
+\[
+p_{m,k}(u):=\|u\|_{H^{-m}}+\|S u\|_{C^k},
+\qquad k=0,1,2,\dots .
+\]
+If \(u_j\) is Cauchy in \(F_m\), then \(u_j\to u\) in \(H^{-m}\) and \(S u_j\to g\) in \(C^\infty\).  Since \(S:H^{-m}\to H^{-m-1}\) is continuous, \(S u_j\to S u\) in \(H^{-m-1}\), hence \(S u=g\in C^\infty\).  Thus \(u\in F_m\), and \(F_m\) is a Fr\'echet space.
+
+By (H), as sets \(F_m=C^\infty(M)\).  The identity
+\[
+\iota_m:F_m\to C^\infty(M)
+\]
+is therefore bijective.  Its graph is closed: if \(u_j\to u\) in \(F_m\) and \(u_j\to v\) in \(C^\infty\), then both limits agree in \(H^{-m}\), so \(u=v\).  By the closed graph theorem for Fr\'echet spaces, \(\iota_m\) is continuous.  In particular, for the continuous seminorm \(\|\cdot\|_{C^0}\) on \(C^\infty\), there exist constants \(C_m>0\) and \(k_m\ge 0\) such that
+\[
+\|u\|_{C^0}
+\le
+C_m\bigl(\|S u\|_{C^{k_m}}+\|u\|_{H^{-m}}\bigr),
+\qquad u\in C^\infty(M).
+\]
+We shall use the cases \(m=1\) and \(m=2\):
+\begin{equation}\label{eq:E1}
+\|u\|_{C^0}
+\le
+C_1\bigl(\|S u\|_{C^{k_1}}+\|u\|_{H^{-1}}\bigr),
+\end{equation}
+\begin{equation}\label{eq:E2}
+\|u\|_{C^0}
+\le
+C_2\bigl(\|S u\|_{C^{k_2}}+\|u\|_{H^{-2}}\bigr).
+\end{equation}
+
+Let
+\[
+K:=\ker(S:\D'(M)\to \D'(M)).
+\]
+By (H), every element of \(K\) is smooth; since smooth solutions of \(S u=0\) satisfy \(Xu=0\), we have
+\[
+K=\{u\in C^\infty(M):Xu=0\}.
+\]
+We prove \(K\) is finite-dimensional.  Let
+\[
+B:=\{u\in K:\|u\|_{C^0}\le 1\}.
+\]
+Since \(C^0\hookrightarrow H^{-1}\) continuously, \(B\) is bounded in \(H^{-1}\).  By Rellich compactness, \(B\) is precompact in \(H^{-2}\).  Applying \eqref{eq:E2} to differences of elements of \(B\), and using \(S u=0\) on \(K\), gives
+\[
+\|u-v\|_{C^0}
+\le
+C_2\|u-v\|_{H^{-2}},
+\qquad u,v\in K.
+\]
+Thus \(B\) is precompact in \(C^0\).  A normed vector space whose unit ball is precompact is finite-dimensional, so \(\dim K<\infty\).
+
+We next prove closedness of \(X(C^\infty)\).  Let \(f_j=Xh_j\to f\) in \(C^\infty\), with \(h_j\in C^\infty\).  Since \(K\) is finite-dimensional, choose a closed complement \(W\) of \(K\) in \(C^\infty\).  More explicitly, choose a basis \(q_1,\dots,q_r\) of \(K\) and smooth functions \(r_1,\dots,r_r\) with
+\[
+\int_M q_i r_j\,\vol=\delta_{ij},
+\]
+and set
+\[
+W:=\left\{h\in C^\infty(M):\int h r_i\,\vol=0,\ i=1,\dots,r\right\}.
+\]
+The functionals \(h\mapsto \int h r_i\,\vol\) are continuous in the \(C^0\)-norm, so \(W\) is closed in \(C^0\).  Replacing each \(h_j\) by
+\[
+h_j-\sum_i\left(\int h_j r_i\,\vol\right)q_i,
+\]
+we may assume \(h_j\in W\).
+
+We first show that \((h_j)\) is bounded in \(C^0\).  If not, after passing to a subsequence,
+\[
+a_j:=\|h_j\|_{C^0}\to\infty.
+\]
+Set \(v_j:=h_j/a_j\).  Then \(\|v_j\|_{C^0}=1\), \(v_j\in W\), and
+\[
+S v_j=f_j/a_j\to 0
+\]
+in \(C^\infty\).  The sequence \((v_j)\) is bounded in \(C^0\), hence bounded in \(L^2\), hence bounded in \(H^0\).  By Rellich compactness \(H^0\hookrightarrow H^{-1}\), a subsequence is Cauchy in \(H^{-1}\), hence Cauchy in \(H^{-2}\).  Applying \eqref{eq:E2} to differences \(v_j-v_\ell\), we obtain
+\[
+\|v_j-v_\ell\|_{C^0}
+\le
+C_2\bigl(\|S(v_j-v_\ell)\|_{C^{k_2}}+\|v_j-v_\ell\|_{H^{-2}}\bigr)\to 0.
+\]
+Thus \((v_j)\) is Cauchy in \(C^0\).  Let \(v_j\to v\) in \(C^0\).  Since \(S v_j\to 0\) in distributions and \(v_j\to v\) in distributions, continuity of \(S\) on distributions gives \(S v=0\).  By (H), \(v\in C^\infty\), hence \(v\in K\).  But \(W\) is closed under \(C^0\)-limits, so \(v\in W\cap K=\{0\}\), contradicting \(\|v\|_{C^0}=1\).  Therefore \((h_j)\) is bounded in \(C^0\).
+
+Being bounded in \(C^0\), \((h_j)\) is bounded in \(L^2\).  By Rellich compactness \(H^0\hookrightarrow H^{-1}\), a subsequence converges in \(H^{-1}\), hence is Cauchy in \(H^{-1}\).  Since \((f_j)\) is Cauchy in \(C^{k_1}\), estimate \eqref{eq:E1} applied to differences \(h_j-h_\ell\) gives
+\[
+\|h_j-h_\ell\|_{C^0}
+\le
+C_1\bigl(\|f_j-f_\ell\|_{C^{k_1}}+\|h_j-h_\ell\|_{H^{-1}}\bigr)\to 0.
+\]
+Thus \((h_j)\) is Cauchy in \(C^0\), converging to some \(h\in C^0\).  Then \(S h=f\) in distributions.  Since \(f\) is smooth, (H) gives \(h\in C^\infty\).  Thus \(f=Xh\in X(C^\infty)\), proving that the range is closed.
+
+For the solvability criterion, since \(X:C^\infty\to C^\infty\) is continuous with closed range, the Hahn--Banach closed-range theorem for Fr\'echet spaces gives
+\[
+X(C^\infty)
+=
+\{f\in C^\infty(M):\ell(f)=0\text{ for every }\ell\in\ker X^t\},
+\]
+where \(X^t\) is the transpose on the continuous dual of \(C^\infty(M)\); see Tr\`eves \cite[Theorem 37.2]{Treves}.  Under the density identification, \(\ell\) is represented by a distribution \(T\), and \(\ell\in\ker X^t\) means precisely
+\[
+\langle T,(X\varphi)\vol\rangle=0
+\qquad\forall\varphi\in C^\infty(M).
+\]
+This proves the criterion.
+\end{proof}
+
+\section{Zeros, periodic orbits, and invariant smooth densities}
+\label{sec:zeros}
+
+% RECORDS: 605
+\begin{theorem}\label{thm:exclusions}
+Assume (H), with the canonical density convention.  Let \(n=\dim M\).
+\begin{enumerate}
+\item If \(n\ge 2\), then \(X\) has no periodic orbit \(\gamma\) of least period \(T>0\) with
+\[
+\det d(g_T)_p=1
+\]
+for one (hence every) \(p\in\gamma\).
+\item If \(n\ge 2\), then \(X\) has no zero \(p\) with
+\[
+\tr DX(p)=0.
+\]
+\item If, in addition, \(X\) preserves a smooth positive density \(\nu\), i.e.
+\[
+\mathcal L_X\nu=0,
+\]
+and \(n\ge 2\), then \(X\) has no zeros, no nontrivial periodic orbits, and every nonempty compact \(g_t\)-invariant set has positive \(\nu\)-measure.
+\item If \(n=1\), then (H) implies that \(X\) is nowhere zero.  Hence \(M\cong S^1\), every orbit is the whole circle, every nowhere-zero smooth vector field on \(S^1\) satisfies (H), and
+\[
+h_{\mathrm{top}}(g_1)=0.
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We prove the four items in order.
+
+\medskip\noindent\textbf{(1) Periodic orbit with unit Poincar\'e determinant.}
+Let \(\gamma=\{g_s p:0\le s<T\}\) be a periodic orbit of least period \(T\), with \(n\ge 2\).  Fix the background density \(\vol\), and write
+\[
+D(s):=\int_0^s \Div X(g_r p)\,dr .
+\]
+By Liouville's formula, Lemma~\ref{lem:liouville},
+\[
+\det d(g_T)_p=e^{D(T)}.
+\]
+Assume \(\det d(g_T)_p=1\), so \(D(T)=0\).  Then
+\[
+\widehat h(s):=e^{D(s)}
+\]
+is a well-defined smooth positive function on \(\gamma\cong \R/T\Z\), because
+\[
+\widehat h(s+T)=e^{D(s)+D(T)}=\widehat h(s).
+\]
+Since \(\gamma\) is a closed embedded submanifold, \(\log \widehat h\) extends to a smooth function on \(M\); exponentiating gives a smooth function \(c>0\) on all of \(M\) such that \(c(g_s p)=\widehat h(s)\).
+
+Let \(\mu_\gamma\) be the normalized time-average on \(\gamma\):
+\[
+\mu_\gamma:=\frac1T\int_0^T \delta_{g_s p}\,ds .
+\]
+Define a distribution \(T_\gamma\) by
+\[
+\langle T_\gamma,\varphi\vol\rangle
+:=
+\int_M \varphi\,c\,d\mu_\gamma
+=
+\frac1T\int_0^T \varphi(g_s p)c(g_s p)\,ds .
+\]
+For \(\varphi\in C^\infty(M)\),
+\[
+\begin{aligned}
+\langle \mathcal L_X T_\gamma,\varphi\vol\rangle
+&=
+-\langle T_\gamma,\mathcal L_X(\varphi\vol)\rangle \\
+&=
+-\frac1T\int_0^T
+\bigl(X\varphi(g_s p)c(g_s p)+\varphi(g_s p)c(g_s p)\Div X(g_s p)\bigr)\,ds .
+\end{aligned}
+\]
+Along \(\gamma\),
+\[
+\frac{d}{ds}c(g_s p)=c(g_s p)\Div X(g_s p),
+\]
+so the integrand is
+\[
+\frac{d}{ds}\bigl(\varphi(g_s p)c(g_s p)\bigr).
+\]
+Its integral over one period is zero.  Hence
+\[
+\mathcal L_X T_\gamma=0.
+\]
+By (H), \(T_\gamma\) is represented by a smooth function \(q\):
+\[
+T_\gamma=q\,\vol .
+\]
+But \(T_\gamma\) is supported on \(\gamma\).  Since \(n\ge 2\), the embedded circle \(\gamma\) has \(\vol\)-measure zero and empty interior.  Therefore \(q=0\) on the dense open set \(M\setminus\gamma\), hence \(q\equiv 0\).  On the other hand, because \(c>0\),
+\[
+\langle T_\gamma,c^{-1}\vol\rangle
+=
+\int_M c^{-1}c\,d\mu_\gamma
+=
+1,
+\]
+a contradiction.  Thus no such periodic orbit exists.
+
+\medskip\noindent\textbf{(2) Trace-zero zero.}
+Let \(p\in M\) with \(X(p)=0\).  Define the Dirac distribution \(\delta_p\) by
+\[
+\langle \delta_p,\varphi\vol\rangle:=\varphi(p).
+\]
+Then
+\[
+\langle \mathcal L_X\delta_p,\varphi\vol\rangle
+=
+-(X\varphi)(p)-\varphi(p)\Div X(p).
+\]
+Since \(X(p)=0\), \((X\varphi)(p)=0\).  At a zero, \(\Div X(p)=\tr DX(p)\).  Hence
+\[
+\langle \mathcal L_X\delta_p,\varphi\vol\rangle
+=
+-\varphi(p)\tr DX(p).
+\]
+If \(\tr DX(p)=0\), then \(\mathcal L_X\delta_p=0\).  By (H), \(\delta_p=q\,\vol\) for some smooth \(q\).  Since \(\{p\}\) has empty interior and \(\vol\)-measure zero, \(q\equiv 0\), but \(\langle\delta_p,\vol\rangle=1\), contradiction.  Thus no such zero exists when \(n\ge 2\).
+
+\medskip\noindent\textbf{(3) Existence of an invariant smooth positive density.}
+Assume \(\mathcal L_X\nu=0\), with \(\nu\) smooth and positive.  Let \(\mu\) be a finite \(g_t\)-invariant Borel measure.  For \(\varphi\in C^\infty(M)\), invariance gives
+\[
+\int_M \varphi\circ g_t\,d\mu=\int_M\varphi\,d\mu.
+\]
+Differentiating at \(t=0\) yields
+\[
+\int_M X\varphi\,d\mu=0.
+\]
+Using \(\mathcal L_X\nu=0\),
+\[
+\langle \mathcal L_X\mu,\varphi\nu\rangle
+=
+-\langle\mu,\mathcal L_X(\varphi\nu)\rangle
+=
+-\langle\mu,(X\varphi)\nu\rangle
+=
+-\int_M X\varphi\,d\mu
+=
+0.
+\]
+Thus \(\mathcal L_X\mu=0\).  By (H), \(\mu=q\nu\) for some \(q\in C^\infty(M)\).  If \(\supp\mu\) is \(\nu\)-null, then \(q=0\) on the dense open set \(M\setminus\supp\mu\), hence \(q\equiv 0\), so \(\mu=0\).
+
+If \(p\) is a zero of \(X\), then \(\delta_p\) is invariant, so \(\delta_p=q\nu\).  Since \(n\ge 2\), \(\nu(\{p\})=0\), contradiction.  If \(\gamma\) is a nontrivial periodic orbit, its time-average \(\mu_\gamma\) is invariant and supported on an embedded circle, which is \(\nu\)-null for \(n\ge 2\), again a contradiction.
+
+Finally, let \(K\neq\varnothing\) be compact and \(g_t\)-invariant.  Choose \(x\in K\), and define Krylov--Bogolyubov averages
+\[
+\mu_m:=\frac1m\int_0^m \delta_{g_t x}\,dt .
+\]
+Since \(K\) is compact and invariant, every weak-* limit \(\mu\) of a subsequence is a \(g_t\)-invariant Borel probability supported on \(K\); see Walters \cite[Chapter 6]{Wa82}.  For completeness, we recall the invariance check.  For \(\varphi\in C(M)\) and \(s\ge 0\),
+\[
+\left|\int\varphi\circ g_s\,d\mu_m-\int\varphi\,d\mu_m\right|
+=
+\frac1m\left|\int_m^{m+s}\varphi(g_t x)\,dt-\int_0^s\varphi(g_t x)\,dt\right|
+\le
+\frac{2s\|\varphi\|_\infty}{m}\to 0.
+\]
+The case \(s<0\) is analogous.  Differentiating at \(s=0\) for smooth \(\varphi\) gives \(\int X\varphi\,d\mu=0\).  Hence, by the preceding paragraph, \(\mu=q\nu\).  If \(\nu(K)=0\), then \(\mu\) is supported on a \(\nu\)-null set, so \(\mu=0\), contradicting \(\mu(M)=1\).  Therefore \(\nu(K)>0\).
+
+\medskip\noindent\textbf{(4) Dimension one.}
+If \(n=1\), then \(M\cong S^1\).  Choose a coordinate \(\theta\) and write
+\[
+X=c(\theta)\partial_\theta .
+\]
+We first show that (H) forces \(c\) to be nowhere zero.  Suppose \(c\) has a zero.  If there is a zero \(p\) with \(c(p)=c'(p)=0\), then \(\tr DX(p)=c'(p)=0\), and the Dirac witness above contradicts (H).  If every zero is simple, then the zeros of \(c\) on \(S^1\) are isolated and occur in pairs, with sign changes.  Hence \(S^1\setminus Z(c)\) has a nonempty proper open component \(I\) whose boundary consists of zeros of \(c\).  Let \(\chi_I\) be the characteristic function of \(I\), regarded as a distribution.  With respect to the density \(d\theta\),
+\[
+\langle \mathcal L_X\chi_I,\varphi d\theta\rangle
+=
+-\int_I (c\varphi)'\,d\theta
+=
+-[c\varphi]_{\partial I}
+=
+0.
+\]
+But \(\chi_I\) is not represented by a smooth function, contradicting (H).  Therefore \(c\) has no zeros.
+
+Assume after reversing orientation that \(c>0\).  We show that (H) holds for every such vector field.  Let \(u\in\D'(S^1)\) and suppose \(\mathcal L_X u=f\in C^\infty\).  With the density \(d\theta\),
+\[
+\langle \mathcal L_X u,\varphi d\theta\rangle
+=
+-\langle u,(c\varphi)'d\theta\rangle
+=
+\int f\varphi\,d\theta .
+\]
+Since multiplication by \(c\) is an automorphism of \(C^\infty(S^1)\), writing \(\psi=c\varphi\) gives
+\[
+-\langle u,\psi'\rangle
+=
+\int (f/c)\psi\,d\theta .
+\]
+Thus \(u'=f/c\) in distributions.  Since \(f/c\) is smooth, \(u\) is a constant plus a smooth primitive; hence \(u\) is smooth.
+
+Since \(c>0\), every orbit is the whole circle.  The period is
+\[
+T=\int_{S^1}\frac{d\theta}{c(\theta)}<\infty .
+\]
+Define
+\[
+\Phi(\theta):=\frac1T\int_0^\theta \frac{ds}{c(s)}\pmod 1.
+\]
+Then \(\Phi:S^1\to S^1\) is a smooth diffeomorphism and
+\[
+\Phi_*(X)=\frac1T\,\partial_\tau .
+\]
+Thus \(g_1\) is smoothly conjugate to the rotation \(\tau\mapsto \tau+1/T\) on \(S^1\).  A rotation is an isometry for the standard metric, so its topological entropy is zero; topological entropy is invariant under conjugacy.  Hence
+\[
+h_{\mathrm{top}}(g_1)=0.
+\]
+\end{proof}
+
+\section{Integrating factors and smoothness of invariant measures}
+\label{sec:integrating}
+
+% RECORDS: 392
+\begin{theorem}\label{thm:integrating}
+Assume (H).  Fix the smooth positive density \(\vol\), and suppose there exists \(h\in C^\infty(M)\) such that
+\[
+Xh=\Div X .
+\]
+Equivalently, \(e^{-h}\vol\) is a smooth positive \(X\)-invariant density.  Then every \(g_t\)-invariant Borel probability measure \(\mu\) is represented by a smooth density:
+\[
+\mu=\rho\,\vol,\qquad \rho\in C^\infty(M),\quad \rho\ge 0.
+\]
+In particular, the conclusion holds unconditionally when \(\Div X\equiv 0\) (take \(h\equiv 0\)).
+\end{theorem}
+
+\begin{proof}
+Let \(w:=e^h>0\).  Then
+\[
+Xw=w\,\Div X .
+\]
+Also,
+\[
+\mathcal L_X(e^{-h}\vol)
+=
+\bigl(-e^{-h}Xh+e^{-h}\Div X\bigr)\vol
+=
+0,
+\]
+so \(e^{-h}\vol\) is invariant.
+
+Let \(\mu\) be a \(g_t\)-invariant Borel probability measure.  For every smooth function \(\psi\),
+\[
+\int_M X\psi\,d\mu=0,
+\]
+by differentiating \(\int \psi\circ g_t\,d\mu=\int\psi\,d\mu\) at \(t=0\).
+
+Consider the measure \(w\mu\).  For \(\varphi\in C^\infty(M)\),
+\[
+\begin{aligned}
+\langle \mathcal L_X(w\mu),\varphi\vol\rangle
+&=
+-\int_M (X\varphi+\varphi\Div X)\,w\,d\mu \\
+&=
+-\int_M \bigl(wX\varphi+\varphi w\Div X\bigr)\,d\mu \\
+&=
+-\int_M \bigl(wX\varphi+\varphi Xw\bigr)\,d\mu \\
+&=
+-\int_M X(w\varphi)\,d\mu \\
+&=0.
+\end{aligned}
+\]
+Thus \(\mathcal L_X(w\mu)=0\).  By (H), there exists \(q\in C^\infty(M)\) such that
+\[
+w\mu=q\,\vol .
+\]
+Since \(w>0\),
+\[
+\mu=\frac{q}{w}\,\vol .
+\]
+Set \(\rho:=q/w\).  Because \(\mu\) is a positive measure and \(w>0\), the smooth function \(q\) is nonnegative \(\vol\)-almost everywhere, hence everywhere by continuity.  Therefore \(\rho\ge 0\).
+
+If \(\Div X\equiv 0\), take \(h\equiv 0\), so \(w=1\), and the same argument applies.
+\end{proof}
+
+\section{Zero entropy in dimensions at most three under the smooth-density reduction}
+\label{sec:entropy}
+
+% RECORDS: 729
+\begin{theorem}\label{thm:entropy-smooth-density}
+Assume (H), and assume further that every \(g_t\)-invariant Borel probability measure on \(M\) is represented by a smooth density with respect to \(\vol\).  If
+\[
+\dim M\le 3,
+\]
+then
+\[
+h_{\mathrm{top}}(g_1)=0.
+\]
+Thus the flow has zero topological entropy.
+\end{theorem}
+
+\begin{proof}
+If \(\dim M=0\), then \(M\) is a point and the conclusion is trivial.  Assume \(n=\dim M\ge 1\).
+
+First observe that the smooth-density hypothesis implies that \(X\) has no zeros.  Indeed, if \(X(p)=0\), then \(\delta_p\) is a \(g_t\)-invariant Borel probability measure, but a smooth density cannot be supported at a single point.
+
+Suppose, for contradiction, that
+\[
+h_{\mathrm{top}}(g_1)>0.
+\]
+By the variational principle for the continuous map \(g_1\) on the compact space \(M\), there exists a \(g_1\)-invariant Borel probability measure \(\nu\) with
+\[
+h_\nu(g_1)>0.
+\]
+Average \(\nu\) over one unit of flow time:
+\[
+\bar\nu:=\int_0^1 (g_s)_*\nu\,ds .
+\]
+Then \(\bar\nu\) is \(g_t\)-invariant.  Since each \(g_s\) commutes with \(g_1\), the systems \((M,\nu,g_1)\) and \((M,(g_s)_*\nu,g_1)\) are measurably conjugate, so
+\[
+h_{(g_s)_*\nu}(g_1)=h_\nu(g_1).
+\]
+By affinity of metric entropy for invariant measures, \(h_{\bar\nu}(g_1)=h_\nu(g_1)>0\).  Using the ergodic decomposition for the flow and affinity of entropy, we obtain a \(g_t\)-invariant ergodic Borel probability measure \(\mu\) with
+\[
+h_\mu(g_1)>0.
+\]
+These standard facts are in Walters \cite[Chapters 6 and 7]{Wa82}.
+
+Apply Oseledets' multiplicative ergodic theorem \cite{Oseledets} to the derivative cocycle \(d g_1\).  Let the Lyapunov exponents of \(\mu\) be
+\[
+\lambda_1\le \lambda_2\le \cdots \le \lambda_n.
+\]
+Because \(X\) is nowhere zero, the line spanned by \(X\) is a smooth invariant line.  For \(m\ge 1\),
+\[
+d(g_1)^m X(x)=X(g_m x),
+\]
+and since \(\|X\|\) is bounded above and below away from zero, the Lyapunov exponent of this line is zero.  Thus one of the \(\lambda_i\) is \(0\).
+
+Ruelle's inequality \cite{Ruelle78} applied to the \(C^\infty\) diffeomorphism \(g_1\) gives
+\[
+h_\mu(g_1)\le \sum_{\lambda_i>0}\lambda_i .
+\]
+Since \(h_\mu(g_1)>0\), there is at least one strictly positive Lyapunov exponent.  Metric entropy is invariant under taking inverses for invertible transformations, so \(h_\mu(g_{-1})=h_\mu(g_1)>0\).  Applying Ruelle's inequality to \(g_{-1}\), whose Lyapunov exponents are \(-\lambda_i\), shows that there is at least one strictly negative Lyapunov exponent for \(g_1\).
+
+If \(n=1\), the only exponent is the flow direction exponent \(0\), contradicting the existence of a positive exponent.  If \(n=2\), the two exponents would have to include \(0\), a positive exponent, and a negative exponent, which is impossible.  Hence for \(n\le 2\) we obtain a contradiction.
+
+Now assume \(n=3\).  The Oseledets spectrum of \(\mu\) must be exactly
+\[
+\chi^-<0,\qquad 0,\qquad \chi^+>0,
+\]
+where the zero exponent is the flow direction.  Thus \(\mu\) is a hyperbolic invariant measure for the flow, with no transverse zero exponents.
+
+Since \(g_t\) is \(C^\infty\), in particular \(C^{1+\alpha}\), Katok's approximation theorem for flows applies.  In the form needed here \cite[Section 4]{Kat82}: if a \(C^{1+\alpha}\) flow has an ergodic hyperbolic invariant probability measure with positive metric entropy, then for every \(\varepsilon>0\) there exists a compact invariant locally maximal uniformly hyperbolic set \(\Lambda\) such that
+\[
+h_{\mathrm{top}}(g_1|_\Lambda)>h_\mu(g_1)-\varepsilon .
+\]
+Choosing \(0<\varepsilon<h_\mu(g_1)\), we obtain a flow horseshoe with positive topological entropy.  By its construction as a suspension over a topological Markov section, \(\Lambda\) contains a nontrivial periodic flow orbit \(\gamma\).
+
+Let \(\nu_\gamma\) be the normalized time-average measure on \(\gamma\).  It is a \(g_t\)-invariant Borel probability measure.  Since \(n=3\), the orbit \(\gamma\) is an embedded circle and has \(\vol\)-measure zero.  Hence \(\nu_\gamma\) is singular with respect to \(\vol\).  This contradicts the hypothesis that every invariant Borel probability measure is represented by a smooth density.  Therefore \(h_{\mathrm{top}}(g_1)=0\).
+\end{proof}
+
+Combining Theorem~\ref{thm:entropy-smooth-density} with Theorem~\ref{thm:integrating} gives the main low-dimensional entropy corollary.
+
+% RECORDS: 729,392
+\begin{corollary}\label{cor:integrating-entropy}
+Assume (H).  If there exists \(h\in C^\infty(M)\) such that
+\[
+Xh=\Div X,
+\]
+and if
+\[
+\dim M\le 3,
+\]
+then
+\[
+h_{\mathrm{top}}(g_1)=0.
+\]
+Thus the flow has zero topological entropy.  In particular, this holds when \(\Div X\equiv 0\).
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:integrating}, every invariant Borel probability measure is represented by a smooth density.  The conclusion then follows from Theorem~\ref{thm:entropy-smooth-density}.
+\end{proof}
+
+\section{Open points and limitations}
+\label{sec:open}
+
+The certified results above do not prove the original assertion in full generality.  The remaining gaps are as follows.
+
+\begin{enumerate}
+\item \textbf{Invariant measures and the divergence term.}
+For a general invariant Borel probability measure \(\mu\),
+\[
+\mathcal L_X\mu=-(\Div X)\mu
+\]
+as distributions.  Thus applying (H) directly to \(\mu\) requires either \(\Div X=0\) on the support or an integrating factor \(Xh=\Div X\).  The smooth-density reduction is proved here only under that integrating-factor hypothesis.
+
+\item \textbf{The sharp functional-analytic converse.}
+The forward implications of Theorem~\ref{thm:functional} are proved.  The converse statement that \(C^\infty\)-stability together with smoothness of \(\ker(\mathcal L_X:\D'\to\D')\) implies (H) is not asserted under the canonical density convention.  The annihilator relevant to the closed range of \(X:C^\infty\to C^\infty\) is the kernel of the transpose of \(X\) on functionals on functions, whereas the canonical kernel \(\ker\mathcal L_X\) is a different object unless additional hypotheses are imposed.
+
+\item \textbf{Residual cohomological obstructions.}
+The elementary Dirac and weighted orbit-current witnesses exclude trace-zero equilibria and periodic orbits with unit Poincar\'e determinant.  They do not exclude zeros with nonzero trace or periodic orbits with non-unit Poincar\'e determinant.  The remaining obstruction is cohomological in nature and is measured by the Liv\v{s}ic/de Rham class of \(\Div X\), equivalently by period integrals of \(\Div X\) over closed orbits.
+
+\item \textbf{Dimension four and higher.}
+In dimensions at least four, an ergodic positive-entropy measure may have additional zero Lyapunov exponents transverse to the flow.  Katok's horseshoe theorem applies to hyperbolic measures; when transverse zero exponents are present, the certified arguments do not supply a replacement.
+
+\item \textbf{Absence of zeros and periodic orbits is insufficient.}
+The absence of zeros and periodic orbits alone does not force zero entropy.  Positive-entropy smooth flows without periodic orbits exist, for example constant-roof suspensions of products of a hyperbolic toral automorphism with an irrational rotation.  Thus genuine rigidity or production of singular invariant distributions is needed, not merely orbit exclusion.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{Lee}
+J.~M.~Lee,
+\emph{Introduction to Smooth Manifolds},
+2nd ed.,
+Graduate Texts in Mathematics 218,
+Springer,
+2013.
+
+\bibitem{Evans}
+L.~C.~Evans,
+\emph{Partial Differential Equations},
+2nd ed.,
+Graduate Studies in Mathematics 19,
+American Mathematical Society,
+2010.
+
+\bibitem{Treves}
+F.~Tr\`eves,
+\emph{Topological Vector Spaces, Distributions and Kernels},
+Academic Press,
+1967.
+
+\bibitem{Wa82}
+P.~Walters,
+\emph{An Introduction to Ergodic Theory},
+Graduate Texts in Mathematics 79,
+Springer-Verlag,
+1982.
+
+\bibitem{Oseledets}
+V.~I.~Oseledets,
+A multiplicative ergodic theorem. Lyapunov characteristic numbers on a finite-dimensional manifold,
+Trudy Moskov. Mat. Obshch. 17 (1968), 179--210;
+English transl., Trans. Moscow Math. Soc. 17 (1968), 197--231.
+
+\bibitem{Ruelle78}
+D.~Ruelle,
+An inequality for the entropy of differentiable maps,
+Publ. Math. Inst. Hautes \'Etudes Sci. No. 49 (1978), 55--59.
+
+\bibitem{Kat82}
+A.~Katok,
+Entropy and closed geodesics,
+Ergodic Theory Dynam. Systems 2 (1982), no. 3-4, 339--365.
+
+\end{thebibliography}
+
+\end{document}

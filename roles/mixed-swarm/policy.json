@@ -1,0 +1,98 @@
+{
+ "acceptance": {
+  "k_accept": 2,
+  "k_refute": 1,
+  "n_critics": 2,
+  "distinct_from_proposer_model": false,
+  "mode": "pair",
+  "pair_models": [
+   "dsf",
+   "k3"
+  ],
+  "tiebreak": {
+   "model": "k3",
+   "show_critiques": true
+  }
+ },
+ "critic_models": [
+  "DSF",
+  "K3"
+ ],
+ "critic_workers": [],
+ "roster": {
+  "coordinator": "dsf",
+  "ideas": [
+   "dsf",
+   "k3",
+   "dsf",
+   "k3"
+  ],
+  "literature": [
+   "dsf",
+   "dsf"
+  ],
+  "critics": [
+   "dsf",
+   "dsf",
+   "dsf",
+   "dsf",
+   "dsf",
+   "dsf",
+   "k3",
+   "k3",
+   "k3",
+   "k3",
+   "k3",
+   "k3"
+  ],
+  "auditors": [],
+  "explorers": [
+   "glm",
+   "qwen24t"
+  ],
+  "writer": "qwen24t",
+  "backup_writer": "dsf",
+  "tiebreakers": [
+   "k3",
+   "k3",
+   "k3",
+   "k3"
+  ],
+  "selectors": [],
+  "certifiers": [
+   "qwen24t",
+   "qwen24t",
+   "qwen24t",
+   "qwen24t",
+   "glm",
+   "glm",
+   "glm",
+   "glm"
+  ]
+ },
+ "writer": {
+  "min_accept_models": 1
+ },
+ "audit": {
+  "models": [],
+  "pool_size": 0
+ },
+ "critic_weights": {},
+ "mix": {
+  "enabled": false,
+  "proposer_only_models": []
+ },
+ "_roster_note": "Operator 2026-10-09 design, event-driven (no clocked launches; critic sessions only for a waiting claim; failed sessions replaced at once). Ideas: every model. Flash and K3 proposers work under the coordinator (operator 2026-10-11: six coordinator-launched research slots per run, two Flash ideas, two K3 ideas, two Flash literature; problems 1 and 2 were supply-limited at three); GLM and Qwen are self-directed explorers nobody waits for. Review (acceptance.mode pair): each claim goes to one Flash critic and one K3 critic in parallel, each told to judge independently. Both accept -> verified; both reject -> refuted; both object (or reject + objection) -> needs-repair; one accepts and the other rejects or objects -> a fresh K3 tie-break session (acceptance.tiebreak.model) sees the claim and, when acceptance.tiebreak.show_critiques, the two critiques without author, model or verdict label; its verdict settles the claim. Coordinator Flash (logs: 0.8-1.4 min per decision, 1 failed of 401; K3 1.0-2.1 min, 39 failed of 1008; roster.coordinator k3 restores K3). Writer Qwen 3.8 2.4T, Flash backup (frozen-seed writer comparison 2026-10-11). Certification (operator 2026-10-09, non-blocking): every pair-accepted reasoning claim is checked immediately without a selector by one Qwen and one GLM certifier session in parallel (one claim per session, current text). Certified = both Qwen and GLM accept; any certifier reject or objection sends the claim back to needs-repair. The writer may state as proved only certified claims (writer-verified); pair-accepted uncertified claims are 'awaiting-audit' in CLAIMS-LEDGER.md and may only be stated conditionally; the final-report check enforces it. Operator 2026-10-10: ordinary critic sessions reserve one immutable revision per model family; typed notes/verdicts never result claims. Flash literature source evidence is checked once by K3 (source itself), no tie-break/selector/certifiers; mixed evidence is returned for splitting. Reasoning writer gate requires both Qwen and GLM ACCEPT on current revision. Freed on-demand review budget remains available for reasoning. Operator-only reports never flow to workers.",
+ "certification": {
+  "enabled": true,
+  "strict_checking": false,
+  "required_certifiers": null,
+  "checker": "qwen24t",
+  "interval_seconds": 7200,
+  "final_before_stop_seconds": 3600,
+  "selector_session_seconds": 3600,
+  "selector_retry_initial_seconds": 60,
+  "selector_retry_max_seconds": 900,
+  "all_pair_accepted": true
+ }
+}
